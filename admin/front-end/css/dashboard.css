@@ -173,83 +173,80 @@ main p {
 }
 
 @media(max-width: 800px) {
+    /* Resetta la media query precedente con una più semplice */
     body {
-        grid-template-columns: 1fr;
+        grid-template-columns: auto 1fr; /* Mantiene il layout a colonne */
     }
 
     main {
-        padding: 2em 1em 60px 1em;
+        padding: 15px;
     }
 
     .container {
         border: none;
-        padding: 0;
+        padding: 10px;
     }
 
+    /* Sidebar sempre in modalità compatta su mobile */
     #sidebar {
-        height: 60px;
+        width: 60px;
+        padding: 5px;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    /* Nasconde il testo dei link e dei pulsanti */
+    #sidebar a span,
+    #sidebar .dropdown-btn span,
+    #sidebar .logo {
+        display: none;
+    }
+
+    /* Modifica stile dei sottomenu */
+    #sidebar .sub-menu.show {
+        position: fixed; /* Cambio da absolute a fixed per evitare problemi di posizionamento */
+        left: 65px; /* Un po' più a destra per distanziare dalla sidebar */
+        background-color: var(--base-clr);
+        border: 1px solid var(--line-clr);
+        border-radius: 0.5em;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        padding: 8px;
+        width: auto;
+        min-width: 150px; /* Imposta una larghezza minima per i sottomenu */
+        z-index: 1000; /* Aumentato z-index per garantire che sia sopra agli altri elementi */
+        display: block; /* Garantisce che il menu sia visibile */
+        grid-template-rows: initial; /* Rimuove grid per evitare problemi di layout */
+    }
+
+    /* Stile per i link nei sottomenu */
+    #sidebar .sub-menu.show a {
+        padding: 10px 15px;
+        white-space: nowrap;
+        display: block;
+        width: auto;
+        font-size: 14px; /* Dimensione font leggermente più grande per i tap su mobile */
+    }
+
+    /* Corregge la visualizzazione del div interno del sottomenu */
+    #sidebar .sub-menu.show > div {
+        overflow: visible;
+        display: block;
         width: 100%;
-        border-right: none;
-        border-top: 1px solid var(--line-clr);
-        padding: 0;
-        position: fixed;
-        top: unset;
-        bottom: 0;
+    }
+    
+    /* Visibilità migliorata per gli elementi nel sottomenu */
+    #sidebar .sub-menu.show li {
+        margin: 5px 0;
+    }
 
-        >ul {
-            padding: 0;
-            display: grid;
-            grid-auto-columns: 60px;
-            grid-auto-flow: column;
-            align-items: center;
-            overflow-x: scroll;
-        }
-
-        ul li {
-            height: 100%;
-        }
-
-        ul a,
-        ul .dropdown-btn {
-            width: 60px;
-            height: 60px;
-            padding: 0;
-            border-radius: 0;
-            justify-content: center;
-        }
-
-        ul li span,
-        ul li:first-child,
-        .dropdown-btn svg:last-child {
-            display: none;
-        }
-
-        ul li .sub-menu.show {
-            position: fixed;
-            bottom: 60px;
-            left: 0;
-            box-sizing: border-box;
-            height: 60px;
-            width: 100%;
-            background-color: var(--hover-clr);
-            border-top: 1px solid var(--line-clr);
-            display: flex;
-            justify-content: center;
-
-            >div {
-                overflow-x: auto;
-            }
-
-            li {
-                display: inline-flex;
-            }
-
-            a {
-                box-sizing: border-box;
-                padding: 1em;
-                width: auto;
-                justify-content: center;
-            }
-        }
+    /* Nasconde il pulsante toggle poiché non necessario su mobile */
+    #sidebar>ul>li:first-child button#toggle-btn {
+        display: none;
+    }
+    
+    /* Rende la prima riga (logo) meno prominente */
+    #sidebar>ul>li:first-child {
+        justify-content: center;
+        margin-bottom: 10px;
     }
 }
