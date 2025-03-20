@@ -2,7 +2,7 @@
 session_start();
 
 // Redirect se l'utente è già loggato
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['username']) && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header("Location: admin/dashboard.php");
     exit();
 }

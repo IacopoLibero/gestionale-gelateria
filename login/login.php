@@ -3,7 +3,7 @@ session_start();
 require_once '../connessione.php';
 
 // Se l'utente è già loggato, redirect alla dashboard
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['username']) && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header("Location: ../admin/dashboard.php");
     exit();
 }
@@ -21,6 +21,7 @@ if (!isset($_SESSION['username']) && isset($_COOKIE['remember_user'])) {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $_SESSION['username'] = $row['username'];
+        $_SESSION['loggedin'] = true;
         header("Location: ../admin/dashboard.php");
         exit();
     }
@@ -51,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $row['password'])) {
             // Password corretta, crea sessione
             $_SESSION['username'] = $row['username'];
+            $_SESSION['loggedin'] = true;
             
             // Se "ricordami" è selezionato, crea un cookie persistente
             if ($remember) {
