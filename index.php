@@ -1,15 +1,17 @@
 <?php
 session_start();
 
-// Check for "remember me" cookie - simplified version
+// Check for "remember me" cookie
 if (!isset($_SESSION['loggedin']) && isset($_COOKIE['remember_user'])) {
     require_once 'connessione.php';
     
     $token = $_COOKIE['remember_user'];
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    $ip_address = $_SERVER['REMOTE_ADDR'];
     
-    // Check if token exists - simplified query
-    $stmt = $conn->prepare("SELECT username FROM utente_remember WHERE token = ?");
-    $stmt->bind_param("s", $token);
+    // Check if token exists and matches current browser/IP
+    $stmt = $conn->prepare("SELECT username FROM utente_remember WHERE token = ? AND user_agent = ? AND ip_address = ?");
+    $stmt->bind_param("sss", $token, $user_agent, $ip_address);
     $stmt->execute();
     $result = $stmt->get_result();
     

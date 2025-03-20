@@ -28,7 +28,3 @@ CREATE TABLE utente_remember (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (username) REFERENCES utente(username) ON DELETE CASCADE
 );
-
--- Aggiungere un utente di test (la password è 'admin')
--- Utilizzare questo comando se avete bisogno di un account iniziale
--- INSERT INTO utente (username, password) VALUES ('admin', '$2y$10$dOa7nTlMhKDFzlRx6GhTWejnB75t.VYOUuI/xIOv6y/EnP.fE5rJy');
