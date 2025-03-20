@@ -27,17 +27,11 @@ if (!isset($_SESSION['username']) && isset($_COOKIE['remember_user'])) {
     }
 }
 
-// Verifica se il form è stato inviato
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $remember = isset($_POST['remember']) ? true : false;
-    
-    // Validazione input
-    if (empty($username) || empty($password)) {
-        header("Location: ../index.php?error=emptyfields");
-        exit();
-    }
+// Verifica se sono state inviate credenziali (funziona sia con POST che come fallback)
+if (isset($_REQUEST['username']) && isset($_REQUEST['password'])) {
+    $username = $_REQUEST['username'];
+    $password = $_REQUEST['password'];
+    $remember = isset($_REQUEST['remember']) ? true : false;
     
     // Cerca l'utente nel database
     $stmt = $conn->prepare("SELECT username, password FROM utente WHERE username = ?");
@@ -54,9 +48,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = $row['username'];
             $_SESSION['loggedin'] = true;
             
-            // Debug: log success (temporary, remove in production)
-            error_log("Login success for user: " . $username);
-            
             // Se "ricordami" è selezionato, crea un cookie persistente
             if ($remember) {
                 // Genera un token univoco
@@ -72,17 +63,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->execute();
                 
                 // Imposta cookie per 30 giorni
-                // Modificato secure=false per funzionare anche senza HTTPS in ambiente di sviluppo
-                // In produzione impostare secure=true se si utilizza HTTPS
                 setcookie("remember_user", $token, time() + (86400 * 30), "/", "", false, true);
             }
             
             header("Location: ../admin/dashboard.php");
             exit();
         } else {
-            // Debug: log failure (temporary, remove in production)
-            error_log("Password verification failed for user: " . $username);
-            
             // Password errata
             header("Location: ../index.php?error=wrongpassword");
             exit();
