@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once '../../../../../../connessione.php';
+require_once '../../../../../../../../../connessione.php';
 
 // Check if form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
