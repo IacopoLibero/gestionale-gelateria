@@ -1,32 +1,6 @@
 <?php
 session_start();
 
-// Check for "remember me" cookie
-if (!isset($_SESSION['loggedin']) && isset($_COOKIE['remember_user'])) {
-    require_once 'connessione.php';
-    
-    $token = $_COOKIE['remember_user'];
-    $user_agent = $_SERVER['HTTP_USER_AGENT'];
-    $ip_address = $_SERVER['REMOTE_ADDR'];
-    
-    // Check if token exists and matches current browser/IP
-    $stmt = $conn->prepare("SELECT username FROM utente_remember WHERE token = ? AND user_agent = ? AND ip_address = ?");
-    $stmt->bind_param("sss", $token, $user_agent, $ip_address);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if ($result->num_rows === 1) {
-        $row = $result->fetch_assoc();
-        
-        // Set session variables
-        $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $row['username'];
-        
-        // Renew the cookie
-        setcookie("remember_user", $token, time() + (86400 * 30), "/");
-    }
-}
-
 // Redirect se l'utente è già loggato
 if (isset($_SESSION['username']) && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header("Location: admin/dashboard.php");
