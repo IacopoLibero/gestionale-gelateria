@@ -1,6 +1,30 @@
 <?php
 session_start();
 
+// Check for "remember me" cookie - simplified version
+if (!isset($_SESSION['loggedin']) && isset($_COOKIE['remember_user'])) {
+    require_once 'connessione.php';
+    
+    $token = $_COOKIE['remember_user'];
+    
+    // Check if token exists - simplified query
+    $stmt = $conn->prepare("SELECT username FROM utente_remember WHERE token = ?");
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 1) {
+        $row = $result->fetch_assoc();
+        
+        // Set session variables
+        $_SESSION['loggedin'] = true;
+        $_SESSION['username'] = $row['username'];
+        
+        // Renew the cookie
+        setcookie("remember_user", $token, time() + (86400 * 30), "/");
+    }
+}
+
 // Redirect se l'utente è già loggato
 if (isset($_SESSION['username']) && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header("Location: admin/dashboard.php");
