@@ -27,4 +27,27 @@ document.addEventListener('DOMContentLoaded', function() {
             closeNotification();
         });
     }
+    
+    // Auto-resize textareas (now for all textareas with auto-resize class)
+    const autoResizeTextareas = document.querySelectorAll('.auto-resize');
+    if (autoResizeTextareas.length > 0) {
+        // Function to adjust textarea height
+        function adjustHeight(textarea) {
+            // Reset height first
+            textarea.style.height = 'auto';
+            // Set new height based on scrollHeight
+            textarea.style.height = textarea.scrollHeight + 'px';
+        }
+        
+        // Apply to all auto-resize textareas
+        autoResizeTextareas.forEach(textarea => {
+            // Set initial height
+            adjustHeight(textarea);
+            
+            // Add event listener for input changes
+            textarea.addEventListener('input', function() {
+                adjustHeight(this);
+            });
+        });
+    }
 });

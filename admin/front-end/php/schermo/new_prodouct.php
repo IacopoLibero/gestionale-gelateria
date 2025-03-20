@@ -112,25 +112,27 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     <?php endif; ?>
     
     <div class="container">
+      <h2 class="h2class">Nome e ingredienti</h2>
       <form method="POST" action="../../../back-end/php/schermo/new_prodouct.php" >
         <div class="name-columns">
           <div class="column">
             <label for="nome_ita">NOME DEL PRODOTTO</label>
-            <input type="text" name="nome_ita" id="nome_ita" placeholder="Nome" required>
+            <textarea name="nome_ita" id="nome_ita" placeholder="Nome" required class="auto-resize"></textarea>
           </div>
           <div class="column">
             <label for="nome_eng">NOME DEL PRODOTTO (INGLESE)</label>
-            <input type="text" name="nome_eng" id="nome_eng" placeholder="Name (Inglese)" required>
+            <textarea name="nome_eng" id="nome_eng" placeholder="Name (Inglese)" required class="auto-resize"></textarea>
           </div>
         </div>
 
         <div>
           <label for="ingredienti">INGREDIENTI PRINCIPALI</label>
-          <input type="text" name="ingredienti" id="ingredienti" placeholder="Ingredienti" required>
+          <textarea name="ingredienti" id="ingredienti" placeholder="Ingredienti" required class="auto-resize"></textarea>
         </div>
       </div>
       
       <div class="container">
+        <h2 class="h2class">Opzioni</h2>
         <div class="checkbox-columns">
           <div class="column">
             <div class="checkbox-wrapper">
