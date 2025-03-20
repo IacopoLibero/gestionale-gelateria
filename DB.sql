@@ -16,15 +16,3 @@ CREATE TABLE prodotto(
     ingredienti_visibili BOOLEAN DEFAULT FALSE,
     stato BOOLEAN DEFAULT TRUE
 );
-
--- Modificato per supportare più dispositivi per utente con campi opzionali
-DROP TABLE IF EXISTS utente_remember;
-CREATE TABLE utente_remember (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(20) NOT NULL,
-    token VARCHAR(191) NOT NULL UNIQUE,  -- Reduced from 255 to 191
-    user_agent VARCHAR(255) NULL,        -- Campo reso esplicitamente opzionale
-    ip_address VARCHAR(45) NULL,         -- Campo reso esplicitamente opzionale
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (username) REFERENCES utente(username) ON DELETE CASCADE
-);
