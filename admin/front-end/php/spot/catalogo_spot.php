@@ -14,7 +14,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestionale Gelateria - Dashboard</title>
-  <link rel="stylesheet" href="../../../../css/dashboard.css">
+  <link rel="stylesheet" href="../../../front-end/css/dashboard.css">
+  <link rel="stylesheet" href="../../../front-end/css/spot/catalogo_spot.css">
 </head>
 <body>
   <nav id="sidebar">
@@ -26,7 +27,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </button>
       </li>
       <li class="active">
-        <a href="../../../../dashboard.php">
+        <a href="../../../dashboard.php">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M520-640v-160q0-17 11.5-28.5T560-840h240q17 0 28.5 11.5T840-800v160q0 17-11.5 28.5T800-600H560q-17 0-28.5-11.5T520-640ZM120-480v-320q0-17 11.5-28.5T160-840h240q17 0 28.5 11.5T440-800v320q0 17-11.5 28.5T400-440H160q-17 0-28.5-11.5T120-480Zm400 320v-320q0-17 11.5-28.5T560-520h240q17 0 28.5 11.5T840-480v320q0 17-11.5 28.5T800-120H560q-17 0-28.5-11.5T520-160Zm-400 0v-160q0-17 11.5-28.5T160-360h240q17 0 28.5 11.5T440-320v160q0 17-11.5 28.5T400-120H160q-17 0-28.5-11.5T120-160Zm80-360h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg>
           <span>Dashboard</span>
         </a>
@@ -39,9 +40,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="../../schermo/catalogo_prodotti.php">Catalogo Prodotti</a></li>
-            <li><a href="../../schermo/new_prodouct.php">Nuovo Prodotto</a></li>
-            <li><a href="../../schermo/menu_verticale.php">Menu Verticale</a></li>
+            <li><a href="../schermo/catalogo_prodotti.php">Catalogo Prodotti</a></li>
+            <li><a href="../schermo/new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="../schermo/menu_verticale.php">Menu Verticale</a></li>
           </div>
         </ul>
       </li>
@@ -53,22 +54,22 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="../spot/catalogo_spot.php">Catalogo Spot</a></li>
-            <li><a href="../spot/new_spot.php">Nuovo Spot</a></li>
+            <li><a href="./catalogo_spot.php">Catalogo Spot</a></li>
+            <li><a href="./new_spot.php">Nuovo Spot</a></li>
           </div>
         </ul>
       </li>
       <li>
         <button onclick="toggleSubMenu(this)" class="dropdown-btn">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h207q16 0 30.5 6t25.5 17l57 57h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/></svg>
-          <span>Menu Digitale</span>
+          <span>Menu Digitale<../menu_digitale//span>
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z"/></svg>
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="../../menu_digitale/catalogo_digitale.php">Catalogo Digitale</a></li>
-            <li><a href="../../menu_digitale/new_prodouct.php">Nuovo Prodotto</a></li>
-            <li><a href="../../menu_digitale/menu_digitale.php">Menu Digitale</a></li>
+            <li><a href="../menu_digitale/catalogo_digitale.php">Catalogo Digitale</a></li>
+            <li><a href="../menu_digitale/new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="../menu_digitale/menu_digitale.php">Menu Digitale</a></li>
           </div>
         </ul>
       </li>
@@ -87,6 +88,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </div>
   </main>
   
-  <script src="../../../../js/dashboard.js"></script>
+  <script src="../../../js/dashboard.js"></script>
+  <script src="../../../js/spot/catalogo_spot.js"></script>
 </body>
 </html>
