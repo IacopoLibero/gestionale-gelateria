@@ -219,13 +219,15 @@ button {
 /* Notification Styling */
 .notification {
   padding: 15px 20px;
-  margin-bottom: 20px;
+  margin: 0 auto 20px auto;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
+  max-width: 90%;
+  width: 100%;
 }
 
 .success-notification {
@@ -243,6 +245,7 @@ button {
 .notification-content {
   display: flex;
   align-items: center;
+  flex: 1;
 }
 
 .notification-icon {
@@ -256,5 +259,16 @@ button {
   background: none;
   border: none;
   color: inherit;
+  padding: 0 0 0 10px;
+  margin-left: 10px;
+  height: auto;
+}
+
+/* Container for notifications to ensure proper centering */
+.notification-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 

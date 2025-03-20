@@ -1,12 +1,12 @@
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Function to close the notification
+    // Make closeNotification function available globally
     window.closeNotification = function() {
         const notification = document.getElementById('notification');
         if (notification) {
             notification.style.opacity = '0';
             setTimeout(() => {
-                notification.style.display = 'none';
+                notification.parentNode.removeChild(notification);
             }, 500);
         }
     }
@@ -17,5 +17,14 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             closeNotification();
         }, 5000);
+    }
+
+    // Add event listener to close button
+    const closeButton = document.querySelector('.notification-close');
+    if (closeButton) {
+        closeButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeNotification();
+        });
     }
 });

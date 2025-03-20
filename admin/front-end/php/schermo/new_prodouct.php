@@ -86,26 +86,26 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     
     <!-- Notification system -->
     <?php if(isset($_SESSION['success_message'])): ?>
-      <div class="container">
+      <div class="notification-container">
         <div class="notification success-notification" id="notification">
           <div class="notification-content">
             <span class="notification-icon">✓</span>
             <span><?php echo $_SESSION['success_message']; ?></span>
           </div>
-          <button class="notification-close" onclick="closeNotification()">×</button>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
         </div>
       </div>
       <?php unset($_SESSION['success_message']); ?>
     <?php endif; ?>
     
     <?php if(isset($_SESSION['error_message'])): ?>
-      <div class="container">
+      <div class="notification-container">
         <div class="notification error-notification" id="notification">
           <div class="notification-content">
             <span class="notification-icon">⚠</span>
             <span><?php echo $_SESSION['error_message']; ?></span>
           </div>
-          <button class="notification-close" onclick="closeNotification()">×</button>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
         </div>
       </div>
       <?php unset($_SESSION['error_message']); ?>
