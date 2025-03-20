@@ -6,7 +6,6 @@ CREATE TABLE prodotto(
     nome VARCHAR(50) NOT NULL PRIMARY KEY,
     nome_inglese VARCHAR(50) NOT NULL,
     ingredienti VARCHAR(255),
-    tag VARCHAR(255), -- percorso di una o più immagini
     tipo ENUM('gelato', 'granita', 'semifreddo') NOT NULL,
     km0 BOOLEAN DEFAULT FALSE,
     vegano BOOLEAN DEFAULT FALSE,
