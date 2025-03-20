@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/gestionale gelateria/connessione.php';
+require_once '../../../../connessione.php';
 
 // Funzione per ottenere prodotti attivi per tipo
 function getProdottiByTipo($conn) {
