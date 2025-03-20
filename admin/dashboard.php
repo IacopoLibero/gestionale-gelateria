@@ -11,10 +11,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestionale Gelateria - Dashboard</title>
-    <link rel="stylesheet" href="./css/dashboard.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestionale Gelateria - Dashboard</title>
+  <link rel="stylesheet" href="./css/dashboard.css">
 </head>
 <body>
   <nav id="sidebar">
@@ -87,6 +87,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </div>
   </main>
   
-  <script src="./js/dashboard.js" defer></script>
+  <script src="./js/dashboard.js"></script>
 </body>
 </html>
