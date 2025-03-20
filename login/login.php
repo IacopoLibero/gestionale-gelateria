@@ -4,7 +4,7 @@ require_once '../connessione.php';
 
 // Se l'utente è già loggato, redirect alla dashboard
 if (isset($_SESSION['username'])) {
-    header("Location: ../admin/index.php");
+    header("Location: ../admin/dashboard.php");
     exit();
 }
 
@@ -21,7 +21,7 @@ if (!isset($_SESSION['username']) && isset($_COOKIE['remember_user'])) {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $_SESSION['username'] = $row['username'];
-        header("Location: ../dashboard.php");
+        header("Location: ../admin/dashboard.php");
         exit();
     }
 }
@@ -67,10 +67,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->execute();
                 
                 // Imposta cookie per 30 giorni
-                setcookie("remember_user", $token, time() + (86400 * 30), "/", "", true, true);
+                // Modificato secure=false per funzionare anche senza HTTPS in ambiente di sviluppo
+                // In produzione impostare secure=true se si utilizza HTTPS
+                setcookie("remember_user", $token, time() + (86400 * 30), "/", "", false, true);
             }
             
-            header("Location: ../admin/index.php");
+            header("Location: ../admin/dashboard.php");
             exit();
         } else {
             // Password errata
