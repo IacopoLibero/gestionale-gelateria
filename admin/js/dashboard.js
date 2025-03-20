@@ -3,29 +3,36 @@ function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
   const body = document.body;
   
-  sidebar.classList.toggle('collapsed');
-  body.classList.toggle('sidebar-collapsed');
-  
-  // For mobile view
-  if (window.innerWidth <= 768) {
-    sidebar.classList.toggle('mobile-visible');
-    body.classList.toggle('sidebar-mobile-active');
+  if (sidebar && body) {
+    sidebar.classList.toggle('collapsed');
+    body.classList.toggle('sidebar-collapsed');
+    
+    // For mobile view
+    if (window.innerWidth <= 768) {
+      sidebar.classList.toggle('mobile-visible');
+      body.classList.toggle('sidebar-mobile-active');
+    }
   }
 }
 
 // Function to toggle submenu
 function toggleSubMenu(element) {
+  if (!element) return;
+  
   // Toggle active class on the dropdown button
   element.classList.toggle('active');
   
   // Find the next sibling which is the submenu
   const subMenu = element.nextElementSibling;
-  subMenu.classList.toggle('open');
+  if (subMenu) {
+    subMenu.classList.toggle('open');
+  }
 }
 
 // Check screen size on load and resize
 function checkScreenSize() {
   const sidebar = document.getElementById('sidebar');
+  if (!sidebar) return;
   
   if (window.innerWidth <= 768) {
     sidebar.classList.add('collapsed');
@@ -37,6 +44,10 @@ function checkScreenSize() {
 
 // Initialize on document ready
 document.addEventListener('DOMContentLoaded', function() {
+  // Check if sidebar exists
+  const sidebar = document.getElementById('sidebar');
+  if (!sidebar) return;
+  
   checkScreenSize();
   
   // Add resize event listener
@@ -44,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Close sidebar when clicking outside on mobile
   document.addEventListener('click', function(event) {
-    const sidebar = document.getElementById('sidebar');
+    if (!sidebar) return;
     
     if (window.innerWidth <= 768 && 
         sidebar.classList.contains('mobile-visible') && 
