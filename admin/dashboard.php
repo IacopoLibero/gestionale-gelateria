@@ -87,6 +87,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </div>
   </main>
   
-  <script src="./js/dashboard.js"></script>
+  <script src="./js/dashboard.js" defer></script>
 </body>
 </html>
