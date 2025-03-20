@@ -39,9 +39,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="admin/front-end/php/schermo/catalogo_prodotti.php">Catalogo Prodotti</a></li>
-            <li><a href="admin/front-end/php/schermo/new_prodouct.php">Nuovo Prodotto</a></li>
-            <li><a href="admin/front-end/php/schermo/menu_verticale.php">Menu Verticale</a></li>
+            <li><a href="./front-end/php/schermo/catalogo_prodotti.php">Catalogo Prodotti</a></li>
+            <li><a href="./front-end/php/schermo/new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="./front-end/php/schermo/menu_verticale.php">Menu Verticale</a></li>
           </div>
         </ul>
       </li>
@@ -53,8 +53,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="admin/front-end/php/spot/catalogo_spot.php">Catalogo Spot</a></li>
-            <li><a href="admin/front-end/php/spot/new_spot.php">Nuovo Spot</a></li>
+            <li><a href="./front-end/php/spot/catalogo_spot.php">Catalogo Spot</a></li>
+            <li><a href="./front-end/php/spot/new_spot.php">Nuovo Spot</a></li>
           </div>
         </ul>
       </li>
@@ -66,9 +66,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="admin/front-end/php/menu_digitale/catalogo_digitale.php">Catalogo Digitale</a></li>
-            <li><a href="admin/front-end/php/menu_digitale/new_prodouct.php">Nuovo Prodotto</a></li>
-            <li><a href="admin/front-end/php/menu_digitale/menu_digitale.php">Menu Digitale</a></li>
+            <li><a href="./front-end/php/menu_digitale/catalogo_digitale.php">Catalogo Digitale</a></li>
+            <li><a href="./front-end/php/menu_digitale/new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="./front-end/php/menu_digitale/menu_digitale.php">Menu Digitale</a></li>
           </div>
         </ul>
       </li>
