@@ -54,6 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['username'] = $row['username'];
             $_SESSION['loggedin'] = true;
             
+            // Debug: log success (temporary, remove in production)
+            error_log("Login success for user: " . $username);
+            
             // Se "ricordami" è selezionato, crea un cookie persistente
             if ($remember) {
                 // Genera un token univoco
@@ -77,6 +80,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ../admin/dashboard.php");
             exit();
         } else {
+            // Debug: log failure (temporary, remove in production)
+            error_log("Password verification failed for user: " . $username);
+            
             // Password errata
             header("Location: ../index.php?error=wrongpassword");
             exit();

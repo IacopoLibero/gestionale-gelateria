@@ -22,7 +22,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['loggedin']) && $_SESSION['l
             <h1>David la Gelateria</h1>
         </div>
         
-        <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <form class="form" method="POST" action="login/login.php">
+            <!-- Changed to submit to login.php instead of itself -->
             
             <div class="title">Bentornato gelataio!<br><span>accedi al gestionale</span></div>
             
