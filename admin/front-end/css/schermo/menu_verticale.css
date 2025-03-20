@@ -45,6 +45,9 @@ body {
     margin: 5px 0;
     justify-content: center;
     width: 100%;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 20px 0;
 }
 
 .divider-with-text::before,
@@ -57,6 +60,84 @@ body {
 
 .gelatino{
     width: 5%;
+    margin: 0 10px;
+}
+
+/* Product Styling */
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.product-item {
+    width: 48%;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.product-name {
+    font-family: 'Cormorant Upright', serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+}
+
+.product-name-en {
+    font-family: 'Cormorant Upright', serif;
+    font-style: italic;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.product-icons {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.product-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    margin-bottom: 5px;
+}
+
+.product-ingredients {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    body {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    
+    .logodavid {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    
+    .product-item {
+        width: 100%;
+    }
+    
+    .divider-with-text {
+        font-size: 1.2rem;
+    }
+    
+    .gelatino {
+        width: 8%;
+    }
 }
 
 /* Custom Font Definitions */
