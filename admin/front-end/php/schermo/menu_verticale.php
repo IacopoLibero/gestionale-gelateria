@@ -10,10 +10,9 @@
   <div class="background-container"></div>
   <div class="content">
     <img src="../../../../img/david/david_logo_testo_2.png" alt="logodavid" class="logodavid">
-
     <?php
     // Include il file back-end per recuperare i dati
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/gestionale gelateria/admin/back-end/php/schermo/menu_verticale.php';
+    require_once '../../../back-end/php/schermo/menu_verticale.php';
     
     // Funzione per mostrare le icone dei prodotti
     function showIcons($product) {
