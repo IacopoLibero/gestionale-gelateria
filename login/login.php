@@ -4,7 +4,7 @@ require_once '../connessione.php';
 
 // Se l'utente è già loggato, redirect alla dashboard
 if (isset($_SESSION['username'])) {
-    header("Location: ../dashboard.php");
+    header("Location: ../admin/index.php");
     exit();
 }
 
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 setcookie("remember_user", $token, time() + (86400 * 30), "/", "", true, true);
             }
             
-            header("Location: ../dashboard.php");
+            header("Location: ../admin/index.php");
             exit();
         } else {
             // Password errata
