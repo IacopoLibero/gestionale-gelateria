@@ -40,9 +40,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="./catalogo_prodotti.html">Catalogo Prodotti</a></li>
-            <li><a href="./new_prodouct.php">Nuovo Prodotto</a></li>
-            <li><a href="./menu_verticale.php">Menu Verticale</a></li>
+            <li><a href="../schermo/catalogo_prodotti.php">Catalogo Prodotti</a></li>
+            <li><a href="../schermo/new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="../schermo/menu_verticale.php">Menu Verticale</a></li>
           </div>
         </ul>
       </li>
@@ -67,9 +67,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="../menu_digitale/catalogo_digitale.php">Catalogo Digitale</a></li>
-            <li><a href="../menu_digitale/new_prodouct.php">Nuovo Prodotto</a></li>
-            <li><a href="../menu_digitale/menu_digitale.php">Menu Digitale</a></li>
+            <li><a href="./catalogo_digitale.php">Catalogo Digitale</a></li>
+            <li><a href="./new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="./menu_digitale.php">Menu Digitale</a></li>
           </div>
         </ul>
       </li>
@@ -82,9 +82,131 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </ul>
   </nav>
   <main>
+    <h2 id="titolo" class="container">Nuovo prodotto</h2>
     <div class="container">
-      <h2>Dashboard Amministratore</h2>
-      <p>Benvenuto nel sistema di gestione della gelateria, <?php echo htmlspecialchars($_SESSION['username']); ?>. Da qui puoi gestire i prodotti, gli ordini e i clienti.</p>
+      <form method="POST" action="../../../back-end/php/schermo/new_prodouct.php" >
+        <div class="name-columns">
+          <div class="column">
+            <label for="nome_ita">NOME DEL PRODOTTO</label>
+            <input type="text" name="nome_ita" id="nome_ita" placeholder="Nome" required>
+          </div>
+          <div class="column">
+            <label for="nome_eng">NOME DEL PRODOTTO (INGLESE)</label>
+            <input type="text" name="nome_eng" id="nome_eng" placeholder="Name (Inglese)" required>
+          </div>
+        </div>
+
+        <div>
+          <label for="ingredienti">INGREDIENTI PRINCIPALI</label>
+          <input type="text" name="ingredienti" id="ingredienti" placeholder="Ingredienti" required>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="checkbox-columns">
+          <div class="column">
+            <div class="checkbox-wrapper">
+              <input type="checkbox" class="check" id="ingredienti_monitor" name="ingredienti_monitor">
+              <label for="ingredienti_monitor" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>INGREDIENTI NEL MONITOR</span>
+              </label>
+            </div>
+            <div class="checkbox-wrapper">
+              <input type="checkbox" class="check" id="Km0" name="Km0">
+              <label for="Km0" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Km 0</span>
+              </label>
+            </div>
+            <div class="checkbox-wrapper">
+              <input type="checkbox" class="check" id="Vegano" name="Vegano">
+              <label for="Vegano" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Vegano</span>
+              </label>
+            </div>
+            <div class="checkbox-wrapper">
+              <input type="checkbox" class="check" id="Slow_Food" name="Slow_Food">
+              <label for="Slow_Food" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Slow Food</span>
+              </label>
+            </div>
+          </div>
+          <div class="column">
+            <div class="checkbox-wrapper">
+              <input type="checkbox" class="check" id="Innovativo" name="Innovativo">
+              <label for="Innovativo" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Innovativo</span>
+              </label>
+            </div>
+            <div class="checkbox-wrapper">
+              <input type="checkbox" class="check" id="Bio" name="Bio">
+              <label for="Bio" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Bio</span>
+              </label>
+            </div>
+            <div class="checkbox-wrapper">
+              <input type="checkbox" class="check" id="Visibile" name="Visibile">
+              <label for="Visibile" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Visibile</span>
+              </label>
+            </div>
+            <div class="form-field">
+              <select name="tipo" id="tipo" required>
+                <option value="" disabled selected>TIPO DI PRODOTTO</option>
+                <option value="gelato">Gelato</option>
+                <option value="granita">Granita</option>
+                <option value="semifreddo">Semifreddo</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="button-container">
+          <button type="submit" class="submit-button">
+            <span class="button_top">Aggiungi Prodotto</span>
+          </button>
+        </div>
+      </form>
     </div>
   </main>
   
