@@ -216,3 +216,45 @@ button {
   background: var(--button_outline_color);
 }
 
+/* Notification Styling */
+.notification {
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.success-notification {
+  background-color: rgba(40, 167, 69, 0.2);
+  border-left: 4px solid #28a745;
+  color: #28a745;
+}
+
+.error-notification {
+  background-color: rgba(220, 53, 69, 0.2);
+  border-left: 4px solid #dc3545;
+  color: #dc3545;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+}
+
+.notification-icon {
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+.notification-close {
+  cursor: pointer;
+  font-size: 20px;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
