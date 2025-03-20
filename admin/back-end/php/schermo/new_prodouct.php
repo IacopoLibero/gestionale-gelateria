@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-// Include database connection
-require_once $_SERVER['DOCUMENT_ROOT'] . '/gestionale-gelateria/connessione.php';
+require_once '../../../../../connessione.php';
 
 // Check if form was submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
