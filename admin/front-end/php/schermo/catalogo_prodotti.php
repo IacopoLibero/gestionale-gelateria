@@ -119,7 +119,9 @@ $result = $conn->query($sql);
       </div>
       
       <div class="actions">
-        <a href="new_prodouct.php" class="btn add-btn">Aggiungi Nuovo Prodotto</a>
+        <a href="new_prodouct.php" class="btn add-btn">
+          <span class="button_top">Aggiungi Nuovo Prodotto</span>
+        </a>
       </div>
     </div>
   </main>
