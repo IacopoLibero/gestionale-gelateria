@@ -297,4 +297,13 @@
         flex: 1 0 100%;
         padding-right: 0;
     }
+
+    /* Ensure container remains visible on mobile */
+    .container {
+        width: 90%;
+        padding: 15px;
+        border: 1px solid #444;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
