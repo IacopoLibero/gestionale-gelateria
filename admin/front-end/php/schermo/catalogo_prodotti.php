@@ -6,6 +6,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../index.php");
     exit;
 }
+
+// Include database connection
+require_once '../../../../../connessione.php';
+
+// Fetch all products from database
+$sql = "SELECT * FROM prodotto ORDER BY nome";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +20,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestionale Gelateria - Dashboard</title>
+  <title>Gestionale Gelateria - Catalogo Prodotti</title>
   <link rel="stylesheet" href="../../../front-end/css/dashboard.css">
   <link rel="stylesheet" href="../../../front-end/css/schermo/catalogo_prodotti.css">
 </head>
@@ -83,8 +90,36 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   </nav>
   <main>
     <div class="container">
-      <h2>Dashboard Amministratore</h2>
-      <p>Benvenuto nel sistema di gestione della gelateria, <?php echo htmlspecialchars($_SESSION['username']); ?>. Da qui puoi gestire i prodotti, gli ordini e i clienti.</p>
+      <h2>Catalogo Prodotti</h2>
+      <p>Qui puoi visualizzare e gestire tutti i prodotti disponibili.</p>
+      
+      <div class="product-grid">
+        <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $nome = htmlspecialchars($row['nome']);
+                $tipo = htmlspecialchars($row['tipo']);
+                $stato = $row['stato'] ? 'Attivo' : 'Disattivo';
+                $statoClass = $row['stato'] ? 'active' : 'inactive';
+                
+                echo "<div class='product-card $statoClass'>";
+                echo "<h3>$nome</h3>";
+                echo "<p>Tipo: $tipo</p>";
+                echo "<p>Stato: <span class='status-$statoClass'>$stato</span></p>";
+                echo "<div class='card-actions'>";
+                echo "<a href='edit_prodotto.php?nome=$nome' class='edit-btn'>Modifica</a>";
+                echo "</div>";
+                echo "</div>";
+            }
+        } else {
+            echo "<p class='no-products'>Nessun prodotto trovato nel database.</p>";
+        }
+        ?>
+      </div>
+      
+      <div class="actions">
+        <a href="new_prodouct.php" class="btn add-btn">Aggiungi Nuovo Prodotto</a>
+      </div>
     </div>
   </main>
   
