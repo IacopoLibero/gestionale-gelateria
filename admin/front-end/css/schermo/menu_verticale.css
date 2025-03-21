@@ -111,7 +111,13 @@ body {
     flex-wrap: wrap;
     margin-top: 5px;
     margin-bottom: 5px;
-    height: 30px; /* Fixed height for icon area */
+    min-height: 30px; /* Minimum height to maintain spacing */
+}
+
+/* Spacer for when no icons are present */
+.product-icons-spacer {
+    height: 15px; /* Half the height of icon area to provide a nice gap */
+    margin-bottom: 5px;
 }
 
 .product-icon {
