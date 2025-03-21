@@ -76,17 +76,19 @@ body {
     margin-bottom: 20px;
     padding: 10px;
     box-sizing: border-box;
+    border-bottom: 1px solid #ccc; /* Thin divider line for each product */
 }
 
 .product-name {
     font-family: 'Cormorant Upright', serif;
-    font-weight: 700;
+    font-weight: 700; /* Bold for Italian name */
     font-size: 1.25rem;
     margin-bottom: 5px;
 }
 
 .product-name-en {
     font-family: 'Cormorant Upright', serif;
+    font-weight: 600; /* Medium bold for English name */
     font-style: italic;
     font-size: 1rem;
     margin-bottom: 8px;
@@ -113,6 +115,23 @@ body {
     font-style: italic;
     color: #666;
     margin-top: 5px;
+}
+
+.ingredients-divider {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    color: #666;
+}
+
+.ingredients-divider::before,
+.ingredients-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #999;
+    margin: 0 5px;
 }
 
 /* Responsive design */

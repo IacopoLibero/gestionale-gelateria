@@ -47,6 +47,7 @@
             
             // Mostrare gli ingredienti solo se visibili
             if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
+                echo '<div class="ingredients-divider">ingredients</div>';
                 echo '<div class="product-ingredients">' . $product['ingredienti'] . '</div>';
             }
             
