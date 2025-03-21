@@ -17,11 +17,11 @@
     // Funzione per mostrare le icone dei prodotti
     function showIcons($product) {
         $icons = '';
-        if ($product['km0']) $icons .= '<img src="../../../../img/icone/km0.png" alt="Km 0" class="product-icon" title="Km 0">';
-        if ($product['vegano']) $icons .= '<img src="../../../../img/icone/vegano.png" alt="Vegano" class="product-icon" title="Vegano">';
-        if ($product['SlowFood']) $icons .= '<img src="../../../../img/icone/slowfood.png" alt="Slow Food" class="product-icon" title="Slow Food">';
-        if ($product['bio']) $icons .= '<img src="../../../../img/icone/bio.png" alt="Biologico" class="product-icon" title="Biologico">';
-        if ($product['innovativo']) $icons .= '<img src="../../../../img/icone/innovativo.png" alt="Innovativo" class="product-icon" title="Innovativo">';
+        if ($product['km0']) $icons .= '<img src="../../../../img/tipologie/km0.png" alt="Km 0" class="product-icon" title="Km 0">';
+        if ($product['vegano']) $icons .= '<img src="../../../../img/tipologie/vegano.png" alt="Vegano" class="product-icon" title="Vegano">';
+        if ($product['SlowFood']) $icons .= '<img src="../../../../img/tipologie/slowfood.png" alt="Slow Food" class="product-icon" title="Slow Food">';
+        if ($product['bio']) $icons .= '<img src="../../../../img/tipologie/bio.png" alt="Biologico" class="product-icon" title="Biologico">';
+        if ($product['innovativo']) $icons .= '<img src="../../../../img/tipologie/innovativo.png" alt="Innovativo" class="product-icon" title="Innovativo">';
         return $icons;
     }
     
