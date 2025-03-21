@@ -317,9 +317,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             </div>
           </div>
           <div class="button-container">
-            <button type="button" class="submit-button" onclick="window.location.href='catalogo_prodotti.php'">
-              <span class="button_top">Annulla</span>
-            </button>
             <button type="submit" class="submit-button">
               <span class="button_top">Salva Modifiche</span>
             </button>
