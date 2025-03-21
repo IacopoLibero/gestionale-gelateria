@@ -55,11 +55,34 @@
         }
         echo '</div>';
     }
-    
+    // Funzione per mostrare una sezione di prodotti senza le icone
+    function showProductSectionNoImg($products, $sectionTitle) {
+      if (empty($products)) return; // Non mostrare sezioni vuote
+      
+      echo '<div class="divider-with-text">';
+      echo '<hr>' . $sectionTitle . '<hr>';
+      echo '</div>';
+      
+      echo '<div class="products-container">';
+      foreach ($products as $product) {
+        echo '<div class="product-item">';
+        echo '<div class="product-name">' . $product['nome'] . '</div>';
+        echo '<div class="product-name-en">' . $product['nome_inglese'] . '</div>';
+        
+        // Mostrare gli ingredienti solo se visibili
+        if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
+          echo '<div class="ingredients-divider">ingredients</div>';
+          echo '<div class="product-ingredients">' . $product['ingredienti'] . '</div>';
+        }
+        
+        echo '</div>';
+      }
+      echo '</div>';
+    }
     // Mostra le sezioni in base ai prodotti disponibili
     showProductSection($prodotti_by_tipo['gelato'], 'Gelati / Ice Creams', '../../../../img/tipologie/mini_gelato.png');
-    showProductSection($prodotti_by_tipo['granita'], 'Granite / Slushes');
-    showProductSection($prodotti_by_tipo['semifreddo'], 'Semifreddi / Frozen Desserts');
+    showProductSectionNoImg($prodotti_by_tipo['granita'], 'Granite / Slushes');
+    showProductSectionNoImg($prodotti_by_tipo['semifreddo'], 'Semifreddi / Frozen Desserts');
     ?>
   </div>
   <script src="../../../js/schermo/menu_verticale.js"></script>
