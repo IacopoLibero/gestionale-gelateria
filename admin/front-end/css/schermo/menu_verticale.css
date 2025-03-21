@@ -79,9 +79,10 @@ body {
     padding: 10px;
     box-sizing: border-box;
     border-bottom: 1px solid #ccc; /* Thin divider line for each product */
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto auto auto auto auto;
     height: auto;
+    position: relative;
 }
 
 .product-name {
@@ -92,6 +93,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.2;
 }
 
 .product-name-en {
@@ -104,6 +106,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.2;
 }
 
 .product-icons {
@@ -112,12 +115,16 @@ body {
     margin-top: 5px;
     margin-bottom: 5px;
     min-height: 30px; /* Minimum height to maintain spacing */
+    align-items: center;
 }
 
 /* Spacer for when no icons are present */
 .product-icons-spacer {
     height: 29px; /* Match icon height (24px) + margin-bottom (5px) */
     margin-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .product-icon {
@@ -136,6 +143,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.2;
 }
 
 .ingredients-divider {
@@ -147,6 +155,7 @@ body {
     color: #666;
     position: relative;
     height: 24px; /* Fixed height for consistent alignment */
+    line-height: 24px;
 }
 
 .ingredients-divider::before,
