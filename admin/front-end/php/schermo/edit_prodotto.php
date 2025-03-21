@@ -112,7 +112,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="./catalogo_prodotti.html">Catalogo Prodotti</a></li>
+            <li><a href="./catalogo_prodotti.php">Catalogo Prodotti</a></li>
             <li><a href="./new_prodouct.php">Nuovo Prodotto</a></li>
             <li><a href="./menu_verticale.php">Menu Verticale</a></li>
           </div>
@@ -317,9 +317,9 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             </div>
           </div>
           <div class="button-container">
-            <a href="catalogo_prodotti.php" class="submit-button">
+            <button type="button" class="submit-button" onclick="window.location.href='catalogo_prodotti.php'">
               <span class="button_top">Annulla</span>
-            </a>
+            </button>
             <button type="submit" class="submit-button">
               <span class="button_top">Salva Modifiche</span>
             </button>
