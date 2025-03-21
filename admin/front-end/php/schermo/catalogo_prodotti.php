@@ -109,7 +109,7 @@ $result = $conn->query($sql);
                 echo "<p>Stato: <span class='status-$statoClass'>$stato</span></p>";
                 echo "<div class='card-actions'>";
                 echo "<a href='edit_prodotto.php?id=$id' class='edit-btn'>Modifica</a>";
-                echo "<form method='POST' action='../../../back-end/php/schermo/delete_prodotto.php' style='display:inline;' onsubmit='return confirm(\"Sei sicuro di voler eliminare questo prodotto? Questa azione non può essere annullata.\")'>";
+                echo "<form method='POST' action='../../../back-end/php/schermo/delete_prodotto.php' style='display:inline-block; vertical-align:middle;' onsubmit='return confirm(\"Sei sicuro di voler eliminare questo prodotto? Questa azione non può essere annullata.\")'>";
                 echo "<input type='hidden' name='id' value='$id'>";
                 echo "<button type='submit' class='delete-btn'>Elimina</button>";
                 echo "</form>";

@@ -69,10 +69,15 @@
     border-radius: 4px;
     text-decoration: none;
     font-size: 14px;
-    font-weight: bold;
     cursor: pointer;
     margin-left: 10px;
     transition: background-color 0.3s;
+    /* Make sure the button is inline with edit button */
+    display: inline-block;
+    line-height: normal;
+    height: 33px; /* Match the edit button height */
+    vertical-align: middle;
+    box-sizing: border-box;
 }
 
 .delete-btn:hover {

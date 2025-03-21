@@ -15,7 +15,7 @@ if (!isset($_POST['id']) || empty($_POST['id'])) {
 }
 
 // Include database connection
-require_once '../../../../../connessione.php';
+require_once '../../../../connessione.php';
 
 $id = intval($_POST['id']);
 
