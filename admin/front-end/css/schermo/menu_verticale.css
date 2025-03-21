@@ -14,19 +14,21 @@ body {
 .background-container {
     position: fixed;
     left: 0;
-    margin-top: 60%;
+    top: 0;
     width: 100%;
-    height: 50%;
+    height: 100%;
     background-image: url(../../../../img/david/solo_david_verde.png);
-    background-size: contain;
+    background-size: 50%; /* Reduce size to not overwhelm the content */
     background-repeat: no-repeat;
     background-position: center bottom;
-    z-index: 1;
+    z-index: -1; /* Place it behind all content, not just behind z-index 2 */
+    opacity: 0.3; /* Make it more subtle */
+    pointer-events: none; /* Ensures clicks pass through to content */
 }
 
 .content {
     position: relative;
-    z-index: 2; /* Ensure content appears above background */
+    z-index: 1; /* Ensure content appears above background */
 }
 
 .logodavid {
@@ -82,7 +84,7 @@ body {
 .product-name {
     font-family: 'Cormorant Upright', serif;
     font-weight: 700; /* Bold for Italian name */
-    font-size: 1.25rem;
+    font-size: 150%;
     margin-bottom: 5px;
 }
 
@@ -90,7 +92,7 @@ body {
     font-family: 'Cormorant Upright', serif;
     font-weight: 600; /* Medium bold for English name */
     font-style: italic;
-    font-size: 1rem;
+    font-size: 130%;
     margin-bottom: 8px;
     color: #555;
 }
@@ -111,7 +113,7 @@ body {
 
 .product-ingredients {
     font-family: 'Cormorant Upright', serif;
-    font-size: 0.9rem;
+    font-size: 130%;
     font-style: italic;
     color: #666;
     margin-top: 5px;
@@ -119,7 +121,7 @@ body {
 
 .ingredients-divider {
     font-family: 'Cormorant Upright', serif;
-    font-size: 0.9rem;
+    font-size: 110%;
     display: flex;
     align-items: center;
     margin: 10px 0;
