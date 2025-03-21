@@ -58,8 +58,8 @@
     
     // Mostra le sezioni in base ai prodotti disponibili
     showProductSection($prodotti_by_tipo['gelato'], 'Gelati / Ice Creams', '../../../../img/tipologie/mini_gelato.png');
-    showProductSection($prodotti_by_tipo['granita'], 'Granite / Slushes', '../../../../img/tipologie/mini_granita.png');
-    showProductSection($prodotti_by_tipo['semifreddo'], 'Semifreddi / Frozen Desserts', '../../../../img/tipologie/mini_semifreddo.png');
+    showProductSection($prodotti_by_tipo['granita'], 'Granite / Slushes');
+    showProductSection($prodotti_by_tipo['semifreddo'], 'Semifreddi / Frozen Desserts');
     ?>
   </div>
   <script src="../../../js/schermo/menu_verticale.js"></script>

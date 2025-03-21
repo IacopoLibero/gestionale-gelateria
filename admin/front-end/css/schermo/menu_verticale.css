@@ -21,7 +21,7 @@ body {
     background-size: 50%; /* Reduce size to not overwhelm the content */
     background-repeat: no-repeat;
     background-position: center bottom;
-    z-index: -1; /* Place it behind all content, not just behind z-index 2 */
+    z-index: 2; /* Place it behind all content, not just behind z-index 2 */
     opacity: 0.3; /* Make it more subtle */
     pointer-events: none; /* Ensures clicks pass through to content */
 }
