@@ -64,7 +64,7 @@
 .actions {
     margin-top: 30px;
     display: flex;
-    justify-content: center; /* Changed from flex-end to center */
+    justify-content: center;
 }
 
 .btn {
@@ -246,6 +246,46 @@
 
 .submit-button:hover {
   background-color: #190a3a;
+}
+
+/* Button styling from new_prodouct.css */
+.submit-button {
+    /* Variables */
+    --button_radius: 0.75em;
+    --button_color: #e8e8e8;
+    --button_outline_color: #3b40ddc7;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--button_radius);
+    background: var(--button_outline_color);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.button_top {
+    display: block;
+    margin-left: 5px;
+    margin-right: 5px;
+    box-sizing: border-box;
+    border: 2px solid var(--button_outline_color);
+    border-radius: var(--button_radius);
+    padding: 0.75em 1.5em;
+    background: var(--button_color);
+    color: var(--button_outline_color);
+    transform: translateY(-0.2em);
+    transition: transform 0.1s ease;
+}
+
+.submit-button:hover .button_top {
+    /* Pull the button upwards when hovered */
+    transform: translateY(-0.33em);
+}
+
+.submit-button:active .button_top {
+    /* Push the button downwards when pressed */
+    transform: translateY(0);
 }
 
 @media (max-width: 768px) {
