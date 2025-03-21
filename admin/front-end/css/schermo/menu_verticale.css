@@ -116,7 +116,7 @@ body {
 
 /* Spacer for when no icons are present */
 .product-icons-spacer {
-    height: 15px; /* Half the height of icon area to provide a nice gap */
+    height: 29px; /* Match icon height (24px) + margin-bottom (5px) */
     margin-bottom: 5px;
 }
 
