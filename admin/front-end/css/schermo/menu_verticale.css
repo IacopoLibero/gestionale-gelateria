@@ -117,6 +117,13 @@ body {
     font-style: italic;
     color: #666;
     margin-top: 5px;
+    min-height: 1.5em; /* Garantisce uno spazio minimo per gli ingredienti */
+}
+
+.empty-ingredients {
+    height: 0; /* Non occupa spazio ma mantiene la struttura */
+    margin: 0;
+    padding: 0;
 }
 
 .ingredients-divider {
@@ -126,6 +133,7 @@ body {
     align-items: center;
     margin: 10px 0;
     color: #666;
+    height: 1.5em; /* Altezza fissa per allineamento */
 }
 
 .ingredients-divider::before,
