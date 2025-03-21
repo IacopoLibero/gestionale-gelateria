@@ -43,14 +43,17 @@ if (isset($_GET['nome']) && !empty($_GET['nome'])) {
                 WHERE nome = ?";
         
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssiiiiiisi", $nome_inglese, $ingredienti, $tipo, 
-                          $km0, $vegano, $slowFood, $bio, 
-                          $innovativo, $ingredienti_visibili, $stato, $nome);
+        // Fixed type string: "s" for strings, "i" for integers
+        $stmt->bind_param("sssiiiiiiis", $nome_inglese, $ingredienti, $tipo, 
+                         $km0, $vegano, $slowFood, $bio, 
+                         $innovativo, $ingredienti_visibili, $stato, $nome);
         
         if ($stmt->execute()) {
-            $success = "Prodotto aggiornato con successo!";
+            $_SESSION['success_message'] = "Prodotto aggiornato con successo!";
+            header("Location: " . $_SERVER['PHP_SELF'] . "?nome=" . urlencode($nome));
+            exit;
         } else {
-            $error = "Errore durante l'aggiornamento del prodotto: " . $conn->error;
+            $_SESSION['error_message'] = "Errore durante l'aggiornamento del prodotto: " . $conn->error;
         }
         
         $stmt->close();
@@ -83,6 +86,7 @@ if (isset($_GET['nome']) && !empty($_GET['nome'])) {
   <title>Modifica Prodotto - Gestionale Gelateria</title>
   <link rel="stylesheet" href="../../../front-end/css/dashboard.css">
   <link rel="stylesheet" href="../../../front-end/css/schermo/catalogo_prodotti.css">
+  <link rel="stylesheet" href="../../../front-end/css/schermo/new_prodouct.css">
 </head>
 <body>
   <nav id="sidebar">
@@ -149,100 +153,214 @@ if (isset($_GET['nome']) && !empty($_GET['nome'])) {
     </ul>
   </nav>
   <main>
-    <div class="container">
-      <h2>Modifica Prodotto</h2>
+    <h2 id="titolo" class="container">Modifica Prodotto</h2>
+    
+    <!-- Notification system -->
+    <?php if(isset($_SESSION['success_message'])): ?>
+      <div class="notification-container">
+        <div class="notification success-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">✓</span>
+            <span><?php echo $_SESSION['success_message']; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+      <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
+    
+    <?php if(isset($_SESSION['error_message'])): ?>
+      <div class="notification-container">
+        <div class="notification error-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">⚠</span>
+            <span><?php echo $_SESSION['error_message']; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+      <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
+    
+    <?php if (!empty($error)): ?>
+      <div class="notification-container">
+        <div class="notification error-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">⚠</span>
+            <span><?php echo $error; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+    <?php endif; ?>
+    
+    <?php if (empty($error) || !empty($success)): ?>
+      <div class="container">
+        <h2 class="h2class">Nome e ingredienti</h2>
+        <form method="POST" action="edit_prodotto.php?nome=<?php echo urlencode($nome); ?>">
+          <div class="name-columns">
+            <div class="column">
+              <label for="nome_ita">NOME DEL PRODOTTO (non modificabile)</label>
+              <textarea id="nome_ita" readonly class="auto-resize"><?php echo htmlspecialchars($product['nome']); ?></textarea>
+            </div>
+            <div class="column">
+              <label for="nome_inglese">NOME DEL PRODOTTO (INGLESE)</label>
+              <textarea name="nome_inglese" id="nome_inglese" class="auto-resize" required><?php echo htmlspecialchars($product['nome_inglese']); ?></textarea>
+            </div>
+          </div>
+
+          <div>
+            <label for="ingredienti">INGREDIENTI PRINCIPALI</label>
+            <textarea name="ingredienti" id="ingredienti" class="auto-resize"><?php echo htmlspecialchars($product['ingredienti']); ?></textarea>
+          </div>
+        </div>
       
-      <?php if (!empty($error)): ?>
-        <div class="alert alert-danger"><?php echo $error; ?></div>
-      <?php endif; ?>
-      
-      <?php if (!empty($success)): ?>
-        <div class="alert alert-success"><?php echo $success; ?></div>
-      <?php endif; ?>
-      
-      <?php if (empty($error) || !empty($success)): ?>
-        <form class="edit-form" method="POST" action="edit_prodotto.php?nome=<?php echo urlencode($nome); ?>">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="nome">Nome (non modificabile)</label>
-              <input type="text" id="nome" value="<?php echo htmlspecialchars($product['nome']); ?>" readonly>
+        <div class="container">
+          <h2 class="h2class">Opzioni</h2>
+          <div class="checkbox-columns">
+            <div class="column">
+              <div class="checkbox-wrapper">
+                <input type="checkbox" class="check" id="ingredienti_visibili" name="ingredienti_visibili" <?php echo $product['ingredienti_visibili'] ? 'checked' : ''; ?>>
+                <label for="ingredienti_visibili" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Ingredienti visibili nel monitor</span>
+                </label>
+              </div>
+              <div class="checkbox-wrapper">
+                <input type="checkbox" class="check" id="km0" name="km0" <?php echo $product['km0'] ? 'checked' : ''; ?>>
+                <label for="km0" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Km 0</span>
+                </label>
+              </div>
+              <div class="checkbox-wrapper">
+                <input type="checkbox" class="check" id="vegano" name="vegano" <?php echo $product['vegano'] ? 'checked' : ''; ?>>
+                <label for="vegano" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Vegano</span>
+                </label>
+              </div>
+              <div class="checkbox-wrapper">
+                <input type="checkbox" class="check" id="SlowFood" name="SlowFood" <?php echo $product['SlowFood'] ? 'checked' : ''; ?>>
+                <label for="SlowFood" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Slow Food</span>
+                </label>
+              </div>
             </div>
-            
-            <div class="form-group">
-              <label for="nome_inglese">Nome Inglese</label>
-              <input type="text" id="nome_inglese" name="nome_inglese" value="<?php echo htmlspecialchars($product['nome_inglese']); ?>" required>
+            <div class="column">
+              <div class="checkbox-wrapper">
+                <input type="checkbox" class="check" id="innovativo" name="innovativo" <?php echo $product['innovativo'] ? 'checked' : ''; ?>>
+                <label for="innovativo" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Innovativo</span>
+                </label>
+              </div>
+              <div class="checkbox-wrapper">
+                <input type="checkbox" class="check" id="bio" name="bio" <?php echo $product['bio'] ? 'checked' : ''; ?>>
+                <label for="bio" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Bio</span>
+                </label>
+              </div>
+              <div class="checkbox-wrapper">
+                <input type="checkbox" class="check" id="stato" name="stato" <?php echo $product['stato'] ? 'checked' : ''; ?>>
+                <label for="stato" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Prodotto attivo</span>
+                </label>
+              </div>
+              <div class="form-field">
+                <select name="tipo" id="tipo" required>
+                  <option value="" disabled>TIPO DI PRODOTTO</option>
+                  <option value="gelato" <?php echo $product['tipo'] == 'gelato' ? 'selected' : ''; ?>>Gelato</option>
+                  <option value="granita" <?php echo $product['tipo'] == 'granita' ? 'selected' : ''; ?>>Granita</option>
+                  <option value="semifreddo" <?php echo $product['tipo'] == 'semifreddo' ? 'selected' : ''; ?>>Semifreddo</option>
+                </select>
+              </div>
             </div>
           </div>
-          
-          <div class="form-group">
-            <label for="ingredienti">Ingredienti</label>
-            <textarea id="ingredienti" name="ingredienti"><?php echo htmlspecialchars($product['ingredienti']); ?></textarea>
-          </div>
-          
-          <div class="form-row">
-            <div class="form-group">
-              <label for="tipo">Tipo</label>
-              <select id="tipo" name="tipo" required>
-                <option value="gelato" <?php echo $product['tipo'] == 'gelato' ? 'selected' : ''; ?>>Gelato</option>
-                <option value="granita" <?php echo $product['tipo'] == 'granita' ? 'selected' : ''; ?>>Granita</option>
-                <option value="semifreddo" <?php echo $product['tipo'] == 'semifreddo' ? 'selected' : ''; ?>>Semifreddo</option>
-              </select>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label>Caratteristiche:</label>
-            <div class="checkbox-group">
-              <label>
-                <input type="checkbox" name="km0" <?php echo $product['km0'] ? 'checked' : ''; ?>>
-                Km0
-              </label>
-              
-              <label>
-                <input type="checkbox" name="vegano" <?php echo $product['vegano'] ? 'checked' : ''; ?>>
-                Vegano
-              </label>
-              
-              <label>
-                <input type="checkbox" name="SlowFood" <?php echo $product['SlowFood'] ? 'checked' : ''; ?>>
-                Slow Food
-              </label>
-              
-              <label>
-                <input type="checkbox" name="bio" <?php echo $product['bio'] ? 'checked' : ''; ?>>
-                Bio
-              </label>
-              
-              <label>
-                <input type="checkbox" name="innovativo" <?php echo $product['innovativo'] ? 'checked' : ''; ?>>
-                Innovativo
-              </label>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <div class="checkbox-group">
-              <label>
-                <input type="checkbox" name="ingredienti_visibili" <?php echo $product['ingredienti_visibili'] ? 'checked' : ''; ?>>
-                Mostra ingredienti
-              </label>
-              
-              <label>
-                <input type="checkbox" name="stato" <?php echo $product['stato'] ? 'checked' : ''; ?>>
-                Prodotto attivo
-              </label>
-            </div>
-          </div>
-          
-          <div class="form-actions">
-            <a href="catalogo_prodotti.php" class="btn cancel-btn">Annulla</a>
-            <button type="submit" class="save-btn">Salva Modifiche</button>
+          <div class="button-container">
+            <a href="catalogo_prodotti.php" class="cancel-button">
+              <span class="button_top">Annulla</span>
+            </a>
+            <button type="submit" class="submit-button">
+              <span class="button_top">Salva Modifiche</span>
+            </button>
           </div>
         </form>
-      <?php endif; ?>
-    </div>
+      </div>
+    <?php endif; ?>
   </main>
   
   <script src="../../../js/dashboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Auto-resize textareas
+      const textareas = document.querySelectorAll('.auto-resize');
+      textareas.forEach(textarea => {
+        textarea.addEventListener('input', function() {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+        // Trigger on load
+        textarea.dispatchEvent(new Event('input'));
+      });
+      
+      // Close notification
+      window.closeNotification = function() {
+        const notification = document.getElementById('notification');
+        if (notification) {
+          notification.style.opacity = '0';
+          setTimeout(() => {
+            notification.parentElement.style.display = 'none';
+          }, 300);
+        }
+      };
+      
+      // Auto-dismiss success notification after 5 seconds
+      const successNotification = document.querySelector('.success-notification');
+      if (successNotification) {
+        setTimeout(() => {
+          closeNotification();
+        }, 5000);
+      }
+    });
+  </script>
 </body>
 </html>

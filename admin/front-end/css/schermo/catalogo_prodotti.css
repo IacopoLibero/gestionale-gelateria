@@ -190,6 +190,33 @@
     border: 1px solid #ebccd1;
 }
 
+/* Cancel Button Style for Edit Form */
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+  text-decoration: none;
+  margin-right: 15px;
+  display: inline-block;
+}
+
+.cancel-button .button_top {
+  display: block;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.cancel-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Fix for button container in edit form */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 25px;
+}
+
 @media (max-width: 768px) {
     .product-grid {
         grid-template-columns: 1fr;
