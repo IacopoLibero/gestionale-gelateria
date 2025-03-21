@@ -8,7 +8,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 }
 
 // Include database connection
-require_once '../../../../../connessione.php';
+require_once '../../../connessione.php';
 
 // Fetch all products from database
 $sql = "SELECT * FROM prodotto ORDER BY nome";
