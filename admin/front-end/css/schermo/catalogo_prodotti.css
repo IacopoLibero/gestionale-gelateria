@@ -11,16 +11,24 @@
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 3px solid #522da8; /* Purple accent border to match site theme */
 }
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(82,45,168,0.2); /* Purple-tinted shadow on hover */
+}
+
+.product-card h3 {
+    color: #522da8; /* Purple headers to match site theme */
+    margin-top: 0;
+    font-weight: 600;
 }
 
 .product-card.inactive {
     opacity: 0.7;
     background-color: #f8f8f8;
+    border-top-color: #999; /* Grayed out border for inactive items */
 }
 
 .status-active {
@@ -40,7 +48,7 @@
 }
 
 .edit-btn {
-    background-color: #2196F3;
+    background-color: #522da8; /* Match the site's theme color */
     color: white;
     padding: 8px 15px;
     border-radius: 4px;
@@ -50,13 +58,13 @@
 }
 
 .edit-btn:hover {
-    background-color: #0b7dda;
+    background-color: #190a3a; /* Darker shade on hover, matching submit button */
 }
 
 .actions {
     margin-top: 30px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center; /* Changed from flex-end to center */
 }
 
 .btn {
@@ -68,7 +76,7 @@
 }
 
 .add-btn {
-    background-color: #4CAF50;
+    background-color: #522da8;
     color: white;
 }
 
@@ -215,6 +223,29 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 25px;
+}
+
+/* Style for submit button to match the add-btn */
+.submit-button {
+  background-color: #522da8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  padding: 0;
+  margin-left: 15px;
+}
+
+.submit-button .button_top {
+  display: block;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.submit-button:hover {
+  background-color: #190a3a;
 }
 
 @media (max-width: 768px) {
