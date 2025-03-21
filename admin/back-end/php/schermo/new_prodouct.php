@@ -31,11 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             throw new Exception("Tipo di prodotto non valido.");
         }
         
-        // Prepare SQL statement to insert data
+        // Prepare SQL statement to insert data - modified to use new schema
         $sql = "INSERT INTO prodotto (nome, nome_inglese, ingredienti, tipo, km0, vegano, SlowFood, bio, innovativo, ingredienti_visibili, stato) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $conn->prepare($sql);
+        // Notice we don't need to include the ID as it's auto-incremented
         $stmt->bind_param("ssssiiiiiis", $nome_ita, $nome_eng, $ingredienti, $tipo, $km0, $vegano, $slowFood, $bio, $innovativo, $ingredienti_visibili, $stato);
         
         // Execute query

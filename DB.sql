@@ -3,7 +3,8 @@ CREATE TABLE utente(
     password VARCHAR(255) NOT NULL
 );
 CREATE TABLE prodotto(
-    nome VARCHAR(50) NOT NULL PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
     nome_inglese VARCHAR(50) NOT NULL,
     ingredienti VARCHAR(255),
     tipo ENUM('gelato', 'granita', 'semifreddo') NOT NULL,

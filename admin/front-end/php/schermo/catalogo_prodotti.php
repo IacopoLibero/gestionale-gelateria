@@ -97,6 +97,7 @@ $result = $conn->query($sql);
         <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
+                $id = $row['id'];
                 $nome = htmlspecialchars($row['nome']);
                 $tipo = htmlspecialchars($row['tipo']);
                 $stato = $row['stato'] ? 'Attivo' : 'Disattivo';
@@ -107,7 +108,7 @@ $result = $conn->query($sql);
                 echo "<p>Tipo: $tipo</p>";
                 echo "<p>Stato: <span class='status-$statoClass'>$stato</span></p>";
                 echo "<div class='card-actions'>";
-                echo "<a href='edit_prodotto.php?nome=$nome' class='edit-btn'>Modifica</a>";
+                echo "<a href='edit_prodotto.php?id=$id' class='edit-btn'>Modifica</a>";
                 echo "</div>";
                 echo "</div>";
             }

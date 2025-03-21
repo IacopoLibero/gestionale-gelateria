@@ -13,15 +13,16 @@ require_once '../../../../connessione.php';
 // Initialize variables
 $error = '';
 $success = '';
-$nome = '';
+$id = '';
 
-// Check if product name was provided in URL
-if (isset($_GET['nome']) && !empty($_GET['nome'])) {
-    $nome = $_GET['nome'];
+// Check if product ID was provided in URL
+if (isset($_GET['id']) && !empty($_GET['id'])) {
+    $id = intval($_GET['id']);
     
     // If form is submitted, process the update
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Sanitize and validate input
+        $nome = htmlspecialchars($_POST['nome']);
         $nome_inglese = htmlspecialchars($_POST['nome_inglese']);
         $ingredienti = htmlspecialchars($_POST['ingredienti']);
         $tipo = $_POST['tipo'];
@@ -37,20 +38,20 @@ if (isset($_GET['nome']) && !empty($_GET['nome'])) {
         
         // Update the product in the database
         $sql = "UPDATE prodotto 
-                SET nome_inglese = ?, ingredienti = ?, tipo = ?, 
+                SET nome = ?, nome_inglese = ?, ingredienti = ?, tipo = ?, 
                     km0 = ?, vegano = ?, SlowFood = ?, bio = ?, 
                     innovativo = ?, ingredienti_visibili = ?, stato = ? 
-                WHERE nome = ?";
+                WHERE id = ?";
         
         $stmt = $conn->prepare($sql);
         // Fixed type string: "s" for strings, "i" for integers
-        $stmt->bind_param("sssiiiiiiis", $nome_inglese, $ingredienti, $tipo, 
+        $stmt->bind_param("ssssiiiiiiii", $nome, $nome_inglese, $ingredienti, $tipo, 
                          $km0, $vegano, $slowFood, $bio, 
-                         $innovativo, $ingredienti_visibili, $stato, $nome);
+                         $innovativo, $ingredienti_visibili, $stato, $id);
         
         if ($stmt->execute()) {
             $_SESSION['success_message'] = "Prodotto aggiornato con successo!";
-            header("Location: " . $_SERVER['PHP_SELF'] . "?nome=" . urlencode($nome));
+            header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $id);
             exit;
         } else {
             $_SESSION['error_message'] = "Errore durante l'aggiornamento del prodotto: " . $conn->error;
@@ -60,9 +61,9 @@ if (isset($_GET['nome']) && !empty($_GET['nome'])) {
     }
     
     // Fetch product data from database
-    $sql = "SELECT * FROM prodotto WHERE nome = ?";
+    $sql = "SELECT * FROM prodotto WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $nome);
+    $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
     
@@ -74,7 +75,7 @@ if (isset($_GET['nome']) && !empty($_GET['nome'])) {
     
     $stmt->close();
 } else {
-    $error = "Nome del prodotto non specificato!";
+    $error = "ID del prodotto non specificato!";
 }
 ?>
 
@@ -197,11 +198,11 @@ if (isset($_GET['nome']) && !empty($_GET['nome'])) {
     <?php if (empty($error) || !empty($success)): ?>
       <div class="container">
         <h2 class="h2class">Nome e ingredienti</h2>
-        <form method="POST" action="edit_prodotto.php?nome=<?php echo urlencode($nome); ?>">
+        <form method="POST" action="edit_prodotto.php?id=<?php echo $id; ?>">
           <div class="name-columns">
             <div class="column">
-              <label for="nome_ita">NOME DEL PRODOTTO (non modificabile)</label>
-              <textarea id="nome_ita" readonly class="auto-resize"><?php echo htmlspecialchars($product['nome']); ?></textarea>
+              <label for="nome">NOME DEL PRODOTTO</label>
+              <textarea name="nome" id="nome" class="auto-resize" required><?php echo htmlspecialchars($product['nome']); ?></textarea>
             </div>
             <div class="column">
               <label for="nome_inglese">NOME DEL PRODOTTO (INGLESE)</label>
@@ -316,7 +317,7 @@ if (isset($_GET['nome']) && !empty($_GET['nome'])) {
             </div>
           </div>
           <div class="button-container">
-            <a href="catalogo_prodotti.php" class="cancel-button">
+            <a href="catalogo_prodotti.php" class="submit-button">
               <span class="button_top">Annulla</span>
             </a>
             <button type="submit" class="submit-button">
