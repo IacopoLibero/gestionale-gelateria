@@ -1,10 +1,41 @@
 <?php
 session_start();
+require_once 'connessione.php';
 
-// Redirect se l'utente è già loggato
+// Controlla se l'utente è già loggato
 if (isset($_SESSION['username']) && isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header("Location: admin/dashboard.php");
     exit();
+}
+
+// Controlla se esiste il cookie "remember_me"
+if (isset($_COOKIE['remember_me'])) {
+    $token = $_COOKIE['remember_me'];
+    
+    // Verifica il token nel database
+    $sql = "SELECT r.*, u.username FROM remember_tokens r 
+            JOIN utente u ON r.username = u.username 
+            WHERE r.token = ? AND r.token_expires > NOW()";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 1) {
+        $tokenData = $result->fetch_assoc();
+        
+        // Login automatico
+        $_SESSION['username'] = $tokenData['username'];
+        $_SESSION['loggedin'] = true;
+        $_SESSION['login_time'] = time();
+        
+        // Reindirizza alla dashboard
+        header("Location: admin/dashboard.php");
+        exit();
+    } else {
+        // Token non valido o scaduto, rimuovi il cookie
+        setcookie("remember_me", "", time() - 3600, "/");
+    }
 }
 ?>
 <!DOCTYPE html>
