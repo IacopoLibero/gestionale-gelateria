@@ -255,6 +255,15 @@ main p {
         margin-right: auto;
     }
 
+    .form-group input {
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid var(--line-clr);
+        background-color: var(--base-clr);
+        color: var(--text-clr);
+        font-family: inherit;
+    }
+
     /* Sidebar sempre in modalità compatta su mobile */
     #sidebar {
         width: 60px;
