@@ -22,7 +22,7 @@ $result = $conn->query($sql);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestionale Gelateria - Nuova categoria</title>
   <link rel="stylesheet" href="../../../front-end/css/dashboard.css">
-  <link rel="stylesheet" href="../../../front-end/css/schermo/catalogo_prodotti.css">
+  <link rel="stylesheet" href="../../../front-end/css/schermo/new_prodouct.css">
 </head>
 <body>
   <nav id="sidebar">
@@ -143,6 +143,6 @@ $result = $conn->query($sql);
   </main>
   
   <script src="../../../js/dashboard.js"></script>
-  <script src="../../../js/schermo/"></script>
+  <script src="../../../js/schermo/new_category.js"></script>
 </body>
 </html>
