@@ -6,6 +6,23 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../index.php");
     exit;
 }
+
+// Check for password or username change messages
+$passwordMessage = '';
+if (isset($_SESSION['password_message'])) {
+    $passwordMessage = $_SESSION['password_message'];
+    $messageClass = isset($_SESSION['message_class']) ? $_SESSION['message_class'] : 'success';
+    unset($_SESSION['password_message']);
+    unset($_SESSION['message_class']);
+}
+
+$usernameMessage = '';
+if (isset($_SESSION['username_message'])) {
+    $usernameMessage = $_SESSION['username_message'];
+    $usernameMessageClass = isset($_SESSION['username_message_class']) ? $_SESSION['username_message_class'] : 'success';
+    unset($_SESSION['username_message']);
+    unset($_SESSION['username_message_class']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +100,49 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <main>
     <div class="container">
       <h2>Dashboard Amministratore</h2>
-      <p>Benvenuto nel sistema di gestione della gelateria, <?php echo htmlspecialchars($_SESSION['username']); ?>. Da qui puoi gestire i prodotti, gli ordini e i clienti.</p>
+      <p>Benvenuto nel sistema di gestione della gelateria, <?php echo htmlspecialchars($_SESSION['username']); ?>. <br>Da qui puoi gestire i prodotti, gli ordini e i clienti.</p>
+    </div>
+    
+    <div class="container">
+      <h2>Cambia Nome Utente</h2>
+      <?php if(!empty($usernameMessage)): ?>
+        <div class="alert alert-<?php echo $usernameMessageClass; ?>">
+          <?php echo $usernameMessage; ?>
+        </div>
+      <?php endif; ?>
+      <form action="./back-end/php/change_password.php" method="POST" class="password-form">
+        <input type="hidden" name="action" value="change_username">
+        <div class="form-group">
+          <label for="new_username">Nuovo Nome Utente</label>
+          <input type="text" id="new_username" name="new_username" required>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Cambia Nome Utente</button>
+        </div>
+      </form>
+    </div>
+    
+    <div class="container">
+      <h2>Cambia Password</h2>
+      <?php if(!empty($passwordMessage)): ?>
+        <div class="alert alert-<?php echo $messageClass; ?>">
+          <?php echo $passwordMessage; ?>
+        </div>
+      <?php endif; ?>
+      <form action="./back-end/php/change_password.php" method="POST" class="password-form">
+        <input type="hidden" name="action" value="change_password">
+        <div class="form-group">
+          <label for="new_password">Nuova Password</label>
+          <input type="password" id="new_password" name="new_password" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm_password">Ripeti Password</label>
+          <input type="password" id="confirm_password" name="confirm_password" required>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Cambia Password</button>
+        </div>
+      </form>
     </div>
   </main>
   
