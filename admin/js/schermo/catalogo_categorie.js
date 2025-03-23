@@ -59,4 +59,13 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(closeNotification, 5000);
         }
     }
+    
+    // Add event listeners to disabled delete buttons
+    const disabledDeleteButtons = document.querySelectorAll('.delete-btn[disabled]');
+    disabledDeleteButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            showCategoryDeleteError();
+        });
+    });
 });
