@@ -6,6 +6,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../index.php");
     exit;
 }
+
+// Include database connection
+require_once '../../../../connessione.php';
+
+// Fetch all products from database
+$sql = "SELECT * FROM prodotto ORDER BY nome";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -13,9 +20,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestionale Gelateria - Menu digitale</title>
+  <title>Gestionale Gelateria - Nuova categoria</title>
   <link rel="stylesheet" href="../../../front-end/css/dashboard.css">
-  <link rel="stylesheet" href="../../../front-end/css/menu/menu_digitale.css">
+  <link rel="stylesheet" href="../../../front-end/css/schermo/catalogo_prodotti.css">
 </head>
 <body>
   <nav id="sidebar">
@@ -40,10 +47,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="../schermo/catalogo_prodotti.php">Catalogo Prodotti</a></li>
-            <li><a href="../schermo/new_prodouct.php">Nuovo Prodotto</a></li>
-            <li><a href="../schermo/new_category.php">Nuova categoria</a></li>
-            <li><a href="../schermo/menu_verticale.php">Menu Verticale</a></li>
+            <li><a href="./catalogo_prodotti.php">Catalogo Prodotti</a></li>
+            <li><a href="./new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="./category.php">Nuova categoria</a></li></li>
+            <li><a href="./menu_verticale.php">Menu Verticale</a></li>
           </div>
         </ul>
       </li>
@@ -68,9 +75,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="./catalogo_digitale.php">Catalogo Digitale</a></li>
-            <li><a href="./new_prodouct.php">Nuovo Prodotto</a></li>
-            <li><a href="./menu_digitale.php">Menu Digitale</a></li>
+            <li><a href="../menu_digitale/catalogo_digitale.php">Catalogo Digitale</a></li>
+            <li><a href="../menu_digitale/new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="../menu_digitale/menu_digitale.php">Menu Digitale</a></li>
           </div>
         </ul>
       </li>
@@ -83,13 +90,59 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </ul>
   </nav>
   <main>
+  <h2 id="titolo" class="container">Nuova categoria</h2>
+    
+    <!-- Notification system -->
+    <?php if(isset($_SESSION['success_message'])): ?>
+      <div class="notification-container">
+        <div class="notification success-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">✓</span>
+            <span><?php echo $_SESSION['success_message']; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+      <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
+    
+    <?php if(isset($_SESSION['error_message'])): ?>
+      <div class="notification-container">
+        <div class="notification error-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">⚠</span>
+            <span><?php echo $_SESSION['error_message']; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+      <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
+    
     <div class="container">
-      <h2>Dashboard Amministratore</h2>
-      <p>Benvenuto nel sistema di gestione della gelateria, <?php echo htmlspecialchars($_SESSION['username']); ?>. Da qui puoi gestire i prodotti, gli ordini e i clienti.</p>
+      <h2 class="h2class">Nome</h2>
+      <form method="POST" action="../../../back-end/php/schermo/new_category.php">
+        <input type="hidden" name="form_type" value="category">
+        <div class="name-columns">
+          <div class="column">
+            <label for="category_nome_ita">NOME DELLA CATEGORIA</label>
+            <textarea name="category_nome_ita" id="category_nome_ita" placeholder="Nome" required class="auto-resize"></textarea>
+          </div>
+          <div class="column">
+            <label for="category_nome_eng">NOME DELLA CATEGORIA (INGLESE)</label>
+            <textarea name="category_nome_eng" id="category_nome_eng" placeholder="Name (Inglese)" required class="auto-resize"></textarea>
+          </div>
+        </div>
+        <div class="button-container">
+          <button type="submit" class="submit-button">
+            <span class="button_top">Aggiungi Categoria</span>
+          </button>
+        </div>
+      </form>
     </div>
   </main>
   
   <script src="../../../js/dashboard.js"></script>
-  <script src="../../../js/menu/menu_digitale.js"></script>
+  <script src="../../../js/schermo/"></script>
 </body>
 </html>

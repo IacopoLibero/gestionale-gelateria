@@ -13,7 +13,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestionale Gelateria - Dashboard</title>
+  <title>Gestionale Gelateria - Catalogo spot</title>
   <link rel="stylesheet" href="../../../front-end/css/dashboard.css">
   <link rel="stylesheet" href="../../../front-end/css/spot/catalogo_spot.css">
 </head>
