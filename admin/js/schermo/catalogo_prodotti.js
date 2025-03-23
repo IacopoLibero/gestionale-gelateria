@@ -23,4 +23,37 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1000);
         }, 3000);
     }
+
+    // Auto-close notification after 3 seconds if it exists
+    const notification = document.getElementById('notification');
+    if (notification) {
+        setTimeout(() => {
+            closeNotification();
+        }, 3000);
+    }
 });
+
+// Function to close notification
+function closeNotification() {
+    const notification = document.getElementById('notification');
+    if (notification) {
+        notification.style.opacity = '0';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 500);
+    }
+}
+
+// Add slide out animation
+document.head.insertAdjacentHTML('beforeend', `
+    <style>
+        @keyframes slideOut {
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    </style>
+`);

@@ -311,6 +311,72 @@
     transform: translateY(0);
 }
 
+/* Notification Styling */
+.notification-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.notification {
+  padding: 15px 20px;
+  margin: 0 auto 20px auto;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  max-width: 90%;
+  width: 100%;
+}
+
+.success-notification {
+  background-color: rgba(40, 167, 69, 0.2);
+  border-left: 4px solid #28a745;
+  color: #28a745;
+}
+
+.error-notification {
+  background-color: rgba(220, 53, 69, 0.2);
+  border-left: 4px solid #dc3545;
+  color: #dc3545;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.notification-icon {
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+.notification-close {
+  cursor: pointer;
+  font-size: 20px;
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0 0 0 10px;
+  margin-left: 10px;
+  height: auto;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 @media (max-width: 768px) {
     .product-grid {
         grid-template-columns: 1fr;

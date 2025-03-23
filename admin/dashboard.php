@@ -107,11 +107,7 @@ if (isset($_SESSION['username_message'])) {
     
     <div class="container">
       <h2>Cambia Nome Utente</h2>
-      <?php if(!empty($usernameMessage)): ?>
-        <div class="alert alert-<?php echo $usernameMessageClass; ?>">
-          <?php echo $usernameMessage; ?>
-        </div>
-      <?php endif; ?>
+      
       <form action="./back-end/php/change_password.php" method="POST" class="password-form">
         <input type="hidden" name="action" value="change_username">
         <div class="form-group">
@@ -122,15 +118,17 @@ if (isset($_SESSION['username_message'])) {
           <button type="submit" class="btn-primary">Cambia Nome Utente</button>
         </div>
       </form>
+
+      <?php if(!empty($usernameMessage)): ?>
+        <div class="alert alert-<?php echo $usernameMessageClass; ?>">
+          <?php echo $usernameMessage; ?>
+        </div>
+      <?php endif; ?>
     </div>
     
     <div class="container">
       <h2>Cambia Password</h2>
-      <?php if(!empty($passwordMessage)): ?>
-        <div class="alert alert-<?php echo $messageClass; ?>">
-          <?php echo $passwordMessage; ?>
-        </div>
-      <?php endif; ?>
+      
       <form action="./back-end/php/change_password.php" method="POST" class="password-form">
         <input type="hidden" name="action" value="change_password">
         <div class="form-group">
@@ -145,6 +143,12 @@ if (isset($_SESSION['username_message'])) {
           <button type="submit" class="btn-primary">Cambia Password</button>
         </div>
       </form>
+
+      <?php if(!empty($passwordMessage)): ?>
+        <div class="alert alert-<?php echo $messageClass; ?>">
+          <?php echo $passwordMessage; ?>
+        </div>
+      <?php endif; ?>
     </div>
   </main>
   

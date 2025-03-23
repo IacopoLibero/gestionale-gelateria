@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 notification.parentNode.removeChild(notification);
                 // Redirect to catalog page after notification is removed
-                window.location.href = ".catalogo_prodotti.php";
+                window.location.href = "./catalogo_prodotti.php";
             }, 500);
         }
     }

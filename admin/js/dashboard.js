@@ -71,4 +71,26 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Chiudi i sottomenu quando si ridimensiona la finestra
     window.addEventListener('resize', closeAllSubMenus);
+    
+    // Funzione per nascondere le notifiche dopo 3 secondi
+    function setupNotificationsTimeout() {
+        const notifications = document.querySelectorAll('.alert');
+        if (notifications.length > 0) {
+            notifications.forEach(notification => {
+                setTimeout(() => {
+                    // Fade out effect
+                    notification.style.transition = 'opacity 0.5s';
+                    notification.style.opacity = '0';
+                    
+                    // Remove from DOM after fade out completes
+                    setTimeout(() => {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 3000);
+            });
+        }
+    }
+    
+    // Esegui la funzione per nascondere le notifiche
+    setupNotificationsTimeout();
 });
