@@ -8,7 +8,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 }
 
 // Include database connection
-require_once '../../../../../connessione.php';
+require_once '../../../../connessione.php';
 
 // Check if ID is provided and is a valid number
 if (isset($_POST['id']) && is_numeric($_POST['id'])) {

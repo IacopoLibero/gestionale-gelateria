@@ -2,7 +2,7 @@
 /**
  * Utility functions for working with categories in the application
  */
-
+require_once '../../../../connessione.php';
 /**
  * Get all categories from the database
  *

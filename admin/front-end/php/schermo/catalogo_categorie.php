@@ -164,6 +164,6 @@ $result = $conn->query($sql);
   </main>
   
   <script src="../../../js/dashboard.js"></script>
-  <script src="../../../js/schermo/catalogo_prodotti.js"></script>
+  <script src="../../../js/schermo/catalogo_categorie.js"></script>
 </body>
 </html>
