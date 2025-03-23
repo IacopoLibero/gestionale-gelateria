@@ -7,16 +7,18 @@ document.addEventListener('DOMContentLoaded', function() {
             notification.style.opacity = '0';
             setTimeout(() => {
                 notification.parentNode.removeChild(notification);
+                // Redirect to catalog categories page after notification is removed
+                window.location.href = 'catalogo_categorie.php';
             }, 500);
         }
     }
 
-    // Auto-close notification after 5 seconds if it exists
+    // Auto-close notification after 3 seconds if it exists
     const notification = document.getElementById('notification');
     if (notification) {
         setTimeout(() => {
             closeNotification();
-        }, 5000);
+        }, 3000);
     }
 
     // Add event listener to close button
