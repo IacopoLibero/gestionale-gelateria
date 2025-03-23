@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['form_type']) && $_POST
     $conn->close();
     
     // Redirect back to the form page
-    header("Location: ../../../../front-end/php/schermo/new_category.php");
+    header("Location: ../../../front-end/php/schermo/new_category.php");
     exit;
 }
 ?>
