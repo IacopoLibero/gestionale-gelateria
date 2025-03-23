@@ -236,7 +236,7 @@ main p {
     border: 1px solid rgba(231, 76, 60, 0.3);
 }
 
-@media(max-width: 800px) {
+@media(max-width: 768px) {
     /* Resetta la media query precedente con una più semplice */
     body {
         grid-template-columns: auto 1fr; /* Mantiene il layout a colonne */
@@ -246,9 +246,13 @@ main p {
         padding: 15px;
     }
 
+    /* Ensure container remains visible on mobile */
     .container {
-        border: none;
-        padding: 10px;
+        width: 90%;
+        padding: 15px;
+        border: 1px solid #444;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     /* Sidebar sempre in modalità compatta su mobile */
