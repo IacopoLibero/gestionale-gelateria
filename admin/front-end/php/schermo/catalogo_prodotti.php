@@ -98,6 +98,34 @@ $result = $conn->query($sql);
       <h2>Catalogo Prodotti</h2>
       <p>Qui puoi visualizzare e gestire tutti i prodotti disponibili.</p>
     </div>
+    
+    <!-- Notification system -->
+    <?php if(isset($_SESSION['success_message'])): ?>
+      <div class="notification-container">
+        <div class="notification success-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">✓</span>
+            <span><?php echo $_SESSION['success_message']; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+      <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
+    
+    <?php if(isset($_SESSION['error_message'])): ?>
+      <div class="notification-container">
+        <div class="notification error-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">⚠</span>
+            <span><?php echo $_SESSION['error_message']; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+      <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
+    
     <div class="container">
       <div class="product-grid">
         <?php
