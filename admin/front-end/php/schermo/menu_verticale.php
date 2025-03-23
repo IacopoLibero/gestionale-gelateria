@@ -26,11 +26,15 @@
     }
     
     // Funzione per mostrare una sezione di prodotti
-    function showProductSection($products, $sectionTitle, $iconPath) {
+    function showProductSection($products, $sectionTitle, $iconPath = null) {
         if (empty($products)) return; // Non mostrare sezioni vuote
         
         echo '<div class="divider-with-text">';
-        echo '<hr><img src="' . $iconPath . '" class="gelatino">' . $sectionTitle . '<img class="gelatino" src="' . $iconPath . '"><hr>';
+        if ($iconPath) {
+            echo '<hr><img src="' . $iconPath . '" class="gelatino">' . $sectionTitle . '<img class="gelatino" src="' . $iconPath . '"><hr>';
+        } else {
+            echo '<hr>' . $sectionTitle . '<hr>';
+        }
         echo '</div>';
         
         echo '<div class="products-container">';
@@ -57,42 +61,21 @@
         }
         echo '</div>';
     }
-    // Funzione per mostrare una sezione di prodotti senza le icone
-    function showProductSectionNoImg($products, $sectionTitle) {
-      if (empty($products)) return; // Non mostrare sezioni vuote
-      
-      echo '<div class="divider-with-text">';
-      echo '<hr>' . $sectionTitle . '<hr>';
-      echo '</div>';
-      
-      echo '<div class="products-container">';
-      foreach ($products as $product) {
-        echo '<div class="product-item">';
-        echo '<div class="product-name">' . $product['nome'] . '</div>';
-        echo '<div class="product-name-en">' . $product['nome_inglese'] . '</div>';
+    
+    // Mostra le sezioni in base alle categorie disponibili
+    foreach ($categorie as $categoria) {
+        $nome = $categoria['nome'];
+        $nome_inglese = $categoria['nome_inglese'];
+        $display_name = ucfirst($nome) . " / " . ucfirst($nome_inglese);
         
-        // Mostrare le icone se presenti, altrimenti aggiungere spazio vuoto
-        $icons = showIcons($product);
-        if (!empty($icons)) {
-            echo '<div class="product-icons">' . $icons . '</div>';
-        } else {
-            echo '<div class="product-icons-spacer"></div>';
+        // Per gelato, usare la stessa icona come prima
+        $iconPath = ($nome == 'gelato') ? '../../../../img/tipologie/mini_gelato.png' : null;
+        
+        // Mostra la sezione solo se ci sono prodotti nella categoria
+        if (!empty($prodotti_by_tipo[$nome])) {
+            showProductSection($prodotti_by_tipo[$nome], $display_name, $iconPath);
         }
-        
-        // Mostrare gli ingredienti solo se visibili
-        if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
-          echo '<div class="ingredients-divider">ingredients</div>';
-          echo '<div class="product-ingredients">' . $product['ingredienti'] . '</div>';
-        }
-        
-        echo '</div>';
-      }
-      echo '</div>';
     }
-    // Mostra le sezioni in base ai prodotti disponibili
-    showProductSection($prodotti_by_tipo['gelato'], 'Gelati / Ice Creams', '../../../../img/tipologie/mini_gelato.png');
-    showProductSectionNoImg($prodotti_by_tipo['granita'], 'Granite / Slushes');
-    showProductSectionNoImg($prodotti_by_tipo['semifreddo'], 'Semifreddi / Frozen Desserts');
     ?>
   </div>
   <script src="../../../js/schermo/menu_verticale.js"></script>

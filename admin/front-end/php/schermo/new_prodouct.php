@@ -6,6 +6,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../index.php");
     exit;
 }
+
+// Include database connection to fetch categories
+require_once '../../../../connessione.php';
+
+// Fetch all categories from database
+$cat_sql = "SELECT * FROM categoria ORDER BY nome ASC";
+$cat_result = $conn->query($cat_sql);
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +48,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         <ul class="sub-menu">
           <div>
             <li><a href="../schermo/catalogo_prodotti.php">Catalogo Prodotti</a></li>
+            <li><a href="./catalogo_categorie.php">Catalogo Categorie</a></li>
             <li><a href="../schermo/new_prodouct.php">Nuovo Prodotto</a></li>
             <li><a href="../schermo/new_category.php">Nuova categoria</a></li>
             <li><a href="../schermo/menu_verticale.php">Menu Verticale</a></li>
@@ -225,9 +233,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             <div class="form-field">
               <select name="tipo" id="tipo" required>
                 <option value="" disabled selected>TIPO DI PRODOTTO</option>
-                <option value="gelato">Gelato</option>
-                <option value="granita">Granita</option>
-                <option value="semifreddo">Semifreddo</option>
+                <?php 
+                if ($cat_result->num_rows > 0) {
+                    while($cat = $cat_result->fetch_assoc()) {
+                        echo '<option value="' . htmlspecialchars($cat['nome']) . '">' . 
+                             htmlspecialchars(ucfirst($cat['nome'])) . '</option>';
+                    }
+                }
+                ?>
               </select>
             </div>
           </div>
@@ -245,3 +258,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <script src="../../../js/schermo/new_prodouct.js"></script>
 </body>
 </html>
+
+<?php
+// Close the database connection
+$conn->close();
+?>

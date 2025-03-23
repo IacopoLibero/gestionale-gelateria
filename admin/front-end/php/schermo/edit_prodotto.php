@@ -77,6 +77,10 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 } else {
     $error = "ID del prodotto non specificato!";
 }
+
+// After fetching the product data, fetch all categories
+$cat_sql = "SELECT * FROM categoria ORDER BY nome ASC";
+$cat_result = $conn->query($cat_sql);
 ?>
 
 <!DOCTYPE html>
@@ -113,8 +117,9 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <ul class="sub-menu">
           <div>
             <li><a href="./catalogo_prodotti.php">Catalogo Prodotti</a></li>
+            <li><a href="./catalogo_categorie.php">Catalogo Categorie</a></li>
             <li><a href="./new_prodouct.php">Nuovo Prodotto</a></li>
-            <li><a href="../schermo/new_category.php">Nuova categoria</a></li>
+            <li><a href="../new_category.php">Nuova categoria</a></li>
             <li><a href="./menu_verticale.php">Menu Verticale</a></li>
           </div>
         </ul>
@@ -310,9 +315,15 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
               <div class="form-field">
                 <select name="tipo" id="tipo" required>
                   <option value="" disabled>TIPO DI PRODOTTO</option>
-                  <option value="gelato" <?php echo $product['tipo'] == 'gelato' ? 'selected' : ''; ?>>Gelato</option>
-                  <option value="granita" <?php echo $product['tipo'] == 'granita' ? 'selected' : ''; ?>>Granita</option>
-                  <option value="semifreddo" <?php echo $product['tipo'] == 'semifreddo' ? 'selected' : ''; ?>>Semifreddo</option>
+                  <?php 
+                  if ($cat_result->num_rows > 0) {
+                      while($cat = $cat_result->fetch_assoc()) {
+                          $selected = ($product['tipo'] == $cat['nome']) ? 'selected' : '';
+                          echo '<option value="' . htmlspecialchars($cat['nome']) . '" ' . $selected . '>' . 
+                              htmlspecialchars(ucfirst($cat['nome'])) . '</option>';
+                      }
+                  }
+                  ?>
                 </select>
               </div>
             </div>

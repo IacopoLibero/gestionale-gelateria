@@ -10,11 +10,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 // Include database connection
 require_once '../../../../connessione.php';
 
-// Fetch all products with category info
-$sql = "SELECT p.*, c.nome_inglese as categoria_inglese 
-        FROM prodotto p 
-        JOIN categoria c ON p.tipo = c.nome 
-        ORDER BY p.nome";
+// Fetch all categories from database
+$sql = "SELECT c.*, (SELECT COUNT(*) FROM prodotto WHERE tipo = c.nome) as product_count FROM categoria c ORDER BY c.nome";
 $result = $conn->query($sql);
 ?>
 
@@ -23,7 +20,7 @@ $result = $conn->query($sql);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestionale Gelateria - Catalogo Prodotti</title>
+  <title>Gestionale Gelateria - Catalogo Categorie</title>
   <link rel="stylesheet" href="../../../front-end/css/dashboard.css">
   <link rel="stylesheet" href="../../../front-end/css/schermo/catalogo_prodotti.css">
 </head>
@@ -51,9 +48,9 @@ $result = $conn->query($sql);
         <ul class="sub-menu">
           <div>
             <li><a href="./catalogo_prodotti.php">Catalogo Prodotti</a></li>
-            <li><a href="./catalogo_categorie.php">Catalogo Categorie</a></li>
             <li><a href="./new_prodouct.php">Nuovo Prodotto</a></li>
             <li><a href="./new_category.php">Nuova categoria</a></li>
+            <li><a href="./catalogo_categorie.php">Catalogo Categorie</a></li>
             <li><a href="./menu_verticale.php">Menu Verticale</a></li>
           </div>
         </ul>
@@ -95,8 +92,35 @@ $result = $conn->query($sql);
   </nav>
   <main>
     <div class="container">
-      <h2>Catalogo Prodotti</h2>
-      <p>Qui puoi visualizzare e gestire tutti i prodotti disponibili.</p>
+      <h2>Catalogo Categorie</h2>
+      <p>Qui puoi visualizzare e gestire tutte le categorie disponibili.</p>
+      
+      <!-- Notification system -->
+      <?php if(isset($_SESSION['success_message'])): ?>
+        <div class="notification-container">
+          <div class="notification success-notification" id="notification">
+            <div class="notification-content">
+              <span class="notification-icon">✓</span>
+              <span><?php echo $_SESSION['success_message']; ?></span>
+            </div>
+            <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+          </div>
+        </div>
+        <?php unset($_SESSION['success_message']); ?>
+      <?php endif; ?>
+      
+      <?php if(isset($_SESSION['error_message'])): ?>
+        <div class="notification-container">
+          <div class="notification error-notification" id="notification">
+            <div class="notification-content">
+              <span class="notification-icon">⚠</span>
+              <span><?php echo $_SESSION['error_message']; ?></span>
+            </div>
+            <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+          </div>
+        </div>
+        <?php unset($_SESSION['error_message']); ?>
+      <?php endif; ?>
       
       <div class="product-grid">
         <?php
@@ -104,33 +128,36 @@ $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()) {
                 $id = $row['id'];
                 $nome = htmlspecialchars($row['nome']);
-                $tipo = htmlspecialchars($row['tipo']);
-                $categoriaInglese = htmlspecialchars($row['categoria_inglese']);
-                $stato = $row['stato'] ? 'Attivo' : 'Disattivo';
-                $statoClass = $row['stato'] ? 'active' : 'inactive';
+                $nome_inglese = htmlspecialchars($row['nome_inglese']);
+                $product_count = $row['product_count'];
                 
-                echo "<div class='product-card $statoClass'>";
-                echo "<h3>$nome</h3>";
-                echo "<p>Tipo: " . ucfirst($tipo) . " / " . ucfirst($categoriaInglese) . "</p>";
-                echo "<p>Stato: <span class='status-$statoClass'>$stato</span></p>";
+                echo "<div class='product-card'>";
+                echo "<h3>" . ucfirst($nome) . " / " . ucfirst($nome_inglese) . "</h3>";
+                echo "<p>Prodotti associati: $product_count</p>";
                 echo "<div class='card-actions'>";
-                echo "<a href='edit_prodotto.php?id=$id' class='edit-btn'>Modifica</a>";
-                echo "<form method='POST' action='../../../back-end/php/schermo/delete_prodotto.php' style='display:inline-block; vertical-align:middle;' onsubmit='return confirm(\"Sei sicuro di voler eliminare questo prodotto? Questa azione non può essere annullata.\")'>";
-                echo "<input type='hidden' name='id' value='$id'>";
-                echo "<button type='submit' class='delete-btn'>Elimina</button>";
-                echo "</form>";
+                
+                // Can't delete a category if it has products
+                if ($product_count == 0) {
+                    echo "<form method='POST' action='../../../back-end/php/schermo/delete_categoria.php' style='display:inline-block; vertical-align:middle;' onsubmit='return confirm(\"Sei sicuro di voler eliminare questa categoria? Questa azione non può essere annullata.\")'>";
+                    echo "<input type='hidden' name='id' value='$id'>";
+                    echo "<button type='submit' class='delete-btn'>Elimina</button>";
+                    echo "</form>";
+                } else {
+                    echo "<button class='delete-btn' disabled title='Non puoi eliminare questa categoria perché ha prodotti associati'>Elimina</button>";
+                }
+                
                 echo "</div>";
                 echo "</div>";
             }
         } else {
-            echo "<p class='no-products'>Nessun prodotto trovato nel database.</p>";
+            echo "<p class='no-products'>Nessuna categoria trovata nel database.</p>";
         }
         ?>
       </div>
       
       <div class="actions">
-        <a href="new_prodouct.php" class="submit-button">
-          <span class="button_top">Aggiungi Nuovo Prodotto</span>
+        <a href="new_category.php" class="submit-button">
+          <span class="button_top">Aggiungi Nuova Categoria</span>
         </a>
       </div>
     </div>

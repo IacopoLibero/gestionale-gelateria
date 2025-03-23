@@ -26,8 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             throw new Exception("Tutti i campi obbligatori devono essere compilati.");
         }
         
-        // Validate product type
-        if (!in_array($tipo, ['gelato', 'granita', 'semifreddo'])) {
+        // Validate product type against database categories
+        $validate_tipo_sql = "SELECT nome FROM categoria WHERE nome = ?";
+        $validate_stmt = $conn->prepare($validate_tipo_sql);
+        $validate_stmt->bind_param("s", $tipo);
+        $validate_stmt->execute();
+        $validate_result = $validate_stmt->get_result();
+        
+        if ($validate_result->num_rows === 0) {
             throw new Exception("Tipo di prodotto non valido.");
         }
         
@@ -46,6 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             throw new Exception("Errore nell'inserimento del prodotto: " . $stmt->error);
         }
+        
+        // Close validate statement
+        $validate_stmt->close();
         
         // Close statement
         $stmt->close();

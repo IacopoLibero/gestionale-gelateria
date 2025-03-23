@@ -1,16 +1,37 @@
 <?php
 require_once '../../../../connessione.php';
 
+// Funzione per ottenere tutte le categorie
+function getCategorie($conn) {
+    $categorie = [];
+    
+    $sql = "SELECT * FROM categoria ORDER BY nome ASC";
+    $result = $conn->query($sql);
+    
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $categorie[] = $row;
+        }
+    }
+    
+    return $categorie;
+}
+
 // Funzione per ottenere prodotti attivi per tipo
 function getProdottiByTipo($conn) {
-    $prodotti = [
-        'gelato' => [],
-        'granita' => [],
-        'semifreddo' => []
-    ];
+    $prodotti = [];
     
-    $sql = "SELECT * FROM prodotto WHERE stato = TRUE ORDER BY nome ASC";
-    // This SQL query is already filtering to only show products where stato = TRUE
+    // Prima otteniamo tutte le categorie per inizializzare l'array
+    $cats = getCategorie($conn);
+    foreach ($cats as $cat) {
+        $prodotti[$cat['nome']] = [];
+    }
+    
+    $sql = "SELECT p.*, c.nome_inglese as categoria_inglese 
+            FROM prodotto p 
+            JOIN categoria c ON p.tipo = c.nome 
+            WHERE p.stato = TRUE 
+            ORDER BY p.nome ASC";
     $result = $conn->query($sql);
     
     if ($result->num_rows > 0) {
@@ -25,8 +46,6 @@ function getProdottiByTipo($conn) {
 // Ottenere tutti i prodotti organizzati per tipo
 $prodotti_by_tipo = getProdottiByTipo($conn);
 
-// Verificare quali tipi di prodotti sono disponibili
-$has_gelato = !empty($prodotti_by_tipo['gelato']);
-$has_granita = !empty($prodotti_by_tipo['granita']);
-$has_semifreddo = !empty($prodotti_by_tipo['semifreddo']);
+// Ottenere tutte le categorie
+$categorie = getCategorie($conn);
 ?>

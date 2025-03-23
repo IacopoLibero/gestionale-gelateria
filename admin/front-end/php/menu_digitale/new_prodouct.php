@@ -6,6 +6,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../index.php");
     exit;
 }
+
+// Include database connection to fetch categories
+require_once '../../../../connessione.php';
+
+// Fetch all categories from database
+$cat_sql = "SELECT * FROM categoria ORDER BY nome ASC";
+$cat_result = $conn->query($cat_sql);
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +48,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         <ul class="sub-menu">
           <div>
             <li><a href="../schermo/catalogo_prodotti.php">Catalogo Prodotti</a></li>
+            <li><a href="../schermo/catalogo_categorie.php">Catalogo Categorie</a></li>
             <li><a href="../schermo/new_prodouct.php">Nuovo Prodotto</a></li>
             <li><a href="../schermo/new_category.php">Nuova categoria</a></li>
             <li><a href="../schermo/menu_verticale.php">Menu Verticale</a></li>
@@ -83,11 +91,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </ul>
   </nav>
   <main>
-    <div class="container">
-      <h2>Nuovo prodotto</h2>
-      <div>
-        <form method="POST" action="" ></form>
-      </div>
+    
       <p>Benvenuto nel sistema di gestione della gelateria, <?php echo htmlspecialchars($_SESSION['username']); ?>. Da qui puoi gestire i prodotti, gli ordini e i clienti.</p>
     </div>
   </main>
