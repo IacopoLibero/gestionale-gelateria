@@ -71,8 +71,13 @@
         echo '<div class="product-name">' . $product['nome'] . '</div>';
         echo '<div class="product-name-en">' . $product['nome_inglese'] . '</div>';
         
-        // Aggiungere spazio vuoto per mantenere l'allineamento
-        echo '<div class="product-icons-spacer"></div>';
+        // Mostrare le icone se presenti, altrimenti aggiungere spazio vuoto
+        $icons = showIcons($product);
+        if (!empty($icons)) {
+            echo '<div class="product-icons">' . $icons . '</div>';
+        } else {
+            echo '<div class="product-icons-spacer"></div>';
+        }
         
         // Mostrare gli ingredienti solo se visibili
         if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
