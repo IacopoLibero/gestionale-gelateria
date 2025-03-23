@@ -8,7 +8,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 }
 
 // Include database connection
-require_once '../../../../../connessione.php';
+require_once '../../../../connessione.php';
 
 // Ensure the form was submitted and is the category form
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['form_type']) && $_POST['form_type'] == 'category') {
