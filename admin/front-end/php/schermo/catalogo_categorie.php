@@ -94,9 +94,10 @@ $result = $conn->query($sql);
     <div class="container">
       <h2>Catalogo Categorie</h2>
       <p>Qui puoi visualizzare e gestire tutte le categorie disponibili.</p>
-      
-      <!-- Notification system -->
-      <?php if(isset($_SESSION['success_message'])): ?>
+    </div>
+    
+    <!-- Notification system -->
+    <?php if(isset($_SESSION['success_message'])): ?>
         <div class="notification-container">
           <div class="notification success-notification" id="notification">
             <div class="notification-content">
@@ -121,7 +122,8 @@ $result = $conn->query($sql);
         </div>
         <?php unset($_SESSION['error_message']); ?>
       <?php endif; ?>
-      
+
+    <div class="container">
       <div class="product-grid">
         <?php
         if ($result->num_rows > 0) {

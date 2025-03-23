@@ -97,7 +97,8 @@ $result = $conn->query($sql);
     <div class="container">
       <h2>Catalogo Prodotti</h2>
       <p>Qui puoi visualizzare e gestire tutti i prodotti disponibili.</p>
-      
+    </div>
+    <div class="container">
       <div class="product-grid">
         <?php
         if ($result->num_rows > 0) {
