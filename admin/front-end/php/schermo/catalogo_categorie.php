@@ -48,9 +48,9 @@ $result = $conn->query($sql);
         <ul class="sub-menu">
           <div>
             <li><a href="./catalogo_prodotti.php">Catalogo Prodotti</a></li>
+            <li><a href="./catalogo_categorie.php">Catalogo Categorie</a></li>
             <li><a href="./new_prodouct.php">Nuovo Prodotto</a></li>
             <li><a href="./new_category.php">Nuova categoria</a></li>
-            <li><a href="./catalogo_categorie.php">Catalogo Categorie</a></li>
             <li><a href="./menu_verticale.php">Menu Verticale</a></li>
           </div>
         </ul>
@@ -95,7 +95,7 @@ $result = $conn->query($sql);
       <h2>Catalogo Categorie</h2>
       <p>Qui puoi visualizzare e gestire tutte le categorie disponibili.</p>
     </div>
-    
+
     <!-- Notification system -->
     <?php if(isset($_SESSION['success_message'])): ?>
         <div class="notification-container">
