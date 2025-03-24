@@ -85,8 +85,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   </nav>
   <main>
     <div class="container">
-      <h2>Dashboard Amministratore</h2>
-      <p>Benvenuto nel sistema di gestione della gelateria, <?php echo htmlspecialchars($_SESSION['username']); ?>. Da qui puoi gestire i prodotti, gli ordini e i clienti.</p>
+      <h2>Menu digitale</h2>
+      <p>Menu digitale per i clienti</p>
     </div>
   </main>
   

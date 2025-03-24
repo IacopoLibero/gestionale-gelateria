@@ -64,7 +64,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
       <li>
         <button onclick="toggleSubMenu(this)" class="dropdown-btn">
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h207q16 0 30.5 6t25.5 17l57 57h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z"/></svg>
-          <span>Menu Digitale<../menu_digitale//span>
+          <span>Menu Digitale<span>
           <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z"/></svg>
         </button>
         <ul class="sub-menu">
@@ -85,8 +85,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   </nav>
   <main>
     <div class="container">
-      <h2>Dashboard Amministratore</h2>
-      <p>Benvenuto nel sistema di gestione della gelateria, <?php echo htmlspecialchars($_SESSION['username']); ?>. Da qui puoi gestire i prodotti, gli ordini e i clienti.</p>
+      <h2>Nuovo spot</h2>
+      <p>Pagima per aggiungere uno spot per la tv</p>
     </div>
   </main>
   

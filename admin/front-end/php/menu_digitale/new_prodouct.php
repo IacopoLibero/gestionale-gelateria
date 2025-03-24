@@ -91,8 +91,9 @@ $cat_result = $conn->query($cat_sql);
     </ul>
   </nav>
   <main>
-    
-      <p>Benvenuto nel sistema di gestione della gelateria, <?php echo htmlspecialchars($_SESSION['username']); ?>. Da qui puoi gestire i prodotti, gli ordini e i clienti.</p>
+    <div class="container">
+      <h2>nuovo prodotto</h2>
+      <p>Pagina per aggiunge un prodotto al menu digitale</p>
     </div>
   </main>
   
