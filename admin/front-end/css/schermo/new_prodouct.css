@@ -111,6 +111,26 @@
   z-index: 2; /* Ensure dropdown appears above other elements */
 }
 
+/* Add more specific styling for the select in Opzioni section */
+.checkbox-columns .column .form-field select {
+  background-color: #11121a;
+  border: 1px solid #444;
+  color: #e8eaed;
+  z-index: 10;
+  opacity: 1;
+  /* Ensure proper rendering */
+  -webkit-appearance: menulist;
+  -moz-appearance: menulist;
+  appearance: menulist;
+}
+
+/* Style dropdown options specifically */
+.checkbox-columns .column .form-field select option {
+  background-color: #1e1f2e;
+  color: #e8eaed;
+  padding: 10px;
+}
+
 /* Style dropdown options for better visibility on mobile */
 .form-field select option {
   background-color: #1e1f2e;
@@ -186,6 +206,22 @@
     border: 1px solid #555; /* More visible border */
     -webkit-appearance: menulist; /* Native dropdown style */
     appearance: menulist;
+  }
+  
+  /* More specific and stronger styling for the Opzioni dropdown on mobile */
+  .checkbox-columns .column .form-field select {
+    background-color: #11121a !important;
+    border: 2px solid #666 !important;
+    opacity: 1 !important;
+    color: #e8eaed !important;
+    z-index: 100;
+    position: relative;
+  }
+  
+  /* Fix specific to iOS and Safari transparence issues */
+  .checkbox-columns .column .form-field select:focus,
+  .checkbox-columns .column .form-field select:active {
+    background-color: #11121a !important;
   }
   
   /* Fix for iOS transparent dropdown issue */
