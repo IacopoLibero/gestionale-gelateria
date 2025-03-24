@@ -99,12 +99,12 @@ $result = $conn->query($sql);
     <!-- Notification system -->
     <?php if(isset($_SESSION['success_message'])): ?>
         <div class="notification-container">
-          <div class="notification success-notification" id="notification">
+          <div class="notification success-notification" id="success-notification">
             <div class="notification-content">
               <span class="notification-icon">✓</span>
               <span><?php echo $_SESSION['success_message']; ?></span>
             </div>
-            <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+            <button type="button" class="notification-close" onclick="closeNotification('success-notification')">×</button>
           </div>
         </div>
         <?php unset($_SESSION['success_message']); ?>
@@ -112,12 +112,12 @@ $result = $conn->query($sql);
       
       <?php if(isset($_SESSION['error_message'])): ?>
         <div class="notification-container">
-          <div class="notification error-notification" id="notification">
+          <div class="notification error-notification" id="error-notification">
             <div class="notification-content">
               <span class="notification-icon">⚠</span>
               <span><?php echo $_SESSION['error_message']; ?></span>
             </div>
-            <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+            <button type="button" class="notification-close" onclick="closeNotification('error-notification')">×</button>
           </div>
         </div>
         <?php unset($_SESSION['error_message']); ?>
@@ -167,5 +167,22 @@ $result = $conn->query($sql);
   
   <script src="../../../js/dashboard.js"></script>
   <script src="../../../js/schermo/catalogo_categorie.js"></script>
+</body>pt>
+</html>Ensure notifications work correctly
+    function closeNotification(id) {
+      const notification = document.getElementById(id);
+      if (notification) {
+        notification.parentNode.style.display = 'none';
+      }
+    }
+    
+    // Show notifications on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const notifications = document.querySelectorAll('.notification');
+      notifications.forEach(function(notification) {
+        notification.style.display = 'flex';
+      });
+    });
+  </script>
 </body>
 </html>
