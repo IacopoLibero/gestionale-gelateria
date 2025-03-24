@@ -1,4 +1,3 @@
-/* Styled checkbox for "remember me" */
 .checkbox-wrapper input[type="checkbox"] {
   visibility: hidden;
   display: none;
@@ -72,6 +71,18 @@
   flex-direction: column;
 }
 
+/* Fix for the select element in the Opzioni section */
+.checkbox-columns .column .form-field select {
+  background-color: #11121a;
+  border: 1px solid #444;
+  color: #e8eaed;
+  opacity: 1;
+  appearance: menulist;
+  -webkit-appearance: menulist;
+  position: relative;
+  z-index: 5;
+}
+
 /* Two-column layout for name fields */
 .name-columns {
   display: flex;
@@ -104,38 +115,8 @@
   color: #e8eaed;
   box-sizing: border-box;
   font-size: 14px;
-  background-color: #11121a; /* Add explicit background color */
-  border: 1px solid #444; /* Add border for better visibility */
-  appearance: menulist; /* Ensure native appearance on mobile */
-  -webkit-appearance: menulist; /* For Safari */
-  z-index: 2; /* Ensure dropdown appears above other elements */
-}
-
-/* Add more specific styling for the select in Opzioni section */
-.checkbox-columns .column .form-field select {
   background-color: #11121a;
   border: 1px solid #444;
-  color: #e8eaed;
-  z-index: 10;
-  opacity: 1;
-  /* Ensure proper rendering */
-  -webkit-appearance: menulist;
-  -moz-appearance: menulist;
-  appearance: menulist;
-}
-
-/* Style dropdown options specifically */
-.checkbox-columns .column .form-field select option {
-  background-color: #1e1f2e;
-  color: #e8eaed;
-  padding: 10px;
-}
-
-/* Style dropdown options for better visibility on mobile */
-.form-field select option {
-  background-color: #1e1f2e;
-  color: #e8eaed;
-  padding: 10px;
 }
 
 /* Form elements alignment */
@@ -199,34 +180,13 @@
     margin-right: auto;
   }
   
-  /* Enhanced styling for select elements on mobile */
-  .form-field select {
-    background-color: #11121a !important; /* Force background color on mobile */
-    opacity: 1; /* Ensure full opacity */
-    border: 1px solid #555; /* More visible border */
-    -webkit-appearance: menulist; /* Native dropdown style */
-    appearance: menulist;
-  }
-  
-  /* More specific and stronger styling for the Opzioni dropdown on mobile */
+  /* Specific fix for select in checkbox columns on mobile */
   .checkbox-columns .column .form-field select {
     background-color: #11121a !important;
-    border: 2px solid #666 !important;
-    opacity: 1 !important;
+    border: 1px solid #555 !important;
     color: #e8eaed !important;
-    z-index: 100;
-    position: relative;
-  }
-  
-  /* Fix specific to iOS and Safari transparence issues */
-  .checkbox-columns .column .form-field select:focus,
-  .checkbox-columns .column .form-field select:active {
-    background-color: #11121a !important;
-  }
-  
-  /* Fix for iOS transparent dropdown issue */
-  select:focus {
-    background-color: #11121a !important;
+    opacity: 1 !important;
+    z-index: 10;
   }
 }  
 
