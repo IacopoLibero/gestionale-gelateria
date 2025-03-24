@@ -138,7 +138,7 @@ $result = $conn->query($sql);
                 $stato = $row['stato'] ? 'Attivo' : 'Disattivo';
                 $statoClass = $row['stato'] ? 'active' : 'inactive';
                 
-                echo "<div class='product-card $statoClass'>";
+                echo "<div class='product-card active'>";
                 echo "<h3>$nome</h3>";
                 echo "<p>Tipo: " . ucfirst($tipo) . " / " . ucfirst($categoriaInglese) . "</p>";
                 echo "<p>Stato: <span class='status-$statoClass'>$stato</span></p>";

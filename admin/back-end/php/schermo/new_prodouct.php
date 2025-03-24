@@ -37,6 +37,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             throw new Exception("Tipo di prodotto non valido.");
         }
         
+        // Check if a product with the same name already exists
+        $check_sql = "SELECT nome FROM prodotto WHERE nome = ?";
+        $check_stmt = $conn->prepare($check_sql);
+        $check_stmt->bind_param("s", $nome_ita);
+        $check_stmt->execute();
+        $check_result = $check_stmt->get_result();
+        
+        if ($check_result->num_rows > 0) {
+            throw new Exception("Un prodotto con questo nome esiste già nel catalogo.");
+        }
+        $check_stmt->close();
+        
         // Prepare SQL statement to insert data - modified to use new schema
         $sql = "INSERT INTO prodotto (nome, nome_inglese, ingredienti, tipo, km0, vegano, SlowFood, bio, innovativo, ingredienti_visibili, stato) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
