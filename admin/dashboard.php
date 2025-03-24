@@ -120,6 +120,7 @@ if (isset($_SESSION['username_message'])) {
       </form>
 
       <?php if(!empty($usernameMessage)): ?>
+        <?php echo "<br>" ?>
         <div class="alert alert-<?php echo $usernameMessageClass; ?>">
           <?php echo $usernameMessage; ?>
         </div>
@@ -145,6 +146,7 @@ if (isset($_SESSION['username_message'])) {
       </form>
 
       <?php if(!empty($passwordMessage)): ?>
+        <?php echo "<br>" ?>
         <div class="alert alert-<?php echo $messageClass; ?>">
           <?php echo $passwordMessage; ?>
         </div>

@@ -140,7 +140,7 @@ $result = $conn->query($sql);
                 
                 // Can't delete a category if it has products
                 if ($product_count == 0) {
-                    echo "<form method='POST' action='../../../back-end/php/schermo/delete_category.php' style='display:inline-block; vertical-align:middle;' onsubmit='return confirm(\"Sei sicuro di voler eliminare questa categoria? Questa azione non può essere annullata.\")'>";
+                    echo "<form method='POST' action='../../../back-end/php/schermo/delete_categoria.php' style='display:inline-block; vertical-align:middle;' onsubmit='return confirm(\"Sei sicuro di voler eliminare questa categoria? Questa azione non può essere annullata.\")'>";
                     echo "<input type='hidden' name='id' value='$id'>";
                     echo "<button type='submit' class='delete-btn'>Elimina</button>";
                     echo "</form>";
