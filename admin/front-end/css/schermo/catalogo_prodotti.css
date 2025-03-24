@@ -12,6 +12,8 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-top: 3px solid #522da8; /* Purple accent border to match site theme */
+    position: relative;
+    z-index: 1; /* Lower z-index for product cards */
 }
 
 .product-card:hover {
@@ -380,6 +382,8 @@
 @media (max-width: 768px) {
     .product-grid {
         grid-template-columns: 1fr;
+        position: relative;
+        z-index: 1; /* Lower z-index for product grid */
     }
     
     .form-group {
@@ -395,4 +399,13 @@
         margin-left: auto;
         margin-right: auto;
     }
+}
+
+/* Ensure navigation sidebar is always on top */
+#sidebar {
+    z-index: 1000 !important; /* Higher z-index for sidebar */
+}
+
+.sub-menu {
+    z-index: 999 !important; /* Higher z-index for dropdown menus */
 }

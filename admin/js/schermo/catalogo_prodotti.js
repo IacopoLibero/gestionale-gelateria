@@ -10,6 +10,30 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = 'translateY(-5px)';
             this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
         });
+        
+        // Add touch event handling for mobile to ensure proper z-index management
+        card.addEventListener('touchstart', function() {
+            // Reset z-index on all cards first
+            productCards.forEach(c => {
+                c.style.zIndex = '1';
+            });
+            // Set higher z-index only for the touched card
+            this.style.zIndex = '2';
+        });
+    });
+    
+    // Ensure sidebar menu always has highest z-index
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.dropdown-btn') || e.target.closest('.sub-menu')) {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar) {
+                sidebar.style.zIndex = '1000';
+            }
+            const subMenus = document.querySelectorAll('.sub-menu');
+            subMenus.forEach(menu => {
+                menu.style.zIndex = '999';
+            });
+        }
     });
     
     // Fade out success messages after 3 seconds
