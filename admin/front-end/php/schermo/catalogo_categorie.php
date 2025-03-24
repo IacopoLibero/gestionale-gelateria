@@ -117,7 +117,7 @@ $result = $conn->query($sql);
               <span class="notification-icon">⚠</span>
               <span><?php echo $_SESSION['error_message']; ?></span>
             </div>
-            <button type="button" class="notification-close" onclick="closeNotification('error-notification')">×</button>
+            <button type="button" class="notification-close" onclick="closeNotification()">×</button>
           </div>
         </div>
         <?php unset($_SESSION['error_message']); ?>
@@ -167,8 +167,8 @@ $result = $conn->query($sql);
   
   <script src="../../../js/dashboard.js"></script>
   <script src="../../../js/schermo/catalogo_categorie.js"></script>
-</body>pt>
-</html>Ensure notifications work correctly
+  <script>
+    // Ensure notifications work correctly
     function closeNotification(id) {
       const notification = document.getElementById(id);
       if (notification) {
