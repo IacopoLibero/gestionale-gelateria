@@ -92,7 +92,7 @@ $cat_result = $conn->query($cat_sql);
   </nav>
   <main>
     <div class="container">
-      <h2>nuovo prodotto</h2>
+      <h2>Nuovo prodotto</h2>
       <p>Pagina per aggiunge un prodotto al menu digitale</p>
     </div>
   </main>

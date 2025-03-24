@@ -86,7 +86,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <main>
     <div class="container">
       <h2>Nuovo spot</h2>
-      <p>Pagima per aggiungere uno spot per la tv</p>
+      <p>Pagina per aggiungere uno spot per la tv</p>
     </div>
   </main>
   
