@@ -24,10 +24,8 @@ if (isset($_POST['id']) && is_numeric($_POST['id'])) {
         $row = $result->fetch_assoc();
         
         if ($row['count'] > 0) {
-            // Force the error message to be set properly
+            // Make sure to set the error message for products associated with category
             $_SESSION['error_message'] = "Non puoi eliminare questa categoria perché ci sono prodotti associati.";
-            
-            // Make sure to close the statement
             $check_stmt->close();
         } else {
             // Delete the category if no products are using it
@@ -54,10 +52,7 @@ if (isset($_POST['id']) && is_numeric($_POST['id'])) {
 // Close connection
 $conn->close();
 
-// Force session write before redirect
-session_write_close();
-
-// Redirect back to catalog
+// Redirect back to catalog with the session message intact
 header("Location: ../../../front-end/php/schermo/catalogo_categorie.php");
 exit;
 ?>
