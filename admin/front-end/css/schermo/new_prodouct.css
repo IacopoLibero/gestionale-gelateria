@@ -104,6 +104,18 @@
   color: #e8eaed;
   box-sizing: border-box;
   font-size: 14px;
+  background-color: #11121a; /* Add explicit background color */
+  border: 1px solid #444; /* Add border for better visibility */
+  appearance: menulist; /* Ensure native appearance on mobile */
+  -webkit-appearance: menulist; /* For Safari */
+  z-index: 2; /* Ensure dropdown appears above other elements */
+}
+
+/* Style dropdown options for better visibility on mobile */
+.form-field select option {
+  background-color: #1e1f2e;
+  color: #e8eaed;
+  padding: 10px;
 }
 
 /* Form elements alignment */
@@ -165,6 +177,20 @@
     border: 1px solid #444;
     margin-left: auto;
     margin-right: auto;
+  }
+  
+  /* Enhanced styling for select elements on mobile */
+  .form-field select {
+    background-color: #11121a !important; /* Force background color on mobile */
+    opacity: 1; /* Ensure full opacity */
+    border: 1px solid #555; /* More visible border */
+    -webkit-appearance: menulist; /* Native dropdown style */
+    appearance: menulist;
+  }
+  
+  /* Fix for iOS transparent dropdown issue */
+  select:focus {
+    background-color: #11121a !important;
   }
 }  
 
