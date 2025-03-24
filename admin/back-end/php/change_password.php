@@ -97,14 +97,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
         
-        // Validate password strength (optional)
-        if (strlen($new_password) < 8) {
-            $_SESSION['password_message'] = "La password deve contenere almeno 8 caratteri.";
-            $_SESSION['message_class'] = "error";
-            header("Location: ../../dashboard.php");
-            exit;
-        }
-        
         // Hash the password
         $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
         
