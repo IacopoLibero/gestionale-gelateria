@@ -102,7 +102,7 @@ if (isset($_SESSION['username_message'])) {
   <main>
     <div class="container">
       <h2>Dashboard Amministratore</h2>
-      <p>Benvenuto nel sistema di gestione della gelateria, <?php echo htmlspecialchars($_SESSION['username']); ?>. <br>Da qui puoi gestire i prodotti, gli ordini e i clienti.</p>
+      <p>Benvenuto nel sistema di gestione della gelateria, <?php echo htmlspecialchars($_SESSION['username']); ?>. <br>Da qui puoi gestire i prodotti, categorie e il menu.</p>
     </div>
     
     <div class="container">
