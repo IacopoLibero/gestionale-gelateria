@@ -52,6 +52,6 @@ if (isset($_POST['id']) && is_numeric($_POST['id'])) {
 $conn->close();
 
 // Redirect back to catalog
-header("Location: ../../../../front-end/php/schermo/catalogo_categorie.php");
+header("Location: ../../../front-end/php/schermo/catalogo_categorie.php");
 exit;
 ?>
