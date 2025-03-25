@@ -18,8 +18,8 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
+    width: 150%;
+    height: 150%;
     background-image: url(../../../../img/david/solo_david_verde.png);
     background-size: 50%; /* Reduce size to not overwhelm the content */
     background-repeat: no-repeat;
@@ -146,7 +146,7 @@ body {
 .product-name {
     font-family: 'Cormorant Upright', serif;
     font-weight: 700; /* Bold for Italian name */
-    font-size: 180%; /* Smaller font */
+    font-size: 200%; /* Smaller font */
     margin-bottom: 2px; /* Reduced margin */
     white-space: normal; /* Allow text to wrap */
     overflow: visible; /* Show overflowing content */
@@ -161,7 +161,7 @@ body {
     font-family: 'Cormorant Upright', serif;
     font-weight: 600; /* Medium bold for English name */
     font-style: italic;
-    font-size: 180%; /* Smaller font */
+    font-size: 200%; /* Smaller font */
     margin-bottom: 4px; /* Reduced margin */
     color: #000000;
     white-space: normal; /* Allow text to wrap */
@@ -271,21 +271,21 @@ body {
 /* Responsive adjustments for font sizes at different widths */
 @media screen and (max-width: 1200px) {
     .product-name {
-        font-size: 180%;
+        font-size: 200%;
     }
     
     .product-name-en, .product-ingredients {
-        font-size: 180%;
+        font-size: 200%;
     }
 }
 
 @media screen and (max-width: 992px) {
     .product-name {
-        font-size: 180%;
+        font-size: 200%;
     }
     
     .product-name-en, .product-ingredients {
-        font-size: 180%;
+        font-size: 200%;
     }
 }
 
