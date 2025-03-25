@@ -46,18 +46,19 @@
             if (!empty($icons)) {
                 $productsWithIcons[] = ['product' => $product, 'icons' => $icons];
             } else {
-                $productsWithoutIcons[] = ['product' => $product, 'icons' => ''];
+                $productsWithoutIcons[] = ['product' => $product];
             }
         }
         
         // Display products with icons first
         if (!empty($productsWithIcons)) {
             echo '<div class="products-container">';
+            $count = 0;
             foreach ($productsWithIcons as $item) {
                 $product = $item['product'];
                 $icons = $item['icons'];
                 
-                echo '<div class="product-item">';
+                echo '<div class="product-item with-icons">';
                 echo '<div class="product-name">' . $product['nome'] . '</div>';
                 echo '<div class="product-name-en">' . $product['nome_inglese'] . '</div>';
                 echo '<div class="product-icons">' . $icons . '</div>';
@@ -65,9 +66,17 @@
                 
                 if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
                     echo '<div class="product-ingredients">' . $product['ingredienti'] . '</div>';
+                } else {
+                    echo '<div class="product-ingredients empty"></div>';
                 }
                 
                 echo '</div>';
+                
+                $count++;
+                // Ensure products are arranged in rows of 2
+                if ($count % 2 == 0 && $count < count($productsWithIcons)) {
+                    echo '</div><div class="products-container">';
+                }
             }
             echo '</div>';
         }
@@ -75,19 +84,28 @@
         // Then display products without icons
         if (!empty($productsWithoutIcons)) {
             echo '<div class="products-container">';
+            $count = 0;
             foreach ($productsWithoutIcons as $item) {
                 $product = $item['product'];
                 
-                echo '<div class="product-item">';
+                echo '<div class="product-item without-icons">';
                 echo '<div class="product-name">' . $product['nome'] . '</div>';
                 echo '<div class="product-name-en">' . $product['nome_inglese'] . '</div>';
                 echo '<div class="ingredients-divider">ingredients</div>';
                 
                 if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
                     echo '<div class="product-ingredients">' . $product['ingredienti'] . '</div>';
+                } else {
+                    echo '<div class="product-ingredients empty"></div>';
                 }
                 
                 echo '</div>';
+                
+                $count++;
+                // Ensure products are arranged in rows of 2
+                if ($count % 2 == 0 && $count < count($productsWithoutIcons)) {
+                    echo '</div><div class="products-container">';
+                }
             }
             echo '</div>';
         }

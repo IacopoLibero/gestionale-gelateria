@@ -70,7 +70,8 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-bottom: 20px; /* Reduced margin between containers */
+    margin-bottom: 30px;
+    width: 100%;
 }
 
 .product-item {
@@ -80,10 +81,20 @@ body {
     box-sizing: border-box;
     border-bottom: 1px solid #ccc; /* Thin divider line for each product */
     display: grid;
-    grid-template-rows: auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto;
     grid-auto-rows: min-content;
     height: auto;
     position: relative;
+}
+
+/* Specific styling for items with icons */
+.product-item.with-icons {
+    grid-template-rows: auto auto auto auto auto;
+}
+
+/* Specific styling for items without icons */
+.product-item.without-icons {
+    grid-template-rows: auto auto auto auto;
 }
 
 .product-name {
@@ -151,6 +162,11 @@ body {
     overflow-wrap: break-word; /* Break long words */
     word-break: break-word; /* Allow words to break */
     line-height: 1.2;
+    min-height: 1.2em; /* Ensure consistency even when empty */
+}
+
+.product-ingredients.empty {
+    padding-bottom: 0.8em; /* Add some padding to maintain consistent height */
 }
 
 .ingredients-divider {
