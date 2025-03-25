@@ -84,10 +84,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     </ul>
   </nav>
   <main>
-    <div class="container">
-      <h2>Nuovo spot</h2>
-      <p>Aggiungi un nuovo spot video da visualizzare sul monitor</p>
-    </div>
+    <h2 id="titolo" class="container">Nuovo spot</h2>
     
     <!-- Notification system -->
     <?php if(isset($_SESSION['success_message'])): ?>
@@ -116,7 +113,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
       <?php unset($_SESSION['error_message']); ?>
     <?php endif; ?>
     
+    <!-- Area per le notifiche dinamiche generate da JavaScript -->
+    <div id="notification-area"></div>
+    
     <div class="container">
+      <h2 class="h2class">Nome e video</h2>
       <form id="spotForm" method="POST" action="../../../back-end/php/spot/new_spot.php" enctype="multipart/form-data">
         <div class="form-group">
           <label for="nome">Nome Spot</label>
@@ -144,7 +145,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
           </button>
         </div>
       </form>
-      <div id="message"></div>
     </div>
   </main>
   

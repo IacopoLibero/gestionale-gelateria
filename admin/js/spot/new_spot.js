@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
   const spotForm = document.getElementById("spotForm");
-  const messageDiv = document.getElementById("message");
   const fileInput = document.getElementById("video");
   const fileSelected = document.getElementById("file-selected");
+  const notificationArea = document.getElementById("notification-area");
   
   // Update the file selected text when a file is chosen
   fileInput.addEventListener("change", function() {
@@ -45,14 +45,58 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+  // Function to create and show a notification
+  function showNotification(message, isSuccess) {
+    // Create notification container
+    const notificationContainer = document.createElement('div');
+    notificationContainer.className = 'notification-container';
+    
+    // Create notification
+    const notification = document.createElement('div');
+    notification.className = isSuccess ? 'notification success-notification' : 'notification error-notification';
+    notification.id = 'notification';
+    
+    // Create notification content
+    const notificationContent = document.createElement('div');
+    notificationContent.className = 'notification-content';
+    
+    // Create icon
+    const icon = document.createElement('span');
+    icon.className = 'notification-icon';
+    icon.textContent = isSuccess ? '✓' : '⚠';
+    
+    // Create message
+    const messageSpan = document.createElement('span');
+    messageSpan.textContent = message;
+    
+    // Create close button
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'notification-close';
+    closeButton.onclick = closeNotification;
+    closeButton.textContent = '×';
+    
+    // Assemble notification
+    notificationContent.appendChild(icon);
+    notificationContent.appendChild(messageSpan);
+    notification.appendChild(closeButton);
+    notificationContainer.appendChild(notification);
+    
+    // Insert notification in page
+    notificationArea.innerHTML = '';
+    notificationArea.appendChild(notificationContainer);
+    
+    // Auto close after 3 seconds
+    setTimeout(closeNotification, 3000);
+  }
+
   spotForm.addEventListener("submit", function(e) {
     e.preventDefault();
     
     const formData = new FormData(this);
     
     // Show loading message
-    messageDiv.innerHTML = "Caricamento in corso...";
-    messageDiv.className = "";
+    showNotification("Caricamento in corso...", true);
     
     fetch("../../../back-end/php/spot/new_spot.php", {
       method: "POST",
@@ -61,20 +105,17 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(response => response.json())
     .then(data => {
       if (data.success) {
-        messageDiv.innerHTML = "Spot aggiunto con successo!";
-        messageDiv.className = "success";
+        showNotification("Spot aggiunto con successo!", true);
         spotForm.reset();
         fileSelected.textContent = "Nessun file selezionato";
         fileSelected.style.color = "#e8eaed";
       } else {
-        messageDiv.innerHTML = "Errore: " + data.message;
-        messageDiv.className = "error";
+        showNotification("Errore: " + data.message, false);
       }
     })
     .catch(error => {
       console.error("Error:", error);
-      messageDiv.innerHTML = "Si è verificato un errore durante il caricamento.";
-      messageDiv.className = "error";
+      showNotification("Si è verificato un errore durante il caricamento.", false);
     });
   });
 });
