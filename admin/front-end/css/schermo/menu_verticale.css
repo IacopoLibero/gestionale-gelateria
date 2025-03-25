@@ -217,7 +217,7 @@ body {
 
 .product-ingredients {
     font-family: 'Cormorant Upright', serif;
-    font-size: 100%; /* Smaller font */
+    font-size: 150%; /* Smaller font */
     font-style: italic;
     color: #000000;
     margin-top: 2px;
@@ -291,7 +291,7 @@ body {
         font-size: 200%;
     }
     
-    .product-name-en, .product-ingredients {
+    .product-name-en {
         font-size: 200%;
     }
 }
@@ -301,7 +301,7 @@ body {
         font-size: 200%;
     }
     
-    .product-name-en, .product-ingredients {
+    .product-name-en {
         font-size: 200%;
     }
 }
