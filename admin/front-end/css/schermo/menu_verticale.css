@@ -32,10 +32,9 @@ body {
 }
 
 .logodavid {
-    width: -webkit-fill-available;
-    margin-left: 12%;
-    margin-right: 12%;
-    margin-top: 10%;
+    width: 60%;
+    margin: 5% auto; /* Center horizontally and add top margin */
+    display: block; /* Ensure it's treated as a block element */
 }
 
 .divider-with-text {
@@ -72,6 +71,9 @@ body {
     justify-content: space-between;
     margin-bottom: 15px;
     width: 100%;
+    position: relative;
+    padding-bottom: 1px; /* Space for the unified border */
+    border-bottom: 1px solid #ccc; /* Unified border for entire row */
 }
 
 .product-item {
@@ -79,7 +81,7 @@ body {
     margin-bottom: 20px;
     padding: 10px;
     box-sizing: border-box;
-    border-bottom: 1px solid #ccc; /* Thin divider line for each product */
+    border-bottom: none; /* Remove individual borders */
     display: flex;
     flex-direction: column;
     position: relative;
@@ -138,7 +140,7 @@ body {
 .product-name {
     font-family: 'Cormorant Upright', serif;
     font-weight: 700; /* Bold for Italian name */
-    font-size: 150%;
+    font-size: 180%;
     margin-bottom: 5px;
     white-space: normal; /* Allow text to wrap */
     overflow: visible; /* Show overflowing content */
@@ -153,7 +155,7 @@ body {
     font-family: 'Cormorant Upright', serif;
     font-weight: 600; /* Medium bold for English name */
     font-style: italic;
-    font-size: 130%;
+    font-size: 180%;
     margin-bottom: 8px;
     color: #000000;
     white-space: normal; /* Allow text to wrap */
