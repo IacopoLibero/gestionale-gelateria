@@ -18,8 +18,8 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    width: 150%;
-    height: 150%;
+    width: 100%;
+    height: 100%;
     background-image: url(../../../../img/david/solo_david_verde.png);
     background-size: 50%; /* Reduce size to not overwhelm the content */
     background-repeat: no-repeat;
@@ -70,9 +70,29 @@ body {
     margin: 0 10px;
 }
 
+/* Products Section - vertical scrolling if needed */
+.products-section {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Two Column Layout */
+.two-column-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.column {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Product Styling */
 .products-container {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 5px; /* Reduced margin */
@@ -83,7 +103,7 @@ body {
 }
 
 .product-item {
-    width: 48%;
+    width: 100%;
     margin-bottom: 10px; /* Reduced margin */
     padding: 5px; /* Reduced padding */
     box-sizing: border-box;
@@ -95,12 +115,9 @@ body {
     min-height: 120px; /* Reduced minimum height */
 }
 
-/* Empty item for grid alignment */
+/* Remove empty-item as it's no longer needed */
 .product-item.empty-item {
-    border: none;
-    padding: 0;
-    margin: 0;
-    min-height: 0;
+    display: none;
 }
 
 /* Special styling for products with icons */
