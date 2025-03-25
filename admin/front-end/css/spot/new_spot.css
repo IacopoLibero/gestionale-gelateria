@@ -10,7 +10,7 @@
   margin-bottom: 20px;
 }
 
-.form-group label {
+.form-group label:not(.custum-file-upload) {
   display: block;
   margin-bottom: 8px;
   color: #e8eaed;
@@ -74,4 +74,107 @@
 .error {
   background-color: rgba(244, 67, 54, 0.2);
   color: #F44336;
+}
+
+/* Custom file upload styles */
+.custum-file-upload {
+  height: 200px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #e8e8e8;
+  background-color: #212121;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 48px 35px -48px #e8e8e8;
+  margin: 0 auto 15px;
+}
+
+.custum-file-upload .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .icon svg {
+  height: 80px;
+  fill: #e8e8e8;
+}
+
+.custum-file-upload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .text span {
+  font-weight: 400;
+  color: #e8e8e8;
+}
+
+.custum-file-upload input {
+  display: none;
+}
+
+.file-selected {
+  text-align: center;
+  color: #e8eaed;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Notification styling */
+.notification {
+  display: flex;
+  width: 100%;
+  max-width: 500px;
+  padding: 15px;
+  border-radius: 8px;
+  transition: opacity 0.5s ease;
+  margin: 0 auto;
+}
+
+.success-notification {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+}
+
+.error-notification {
+  background-color: rgba(244, 67, 54, 0.2);
+  color: #dc3545;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.notification-icon {
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+.notification-close {
+  cursor: pointer;
+  font-size: 20px;
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0 0 0 10px;
+  margin-left: 10px;
+  height: auto;
+}
+
+/* Container for notifications to ensure proper centering */
+.notification-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
