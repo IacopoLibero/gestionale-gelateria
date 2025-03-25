@@ -37,29 +37,60 @@
         }
         echo '</div>';
         
-        echo '<div class="products-container">';
+        // Divide products into those with icons and those without
+        $productsWithIcons = [];
+        $productsWithoutIcons = [];
+        
         foreach ($products as $product) {
-            echo '<div class="product-item">';
-            echo '<div class="product-name">' . $product['nome'] . '</div>';
-            echo '<div class="product-name-en">' . $product['nome_inglese'] . '</div>';
-            
-            // Mostrare le icone solo se presenti, senza aggiungere spazio vuoto
             $icons = showIcons($product);
             if (!empty($icons)) {
+                $productsWithIcons[] = ['product' => $product, 'icons' => $icons];
+            } else {
+                $productsWithoutIcons[] = ['product' => $product, 'icons' => ''];
+            }
+        }
+        
+        // Display products with icons first
+        if (!empty($productsWithIcons)) {
+            echo '<div class="products-container">';
+            foreach ($productsWithIcons as $item) {
+                $product = $item['product'];
+                $icons = $item['icons'];
+                
+                echo '<div class="product-item">';
+                echo '<div class="product-name">' . $product['nome'] . '</div>';
+                echo '<div class="product-name-en">' . $product['nome_inglese'] . '</div>';
                 echo '<div class="product-icons">' . $icons . '</div>';
+                echo '<div class="ingredients-divider">ingredients</div>';
+                
+                if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
+                    echo '<div class="product-ingredients">' . $product['ingredienti'] . '</div>';
+                }
+                
+                echo '</div>';
             }
-            
-            // Always show the ingredients divider
-            echo '<div class="ingredients-divider">ingredients</div>';
-            
-            // Only show the actual ingredients if they are visible and not empty
-            if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
-                echo '<div class="product-ingredients">' . $product['ingredienti'] . '</div>';
-            }
-            
             echo '</div>';
         }
-        echo '</div>';
+        
+        // Then display products without icons
+        if (!empty($productsWithoutIcons)) {
+            echo '<div class="products-container">';
+            foreach ($productsWithoutIcons as $item) {
+                $product = $item['product'];
+                
+                echo '<div class="product-item">';
+                echo '<div class="product-name">' . $product['nome'] . '</div>';
+                echo '<div class="product-name-en">' . $product['nome_inglese'] . '</div>';
+                echo '<div class="ingredients-divider">ingredients</div>';
+                
+                if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
+                    echo '<div class="product-ingredients">' . $product['ingredienti'] . '</div>';
+                }
+                
+                echo '</div>';
+            }
+            echo '</div>';
+        }
     }
     
     // Mostra le sezioni in base alle categorie disponibili
