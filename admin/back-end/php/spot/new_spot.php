@@ -3,12 +3,16 @@ session_start();
 
 // Check if user is logged in
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: ../index.php");
+    header('Content-Type: application/json');
+    echo json_encode(['success' => false, 'message' => 'Utente non autenticato']);
     exit;
 }
 
 // Include database connection
 require_once "../../../../connessione.php";
+
+// Set header for JSON response
+header('Content-Type: application/json');
 
 // Function to validate file extension
 function isValidVideoFile($file) {
@@ -21,8 +25,7 @@ function isValidVideoFile($file) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate nome
     if (empty($_POST['nome'])) {
-        $_SESSION['error_message'] = 'Il nome dello spot è obbligatorio';
-        header("Location: ../../../front-end/php/spot/new_spot.php");
+        echo json_encode(['success' => false, 'message' => 'Il nome dello spot è obbligatorio']);
         exit;
     }
     
@@ -30,19 +33,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Validate video file
     if (!isset($_FILES['video']) || $_FILES['video']['error'] !== UPLOAD_ERR_OK) {
-        $_SESSION['error_message'] = 'File video non caricato o errore durante l\'upload';
-        header("Location: ../../../front-end/php/spot/new_spot.php");
+        echo json_encode(['success' => false, 'message' => 'File video non caricato o errore durante l\'upload']);
         exit;
     }
     
     if (!isValidVideoFile($_FILES['video'])) {
-        $_SESSION['error_message'] = 'Formato file non supportato. Utilizzare MP4, MOV, AVI, WMV, FLV o WEBM';
-        header("Location: ../../../front-end/php/spot/new_spot.php");
+        echo json_encode(['success' => false, 'message' => 'Formato file non supportato. Utilizzare MP4, MOV, AVI, WMV, FLV o WEBM']);
         exit;
     }
     
     // Define upload directory using the manually created path
     $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/img/video/';
+    
+    // Ensure the directory exists and is writable
+    if (!file_exists($uploadDir)) {
+        if (!mkdir($uploadDir, 0755, true)) {
+            echo json_encode(['success' => false, 'message' => 'Impossibile creare la directory di upload']);
+            exit;
+        }
+    }
+    
+    if (!is_writable($uploadDir)) {
+        echo json_encode(['success' => false, 'message' => 'Directory di upload non scrivibile']);
+        exit;
+    }
     
     // Generate unique filename
     $fileExtension = strtolower(pathinfo($_FILES['video']['name'], PATHINFO_EXTENSION));
@@ -54,27 +68,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Save to database
         $relativePath = '/img/video/' . $uniqueFilename;
         
-        $stmt = $conn->prepare("INSERT INTO spot (nome, percorso_video) VALUES (?, ?)");
-        $stmt->bind_param("ss", $nome, $relativePath);
-        
-        if ($stmt->execute()) {
-            $_SESSION['success_message'] = 'Spot aggiunto con successo';
-            header("Location: ../../../front-end/php/spot/new_spot.php");
-        } else {
-            $_SESSION['error_message'] = 'Errore durante il salvataggio nel database: ' . $stmt->error;
-            header("Location: ../../../front-end/php/spot/new_spot.php");
+        try {
+            $stmt = $conn->prepare("INSERT INTO spot (nome, percorso_video) VALUES (?, ?)");
+            if (!$stmt) {
+                throw new Exception("Errore nella preparazione della query: " . $conn->error);
+            }
+            
+            $stmt->bind_param("ss", $nome, $relativePath);
+            
+            if ($stmt->execute()) {
+                echo json_encode(['success' => true, 'message' => 'Spot aggiunto con successo']);
+            } else {
+                throw new Exception("Errore durante l'esecuzione della query: " . $stmt->error);
+            }
+            
+            $stmt->close();
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
-        
-        $stmt->close();
     } else {
-        $_SESSION['error_message'] = 'Errore durante il caricamento del file';
-        header("Location: ../../../front-end/php/spot/new_spot.php");
+        echo json_encode(['success' => false, 'message' => 'Errore durante il caricamento del file: ' . error_get_last()['message']]);
     }
 } else {
-    $_SESSION['error_message'] = 'Metodo di richiesta non valido';
-    header("Location: ../../../front-end/php/spot/new_spot.php");
+    echo json_encode(['success' => false, 'message' => 'Metodo di richiesta non valido']);
 }
 
 $conn->close();
-exit;
 ?>
