@@ -41,6 +41,7 @@ body {
 .logodavid {
     width: 40%; /* Smaller logo */
     margin: 2% auto; /* Reduced margin */
+    margin-bottom: 0%;
     display: block; /* Ensure it's treated as a block element */
 }
 
