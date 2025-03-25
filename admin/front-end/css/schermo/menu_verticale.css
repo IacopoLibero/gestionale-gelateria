@@ -72,8 +72,8 @@ body {
     margin-bottom: 15px;
     width: 100%;
     position: relative;
-    padding-bottom: 1px; /* Space for the unified border */
-    border-bottom: 1px solid #ccc; /* Unified border for entire row */
+    padding-bottom: 1px;
+    border-bottom: none; /* Removed the unified border */
 }
 
 .product-item {
@@ -265,21 +265,21 @@ body {
 /* Responsive adjustments for font sizes at different widths */
 @media screen and (max-width: 1200px) {
     .product-name {
-        font-size: 160%;
+        font-size: 180%;
     }
     
     .product-name-en, .product-ingredients {
-        font-size: 120%;
+        font-size: 180%;
     }
 }
 
 @media screen and (max-width: 992px) {
     .product-name {
-        font-size: 160%;
+        font-size: 180%;
     }
     
     .product-name-en, .product-ingredients {
-        font-size: 140%;
+        font-size: 180%;
     }
 }
 
