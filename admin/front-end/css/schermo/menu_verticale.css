@@ -120,6 +120,21 @@ body {
     grid-template-rows: auto auto auto auto;
 }
 
+/* When both products have no ingredients, reduce space */
+.no-ingredients-row .product-item.row-no-ingredients {
+    min-height: 140px; /* Reduced minimum height */
+}
+
+/* Hide empty ingredient containers when in no-ingredients row */
+.no-ingredients-row .product-item.row-no-ingredients .product-ingredients.empty {
+    display: none;
+}
+
+/* Adjust spacing when both no icons and no ingredients */
+.no-icons-row.no-ingredients-row .product-item {
+    min-height: 110px; /* Significantly reduced height */
+}
+
 .product-name {
     font-family: 'Cormorant Upright', serif;
     font-weight: 700; /* Bold for Italian name */
@@ -194,6 +209,8 @@ body {
 
 .product-ingredients.empty {
     padding-bottom: 0.8em; /* Add some padding to maintain consistent height */
+    padding-bottom: 0; /* Remove padding when empty */
+    min-height: 0; /* No minimum height when empty */
 }
 
 .ingredients-divider {

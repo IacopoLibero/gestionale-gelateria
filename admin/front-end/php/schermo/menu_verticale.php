@@ -41,9 +41,11 @@
         $pairs = array_chunk($products, 2);
         
         foreach ($pairs as $pair) {
-            // Check if both products in the pair have no icons
+            // Check if both products in the pair have no icons and no ingredients
             $bothNoIcons = true;
+            $bothNoIngredients = true;
             $pairIcons = [];
+            $pairIngredients = [];
             
             foreach ($pair as $index => $product) {
                 $icons = showIcons($product);
@@ -51,16 +53,31 @@
                 if (!empty($icons)) {
                     $bothNoIcons = false;
                 }
+                
+                $hasIngredients = $product['ingredienti_visibili'] && !empty($product['ingredienti']);
+                $pairIngredients[$index] = $hasIngredients;
+                if ($hasIngredients) {
+                    $bothNoIngredients = false;
+                }
             }
             
-            echo '<div class="products-container' . ($bothNoIcons ? ' no-icons-row' : '') . '">';
+            $rowClasses = [];
+            if ($bothNoIcons) $rowClasses[] = 'no-icons-row';
+            if ($bothNoIngredients) $rowClasses[] = 'no-ingredients-row';
+            
+            echo '<div class="products-container ' . implode(' ', $rowClasses) . '">';
             
             foreach ($pair as $index => $product) {
                 $hasIcons = !empty($pairIcons[$index]);
-                $rowClass = $bothNoIcons ? 'row-no-icons' : '';
-                $itemClass = $hasIcons ? 'has-icons' : 'no-icons';
+                $hasIngredients = $pairIngredients[$index];
                 
-                echo '<div class="product-item ' . $itemClass . ' ' . $rowClass . '">';
+                $itemClasses = [];
+                $itemClasses[] = $hasIcons ? 'has-icons' : 'no-icons';
+                $itemClasses[] = $hasIngredients ? 'has-ingredients' : 'no-ingredients';
+                if ($bothNoIcons) $itemClasses[] = 'row-no-icons';
+                if ($bothNoIngredients) $itemClasses[] = 'row-no-ingredients';
+                
+                echo '<div class="product-item ' . implode(' ', $itemClasses) . '">';
                 echo '<div class="product-name">' . $product['nome'] . '</div>';
                 echo '<div class="product-name-en">' . $product['nome_inglese'] . '</div>';
                 
@@ -72,12 +89,12 @@
                 // Always show the ingredients divider
                 echo '<div class="ingredients-divider">ingredients</div>';
                 
-                // Always include the ingredients container for consistency
-                echo '<div class="product-ingredients">';
-                if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
-                    echo $product['ingredienti'];
+                // Only include the ingredients container if there are ingredients to show
+                if ($hasIngredients) {
+                    echo '<div class="product-ingredients">' . $product['ingredienti'] . '</div>';
+                } else {
+                    echo '<div class="product-ingredients empty"></div>';
                 }
-                echo '</div>';
                 
                 echo '</div>';
             }
