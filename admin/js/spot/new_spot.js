@@ -86,6 +86,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const messageSpan = document.createElement('span');
     messageSpan.textContent = message;
     
+    // Assemble notification content properly
+    notificationContent.appendChild(icon);
+    notificationContent.appendChild(messageSpan);
+    
+    // Add content to notification
+    notification.appendChild(notificationContent);
+    
     // Create close button (only for success and error notifications)
     if (type !== 'loading') {
       const closeButton = document.createElement('button');
@@ -93,13 +100,11 @@ document.addEventListener("DOMContentLoaded", function() {
       closeButton.className = 'notification-close';
       closeButton.onclick = closeNotification;
       closeButton.textContent = '×';
+      // Add close button to notification, not content
       notification.appendChild(closeButton);
     }
     
-    // Assemble notification
-    notificationContent.appendChild(icon);
-    notificationContent.appendChild(messageSpan);
-    notification.appendChild(notificationContent);
+    // Add notification to container
     notificationContainer.appendChild(notification);
     
     // Insert notification in page

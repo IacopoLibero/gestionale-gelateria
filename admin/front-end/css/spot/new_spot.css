@@ -7,6 +7,8 @@
   margin-bottom: 8px;
   color: #e8eaed;
   font-weight: 500;
+  text-align: initial;
+  margin-top: 15px;
 }
 
 .form-group input[type="text"] {
@@ -17,7 +19,9 @@
   color: #e8eaed;
   font-size: 14px;
 }
-
+.container h2{
+    margin-top: 0%;
+}
 .form-group input[type="file"] {
   display: block;
   padding: 10px;

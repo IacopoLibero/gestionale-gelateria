@@ -117,7 +117,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     <div id="notification-area"></div>
     
     <div class="container">
-      <h2 class="h2class">Nome e video</h2>
       <form id="spotForm" method="POST" action="../../../back-end/php/spot/new_spot.php" enctype="multipart/form-data">
         <div class="form-group">
           <label for="nome">Nome Spot</label>
