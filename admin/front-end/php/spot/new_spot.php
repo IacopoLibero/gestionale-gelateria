@@ -136,7 +136,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
           <div id="file-selected" class="file-selected">Nessun file selezionato</div>
           <small>Formati supportati: MP4, MOV, AVI, WMV</small>
         </div>
-        <button type="submit" class="btn-submit">Aggiungi Spot</button>
+        
+        <!-- Button container per stile coerente -->
+        <div class="button-container">
+          <button type="submit">
+            <span class="button_top">Aggiungi Spot</span>
+          </button>
+        </div>
       </form>
       <div id="message"></div>
     </div>
