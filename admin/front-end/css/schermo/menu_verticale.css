@@ -105,15 +105,15 @@ body {
 
 .product-item {
     width: 100%;
-    margin-bottom: 10px; /* Reduced margin */
-    padding: 5px; /* Reduced padding */
+    margin-bottom: 5px; /* Reduced from 10px */
+    padding: 3px; /* Reduced from 5px */
     box-sizing: border-box;
     border-bottom: none; /* Remove individual borders */
     display: flex;
     flex-direction: column;
     position: relative;
     height: auto;
-    min-height: 120px; /* Reduced minimum height */
+    min-height: 90px; /* Reduced from 120px */
 }
 
 /* Remove empty-item as it's no longer needed */
@@ -148,7 +148,7 @@ body {
 
 /* When both products have no ingredients, reduce space */
 .no-ingredients-row .product-item.row-no-ingredients {
-    min-height: 100px; /* Reduced height */
+    min-height: 80px; /* Reduced from 100px */
 }
 
 /* Hide empty ingredient containers when in no-ingredients row */
@@ -158,14 +158,14 @@ body {
 
 /* Adjust spacing when both no icons and no ingredients */
 .no-icons-row.no-ingredients-row .product-item {
-    min-height: 80px; /* Reduced height */
+    min-height: 70px; /* Reduced from 80px */
 }
 
 .product-name {
     font-family: 'Cormorant Upright', serif;
     font-weight: 700; /* Bold for Italian name */
     font-size: 200%; /* Smaller font */
-    margin-bottom: 2px; /* Reduced margin */
+    margin-bottom: 0px; /* Reduced from 2px */
     white-space: normal; /* Allow text to wrap */
     overflow: visible; /* Show overflowing content */
     text-overflow: clip; /* Do not show ellipsis */
@@ -180,7 +180,7 @@ body {
     font-weight: 600; /* Medium bold for English name */
     font-style: italic;
     font-size: 200%; /* Smaller font */
-    margin-bottom: 4px; /* Reduced margin */
+    margin-bottom: 2px; /* Reduced from 4px */
     color: #000000;
     white-space: normal; /* Allow text to wrap */
     overflow: visible; /* Show overflowing content */
@@ -194,7 +194,7 @@ body {
 .product-icons {
     display: flex;
     flex-wrap: wrap;
-    margin: 2px 0 5px 0; /* Reduced margin */
+    margin: 1px 0 3px 0; /* Reduced from 2px 0 5px 0 */
     align-items: center;
     flex: 0 0 auto; /* Don't allow flex to resize this */
     height: 24px; /* Smaller height */
@@ -221,14 +221,14 @@ body {
     font-size: 150%; /* Smaller font */
     font-style: italic;
     color: #000000;
-    margin-top: 2px;
+    margin-top: 1px; /* Reduced from 2px */
     white-space: normal; /* Allow text to wrap */
     overflow: visible; /* Show overflowing content */
     text-overflow: clip; /* Do not show ellipsis */
     overflow-wrap: break-word; /* Break long words */
     word-break: break-word; /* Allow words to break */
     line-height: 1.2;
-    margin-bottom: 2px;
+    margin-bottom: 1px; /* Reduced from 2px */
     min-height: 0.8em; /* Ensure consistency even when empty */
     flex: 0 0 auto; /* Don't allow flex to resize this */
 }
@@ -245,11 +245,11 @@ body {
     display: flex;
     align-items: center;
     margin: 0;
-    padding: 2px 0; /* Reduced padding */
+    padding: 1px 0; /* Reduced from 2px 0 */
     color: #666;
     flex: 0 0 auto; /* Don't allow flex to resize this */
-    height: 18px; /* Smaller height */
-    line-height: 18px;
+    height: 16px; /* Reduced from 18px */
+    line-height: 16px; /* Reduced from 18px */
     margin-top: auto; /* Push divider to bottom of available space */
 }
 
