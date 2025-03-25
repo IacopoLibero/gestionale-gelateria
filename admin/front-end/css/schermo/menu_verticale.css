@@ -83,6 +83,8 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
+    height: auto;
+    min-height: 180px; /* Ensure minimum height for consistency */
 }
 
 /* Specific styling for items with icons */
@@ -106,6 +108,7 @@ body {
     overflow-wrap: break-word; /* Break long words */
     word-break: break-word; /* Allow words to break */
     line-height: 1.2;
+    flex: 0 0 auto; /* Don't allow flex to resize this */
 }
 
 .product-name-en {
@@ -121,6 +124,7 @@ body {
     overflow-wrap: break-word; /* Break long words */
     word-break: break-word; /* Allow words to break */
     line-height: 1.2;
+    flex: 0 0 auto; /* Don't allow flex to resize this */
 }
 
 .product-icons {
@@ -128,6 +132,8 @@ body {
     flex-wrap: wrap;
     margin: 5px 0 10px 0;
     align-items: center;
+    flex: 0 0 auto; /* Don't allow flex to resize this */
+    height: 30px; /* Fixed height for consistency */
 }
 
 /* Spacer for when no icons are present */
@@ -160,6 +166,7 @@ body {
     line-height: 1.2;
     margin-bottom: 5px;
     min-height: 0.8em; /* Ensure consistency even when empty */
+    flex: 0 0 auto; /* Don't allow flex to resize this */
 }
 
 .product-ingredients.empty {
@@ -171,11 +178,13 @@ body {
     font-size: 110%;
     display: flex;
     align-items: center;
-    margin: 8px 0;
+    margin: 0;
+    padding: 5px 0;
     color: #666;
-    position: relative;
+    flex: 0 0 auto; /* Don't allow flex to resize this */
     height: 24px; /* Fixed height for consistent alignment */
     line-height: 24px;
+    margin-top: auto; /* Push divider to bottom of available space */
 }
 
 .ingredients-divider::before,
