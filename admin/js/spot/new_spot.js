@@ -3,15 +3,33 @@ document.addEventListener("DOMContentLoaded", function() {
   const fileInput = document.getElementById("video");
   const fileSelected = document.getElementById("file-selected");
   const notificationArea = document.getElementById("notification-area");
+  const videoPreview = document.getElementById("video-preview");
+  const fileUploadLabel = document.querySelector(".custum-file-upload");
   
   // Update the file selected text when a file is chosen
   fileInput.addEventListener("change", function() {
     if (this.files && this.files[0]) {
-      fileSelected.textContent = this.files[0].name;
+      const file = this.files[0];
+      fileSelected.textContent = file.name;
       fileSelected.style.color = "#4CAF50";
+      
+      // Genera URL per la preview del video
+      const videoURL = URL.createObjectURL(file);
+      videoPreview.src = videoURL;
+      
+      // Mostra la preview e nascondi le icone
+      fileUploadLabel.classList.add("with-preview");
+      
+      // Evento per rimuovere l'URL oggetto quando non è più necessario
+      videoPreview.onloadeddata = function() {
+        videoPreview.style.display = "block";
+      };
     } else {
       fileSelected.textContent = "Nessun file selezionato";
       fileSelected.style.color = "#e8eaed";
+      videoPreview.src = "";
+      videoPreview.style.display = "none";
+      fileUploadLabel.classList.remove("with-preview");
     }
   });
 
@@ -155,6 +173,9 @@ document.addEventListener("DOMContentLoaded", function() {
         spotForm.reset();
         fileSelected.textContent = "Nessun file selezionato";
         fileSelected.style.color = "#e8eaed";
+        videoPreview.src = "";
+        videoPreview.style.display = "none";
+        fileUploadLabel.classList.remove("with-preview");
       } else {
         // Show error notification
         showNotification("Errore: " + data.message, "error");

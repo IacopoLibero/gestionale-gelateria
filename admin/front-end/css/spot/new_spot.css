@@ -10,7 +10,9 @@
   text-align: initial;
   margin-top: 15px;
 }
-
+#titolo{
+    text-align: center;
+}
 .form-group input[type="text"] {
   width: -moz-available;
   padding: 10px;
@@ -119,6 +121,19 @@ button:active .button_top {
   box-shadow: 0px 48px 35px -48px #e8e8e8;
   margin: 0 auto 15px;
   position: relative; /* Aggiungiamo position relative per posizionamento assoluto dell'interno */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload.with-preview .icon,
+.custum-file-upload.with-preview .text {
+  display: none;
+}
+
+.custum-file-upload.with-preview #video-preview {
+  display: block !important;
 }
 
 .custum-file-upload .icon {

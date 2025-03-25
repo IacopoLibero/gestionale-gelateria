@@ -131,6 +131,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             <div class="text">
               <span>Clicca per caricare un video</span>
             </div>
+            <!-- Aggiunto elemento video per la preview -->
+            <video id="video-preview" controls style="display:none; max-width:100%; max-height:200px; margin-top:10px;"></video>
             <input id="video" name="video" type="file" accept="video/*" required style="display: none;">
           </label>
           <div id="file-selected" class="file-selected">Nessun file selezionato</div>
