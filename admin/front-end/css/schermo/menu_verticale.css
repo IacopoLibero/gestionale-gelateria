@@ -5,10 +5,13 @@
 body {
     margin: 0;
     padding: 0;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden; /* Prevent scrolling */
     position: relative;
     margin-left: 12%;
     margin-right: 12%;
+    display: flex;
+    flex-direction: column;
 }
 
 .background-container {
@@ -29,11 +32,15 @@ body {
 .content {
     position: relative;
     z-index: 1; /* Ensure content appears above background */
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .logodavid {
-    width: 60%;
-    margin: 5% auto; /* Center horizontally and add top margin */
+    width: 40%; /* Smaller logo */
+    margin: 2% auto; /* Reduced margin */
     display: block; /* Ensure it's treated as a block element */
 }
 
@@ -43,12 +50,11 @@ body {
     display: flex;
     align-items: center;
     text-align: center;
-    margin: 5px 0;
+    margin: 10px 0; /* Reduced margin */
     justify-content: center;
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 1.3rem; /* Smaller font */
     font-weight: 600;
-    margin: 20px 0;
 }
 
 .divider-with-text::before,
@@ -69,24 +75,24 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 5px; /* Reduced margin */
     width: 100%;
     position: relative;
-    padding-bottom: 1px;
+    padding-bottom: 0;
     border-bottom: none; /* Removed the unified border */
 }
 
 .product-item {
     width: 48%;
-    margin-bottom: 20px;
-    padding: 10px;
+    margin-bottom: 10px; /* Reduced margin */
+    padding: 5px; /* Reduced padding */
     box-sizing: border-box;
     border-bottom: none; /* Remove individual borders */
     display: flex;
     flex-direction: column;
     position: relative;
     height: auto;
-    min-height: 180px; /* Ensure minimum height for consistency */
+    min-height: 120px; /* Reduced minimum height */
 }
 
 /* Empty item for grid alignment */
@@ -124,7 +130,7 @@ body {
 
 /* When both products have no ingredients, reduce space */
 .no-ingredients-row .product-item.row-no-ingredients {
-    min-height: 140px; /* Reduced minimum height */
+    min-height: 100px; /* Reduced height */
 }
 
 /* Hide empty ingredient containers when in no-ingredients row */
@@ -134,14 +140,14 @@ body {
 
 /* Adjust spacing when both no icons and no ingredients */
 .no-icons-row.no-ingredients-row .product-item {
-    min-height: 110px; /* Significantly reduced height */
+    min-height: 80px; /* Reduced height */
 }
 
 .product-name {
     font-family: 'Cormorant Upright', serif;
     font-weight: 700; /* Bold for Italian name */
-    font-size: 180%;
-    margin-bottom: 5px;
+    font-size: 130%; /* Smaller font */
+    margin-bottom: 2px; /* Reduced margin */
     white-space: normal; /* Allow text to wrap */
     overflow: visible; /* Show overflowing content */
     text-overflow: clip; /* Do not show ellipsis */
@@ -155,8 +161,8 @@ body {
     font-family: 'Cormorant Upright', serif;
     font-weight: 600; /* Medium bold for English name */
     font-style: italic;
-    font-size: 180%;
-    margin-bottom: 8px;
+    font-size: 110%; /* Smaller font */
+    margin-bottom: 4px; /* Reduced margin */
     color: #000000;
     white-space: normal; /* Allow text to wrap */
     overflow: visible; /* Show overflowing content */
@@ -170,10 +176,10 @@ body {
 .product-icons {
     display: flex;
     flex-wrap: wrap;
-    margin: 5px 0 10px 0;
+    margin: 2px 0 5px 0; /* Reduced margin */
     align-items: center;
     flex: 0 0 auto; /* Don't allow flex to resize this */
-    height: 30px; /* Fixed height for consistency */
+    height: 24px; /* Smaller height */
 }
 
 /* Spacer for when no icons are present */
@@ -186,25 +192,25 @@ body {
 }
 
 .product-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-    margin-bottom: 5px;
+    width: 20px; /* Smaller icons */
+    height: 20px;
+    margin-right: 5px;
+    margin-bottom: 2px;
 }
 
 .product-ingredients {
     font-family: 'Cormorant Upright', serif;
-    font-size: 130%;
+    font-size: 100%; /* Smaller font */
     font-style: italic;
     color: #000000;
-    margin-top: 5px;
+    margin-top: 2px;
     white-space: normal; /* Allow text to wrap */
     overflow: visible; /* Show overflowing content */
     text-overflow: clip; /* Do not show ellipsis */
     overflow-wrap: break-word; /* Break long words */
     word-break: break-word; /* Allow words to break */
     line-height: 1.2;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
     min-height: 0.8em; /* Ensure consistency even when empty */
     flex: 0 0 auto; /* Don't allow flex to resize this */
 }
@@ -217,15 +223,15 @@ body {
 
 .ingredients-divider {
     font-family: 'Cormorant Upright', serif;
-    font-size: 110%;
+    font-size: 90%; /* Smaller font */
     display: flex;
     align-items: center;
     margin: 0;
-    padding: 5px 0;
+    padding: 2px 0; /* Reduced padding */
     color: #666;
     flex: 0 0 auto; /* Don't allow flex to resize this */
-    height: 24px; /* Fixed height for consistent alignment */
-    line-height: 24px;
+    height: 18px; /* Smaller height */
+    line-height: 18px;
     margin-top: auto; /* Push divider to bottom of available space */
 }
 

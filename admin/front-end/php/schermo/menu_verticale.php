@@ -10,6 +10,7 @@
   <div class="background-container"></div>
   <div class="content">
     <img src="../../../../img/david/david_logo_testo_2.png" alt="logodavid" class="logodavid">
+    <div class="products-section">
     <?php
     // Include il file back-end per recuperare i dati
     require_once '../../../back-end/php/schermo/menu_verticale.php';
@@ -123,7 +124,8 @@
         }
     }
     ?>
-  </div>
+    </div> <!-- Close products-section -->
+  </div> <!-- Close content -->
   <script src="../../../js/schermo/menu_verticale.js"></script>
 </body>
 </html>
