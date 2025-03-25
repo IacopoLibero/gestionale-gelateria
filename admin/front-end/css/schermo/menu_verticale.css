@@ -80,7 +80,8 @@ body {
     box-sizing: border-box;
     border-bottom: 1px solid #ccc; /* Thin divider line for each product */
     display: grid;
-    grid-template-rows: auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto;
+    grid-auto-rows: min-content;
     height: auto;
     position: relative;
 }

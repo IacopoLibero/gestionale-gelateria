@@ -43,12 +43,10 @@
             echo '<div class="product-name">' . $product['nome'] . '</div>';
             echo '<div class="product-name-en">' . $product['nome_inglese'] . '</div>';
             
-            // Mostrare le icone se presenti, altrimenti aggiungere spazio vuoto
+            // Mostrare le icone solo se presenti, senza aggiungere spazio vuoto
             $icons = showIcons($product);
             if (!empty($icons)) {
                 echo '<div class="product-icons">' . $icons . '</div>';
-            } else {
-                echo '<div class="product-icons-spacer"></div>';
             }
             
             // Always show the ingredients divider
