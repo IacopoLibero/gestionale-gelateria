@@ -42,30 +42,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     
-    // Define upload directory using the manually created path
-    $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/img/video/';
-    
-    // Ensure the directory exists and is writable
-    if (!file_exists($uploadDir)) {
-        if (!mkdir($uploadDir, 0755, true)) {
-            echo json_encode(['success' => false, 'message' => 'Impossibile creare la directory di upload']);
-            exit;
-        }
-    }
-    
-    if (!is_writable($uploadDir)) {
-        echo json_encode(['success' => false, 'message' => 'Directory di upload non scrivibile']);
-        exit;
-    }
+    // For Altervista hosting, use absolute path without DOCUMENT_ROOT which might be incorrect
+    $uploadDir = dirname(dirname(dirname(dirname(dirname(__FILE__))))) . '/img/video/';
     
     // Generate unique filename
     $fileExtension = strtolower(pathinfo($_FILES['video']['name'], PATHINFO_EXTENSION));
     $uniqueFilename = uniqid() . '.' . $fileExtension;
     $uploadPath = $uploadDir . $uniqueFilename;
     
-    // Move the uploaded file
+    // Attempt to upload the file
     if (move_uploaded_file($_FILES['video']['tmp_name'], $uploadPath)) {
-        // Save to database
+        // Save to database with the correct relative path for your hosting
         $relativePath = '/img/video/' . $uniqueFilename;
         
         try {
@@ -87,7 +74,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     } else {
-        echo json_encode(['success' => false, 'message' => 'Errore durante il caricamento del file: ' . error_get_last()['message']]);
+        // Debug info for upload failures
+        $errorDetails = error_get_last();
+        $debugInfo = [
+            'tmp_name' => $_FILES['video']['tmp_name'],
+            'target_path' => $uploadPath,
+            'upload_dir' => $uploadDir,
+            'file_exists' => file_exists($_FILES['video']['tmp_name']) ? 'Sì' : 'No',
+            'dir_exists' => file_exists($uploadDir) ? 'Sì' : 'No',
+            'dir_writable' => is_writable($uploadDir) ? 'Sì' : 'No',
+            'error' => $errorDetails ? $errorDetails['message'] : 'Nessun errore specifico rilevato'
+        ];
+        
+        echo json_encode([
+            'success' => false, 
+            'message' => 'Errore durante il caricamento del file',
+            'debug' => $debugInfo
+        ]);
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Metodo di richiesta non valido']);
