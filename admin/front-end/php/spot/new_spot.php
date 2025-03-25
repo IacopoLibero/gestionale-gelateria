@@ -132,7 +132,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
               <div class="text">
                 <span>Clicca per caricare un video</span>
               </div>
-              <input id="video" name="video" type="file" accept="video/*" required>
+              <input id="video" name="video" type="file" accept="video/*" required style="display: none;">
             </label>
             <div id="file-selected" class="file-selected">Nessun file selezionato</div>
             <small>Formati supportati: MP4, MOV, AVI, WMV</small>
