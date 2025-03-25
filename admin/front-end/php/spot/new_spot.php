@@ -15,7 +15,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestionale Gelateria - Nuovo spot</title>
   <link rel="stylesheet" href="../../../front-end/css/dashboard.css">
-  <link rel="stylesheet" href="../../../front-end/css/spot/catalogo_spot.css">
+  <link rel="stylesheet" href="../../../front-end/css/spot/new_spot.css">
 </head>
 <body>
   <nav id="sidebar">
@@ -86,7 +86,23 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   <main>
     <div class="container">
       <h2>Nuovo spot</h2>
-      <p>Pagina per aggiungere uno spot per la tv</p>
+      <p>Aggiungi un nuovo spot video da visualizzare sul monitor</p>
+      
+      <div class="form-container">
+        <form id="spotForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="nome">Nome Spot</label>
+            <input type="text" id="nome" name="nome" required>
+          </div>
+          <div class="form-group">
+            <label for="video">File Video</label>
+            <input type="file" id="video" name="video" accept="video/*" required>
+            <small>Formati supportati: MP4, MOV, AVI, WMV</small>
+          </div>
+          <button type="submit" class="btn-submit">Aggiungi Spot</button>
+        </form>
+        <div id="message"></div>
+      </div>
     </div>
   </main>
   

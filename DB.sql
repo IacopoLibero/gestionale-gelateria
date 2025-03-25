@@ -39,3 +39,11 @@ CREATE TABLE prodotto(
     stato BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (tipo) REFERENCES categoria(nome) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+-- Tabella per gli spot video
+CREATE TABLE spot(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    percorso_video VARCHAR(255) NOT NULL,
+    data_creazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
