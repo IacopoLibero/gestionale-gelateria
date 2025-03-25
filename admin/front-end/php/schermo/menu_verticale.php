@@ -51,9 +51,11 @@
                 echo '<div class="product-icons-spacer"></div>';
             }
             
-            // Mostrare gli ingredienti solo se visibili
+            // Always show the ingredients divider
+            echo '<div class="ingredients-divider">ingredients</div>';
+            
+            // Only show the actual ingredients if they are visible and not empty
             if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
-                echo '<div class="ingredients-divider">ingredients</div>';
                 echo '<div class="product-ingredients">' . $product['ingredienti'] . '</div>';
             }
             
