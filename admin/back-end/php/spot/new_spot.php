@@ -41,11 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     
-    // Create upload directory if it doesn't exist
+    // Define upload directory using the manually created path
     $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/img/video/';
-    if (!file_exists($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
     
     // Generate unique filename
     $fileExtension = strtolower(pathinfo($_FILES['video']['name'], PATHINFO_EXTENSION));
