@@ -1,9 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Auto-refresh the page every 5 minutes to show updated product data
-    setTimeout(function() {
-        location.reload();
-    }, 5 * 60 * 1000);
-    
+      
     // Function to ensure all content fits on one page
     function adjustContentForSinglePage() {
         const content = document.querySelector('.content');
