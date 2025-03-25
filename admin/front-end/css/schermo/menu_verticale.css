@@ -1,5 +1,5 @@
 * {
-    background-color: #f6f3df;
+    background-color: #f7f3de;
 }
 
 body {
@@ -102,7 +102,7 @@ body {
     font-style: italic;
     font-size: 130%;
     margin-bottom: 8px;
-    color: #555;
+    color: #000000;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -194,7 +194,7 @@ body {
 /* Responsive adjustments for font sizes at different widths */
 @media screen and (max-width: 1200px) {
     .product-name {
-        font-size: 130%;
+        font-size: 160%;
     }
     
     .product-name-en, .product-ingredients {
@@ -204,11 +204,11 @@ body {
 
 @media screen and (max-width: 992px) {
     .product-name {
-        font-size: 120%;
+        font-size: 160%;
     }
     
     .product-name-en, .product-ingredients {
-        font-size: 110%;
+        font-size: 140%;
     }
 }
 
