@@ -37,40 +37,58 @@
         }
         echo '</div>';
         
-        echo '<div class="products-container">';
-        $count = 0;
+        // Group products into pairs for display in rows
+        $pairs = array_chunk($products, 2);
         
-        foreach ($products as $product) {
-            echo '<div class="product-item">';
-            echo '<div class="product-name">' . $product['nome'] . '</div>';
-            echo '<div class="product-name-en">' . $product['nome_inglese'] . '</div>';
+        foreach ($pairs as $pair) {
+            // Check if both products in the pair have no icons
+            $bothNoIcons = true;
+            $pairIcons = [];
             
-            // Include icons container only if there are icons
-            $icons = showIcons($product);
-            if (!empty($icons)) {
-                echo '<div class="product-icons">' . $icons . '</div>';
+            foreach ($pair as $index => $product) {
+                $icons = showIcons($product);
+                $pairIcons[$index] = $icons;
+                if (!empty($icons)) {
+                    $bothNoIcons = false;
+                }
             }
             
-            // Always show the ingredients divider
-            echo '<div class="ingredients-divider">ingredients</div>';
+            echo '<div class="products-container' . ($bothNoIcons ? ' no-icons-row' : '') . '">';
             
-            // Always include the ingredients container for consistency
-            echo '<div class="product-ingredients">';
-            if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
-                echo $product['ingredienti'];
+            foreach ($pair as $index => $product) {
+                $hasIcons = !empty($pairIcons[$index]);
+                $rowClass = $bothNoIcons ? 'row-no-icons' : '';
+                $itemClass = $hasIcons ? 'has-icons' : 'no-icons';
+                
+                echo '<div class="product-item ' . $itemClass . ' ' . $rowClass . '">';
+                echo '<div class="product-name">' . $product['nome'] . '</div>';
+                echo '<div class="product-name-en">' . $product['nome_inglese'] . '</div>';
+                
+                // Only show icons div if this product has icons
+                if ($hasIcons) {
+                    echo '<div class="product-icons">' . $pairIcons[$index] . '</div>';
+                }
+                
+                // Always show the ingredients divider
+                echo '<div class="ingredients-divider">ingredients</div>';
+                
+                // Always include the ingredients container for consistency
+                echo '<div class="product-ingredients">';
+                if ($product['ingredienti_visibili'] && !empty($product['ingredienti'])) {
+                    echo $product['ingredienti'];
+                }
+                echo '</div>';
+                
+                echo '</div>';
             }
+            
+            // If there's only one product in the last pair, add an empty div to maintain the grid
+            if (count($pair) == 1) {
+                echo '<div class="product-item empty-item"></div>';
+            }
+            
             echo '</div>';
-            
-            echo '</div>';
-            
-            $count++;
-            // Every two products, close and reopen container for alignment
-            if ($count % 2 == 0 && $count < count($products)) {
-                echo '</div><div class="products-container">';
-            }
         }
-        
-        echo '</div>';
     }
     
     // Mostra le sezioni in base alle categorie disponibili
