@@ -46,14 +46,23 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Function to create and show a notification
-  function showNotification(message, isSuccess) {
+  function showNotification(message, type) {
     // Create notification container
     const notificationContainer = document.createElement('div');
     notificationContainer.className = 'notification-container';
     
     // Create notification
     const notification = document.createElement('div');
-    notification.className = isSuccess ? 'notification success-notification' : 'notification error-notification';
+    
+    // Set class based on type
+    if (type === 'loading') {
+      notification.className = 'notification loading-notification';
+    } else if (type === 'success') {
+      notification.className = 'notification success-notification';
+    } else {
+      notification.className = 'notification error-notification';
+    }
+    
     notification.id = 'notification';
     
     // Create notification content
@@ -63,31 +72,60 @@ document.addEventListener("DOMContentLoaded", function() {
     // Create icon
     const icon = document.createElement('span');
     icon.className = 'notification-icon';
-    icon.textContent = isSuccess ? '✓' : '⚠';
+    
+    // Set icon based on type
+    if (type === 'loading') {
+      icon.textContent = '⏳';
+    } else if (type === 'success') {
+      icon.textContent = '✓';
+    } else {
+      icon.textContent = '⚠';
+    }
     
     // Create message
     const messageSpan = document.createElement('span');
     messageSpan.textContent = message;
     
-    // Create close button
-    const closeButton = document.createElement('button');
-    closeButton.type = 'button';
-    closeButton.className = 'notification-close';
-    closeButton.onclick = closeNotification;
-    closeButton.textContent = '×';
+    // Create close button (only for success and error notifications)
+    if (type !== 'loading') {
+      const closeButton = document.createElement('button');
+      closeButton.type = 'button';
+      closeButton.className = 'notification-close';
+      closeButton.onclick = closeNotification;
+      closeButton.textContent = '×';
+      notification.appendChild(closeButton);
+    }
     
     // Assemble notification
     notificationContent.appendChild(icon);
     notificationContent.appendChild(messageSpan);
-    notification.appendChild(closeButton);
+    notification.appendChild(notificationContent);
     notificationContainer.appendChild(notification);
     
     // Insert notification in page
     notificationArea.innerHTML = '';
     notificationArea.appendChild(notificationContainer);
     
-    // Auto close after 3 seconds
-    setTimeout(closeNotification, 3000);
+    // Auto close after 3 seconds (only for success and error)
+    if (type !== 'loading') {
+      setTimeout(() => {
+        if (document.getElementById('notification')) {
+          // If success, redirect after closing
+          if (type === 'success') {
+            closeNotification();
+          } else {
+            // Just close error messages
+            const notification = document.getElementById('notification');
+            if (notification) {
+              notification.style.opacity = '0';
+              setTimeout(() => {
+                notification.parentNode.removeChild(notification);
+              }, 500);
+            }
+          }
+        }
+      }, 3000);
+    }
   }
 
   spotForm.addEventListener("submit", function(e) {
@@ -95,8 +133,8 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const formData = new FormData(this);
     
-    // Show loading message
-    showNotification("Caricamento in corso...", true);
+    // Show loading message in notification area
+    showNotification("Caricamento in corso...", "loading");
     
     fetch("../../../back-end/php/spot/new_spot.php", {
       method: "POST",
@@ -105,17 +143,21 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(response => response.json())
     .then(data => {
       if (data.success) {
-        showNotification("Spot aggiunto con successo!", true);
+        // Show success notification
+        showNotification("Spot aggiunto con successo!", "success");
+        
+        // Reset form
         spotForm.reset();
         fileSelected.textContent = "Nessun file selezionato";
         fileSelected.style.color = "#e8eaed";
       } else {
-        showNotification("Errore: " + data.message, false);
+        // Show error notification
+        showNotification("Errore: " + data.message, "error");
       }
     })
     .catch(error => {
       console.error("Error:", error);
-      showNotification("Si è verificato un errore durante il caricamento.", false);
+      showNotification("Si è verificato un errore durante il caricamento.", "error");
     });
   });
 });

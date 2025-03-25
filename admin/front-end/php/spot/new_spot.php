@@ -145,6 +145,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
           </button>
         </div>
       </form>
+      <div id="message"></div>
     </div>
   </main>
   
