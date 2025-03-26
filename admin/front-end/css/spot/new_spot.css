@@ -231,3 +231,88 @@ button:active .button_top {
   justify-content: center;
   margin-bottom: 20px;
 }
+
+/* Make the page responsive */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .form-group label:not(.custum-file-upload) {
+    font-size: 14px;
+  }
+  
+  .form-group input[type="text"] {
+    font-size: 14px;
+    padding: 8px;
+  }
+  
+  /* Make the file upload more mobile-friendly */
+  .custum-file-upload {
+    padding: 1rem;
+  }
+  
+  .custum-file-upload .icon svg {
+    height: 60px;
+  }
+  
+  .custum-file-upload .text span {
+    font-size: 14px;
+  }
+  
+  #video-preview {
+    max-height: 150px;
+  }
+  
+  /* Adjust the button size */
+  button {
+    font-size: 15px;
+  }
+  
+  .button_top {
+    padding: 0.6em 1.2em;
+  }
+  
+  /* Fix notification on small screens */
+  .notification {
+    max-width: 100%;
+    width: 90%;
+    padding: 10px 15px;
+  }
+  
+  .notification-icon {
+    font-size: 20px;
+  }
+  
+  .notification-close {
+    font-size: 18px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+  
+  #titolo {
+    font-size: 1.5rem;
+    padding-top: 3%;
+    padding-bottom: 3%;
+  }
+  
+  .custum-file-upload .icon svg {
+    height: 50px;
+  }
+  
+  .custum-file-upload .text span {
+    font-size: 13px;
+  }
+  
+  /* Make file preview fit better */
+  #video-preview {
+    max-height: 120px;
+  }
+}
