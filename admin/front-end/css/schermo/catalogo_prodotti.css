@@ -379,6 +379,45 @@
     }
 }
 
+/* Font Size Adjustment Form */
+.font-size-container {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+}
+
+.font-size-form {
+  max-width: 500px;
+  margin: 20px 0;
+}
+
+.font-size-form .form-group {
+  margin-bottom: 15px;
+}
+
+.font-size-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.font-size-form input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #333;
+  color: #fff;
+}
+
+.font-size-form small {
+  display: block;
+  margin-top: 5px;
+  color: #aaa;
+  font-style: italic;
+}
+
 @media (max-width: 768px) {
     .product-grid {
         grid-template-columns: 1fr;
@@ -398,6 +437,10 @@
         border: 1px solid #444;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .font-size-form {
+        max-width: 100%;
     }
 }
 

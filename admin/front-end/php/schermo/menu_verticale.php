@@ -5,6 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestionale Gelateria - Menu</title>
   <link rel="stylesheet" href="../../../front-end/css/schermo/menu_verticale.css">
+  <?php
+  // Get font size setting from database
+  require_once '../../../../connessione.php';
+  session_start();
+  
+  // Default font size
+  $font_size = 200;  
+  $ingredients_size = 150; // 75% of product name size (30% less)
+  
+  // If user is logged in, get their font size preference
+  if (isset($_SESSION['username'])) {
+      $sql = "SELECT font_size FROM utente WHERE username = ?";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param("s", $_SESSION['username']);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      
+      if ($result->num_rows > 0) {
+          $row = $result->fetch_assoc();
+          $font_size = intval($row['font_size']);
+          $ingredients_size = intval($font_size * 0.7); // 30% smaller for ingredients
+      }
+      
+      $stmt->close();
+  }
+  $conn->close();
+  ?>
+  <style>
+    .product-name {
+      font-size: <?php echo $font_size; ?>% !important;
+    }
+    .product-name-en {
+      font-size: <?php echo $font_size; ?>% !important;
+    }
+    .product-ingredients {
+      font-size: <?php echo $ingredients_size; ?>% !important;
+    }
+  </style>
 </head>
 <body>
   <div class="background-container"></div>
