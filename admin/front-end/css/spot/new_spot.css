@@ -1,6 +1,8 @@
 .form-group {
   margin-bottom: 25px;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .form-group label:not(.custum-file-upload) {
@@ -137,6 +139,7 @@ button:active .button_top {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 10; /* Lower z-index than navbar */
 }
 
 .custum-file-upload.with-preview .icon,
@@ -340,4 +343,21 @@ button:active .button_top {
 /* Fix spacing and overflow issues */
 main {
     overflow-x: hidden; /* Prevent horizontal scrolling */
+    position: relative;
+    z-index: 5; /* Lower z-index than navbar */
+}
+
+/* Fix z-index issues with navbar and file upload */
+#sidebar {
+  z-index: 1000 !important; /* Ensure sidebar has highest z-index */
+}
+
+.sub-menu {
+  z-index: 999 !important; /* Ensure dropdown menus have high z-index */
+}
+
+/* Prevent video preview from overlapping navbar */
+#video-preview {
+  position: relative;
+  z-index: 10;
 }
