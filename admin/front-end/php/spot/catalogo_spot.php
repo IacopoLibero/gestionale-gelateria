@@ -136,8 +136,9 @@ $result = $conn->query($sql);
                 echo "<div class='spot-card'>";
                 echo "<h3>$nome</h3>";
                 echo "<p>Data creazione: $data_creazione</p>";
-                echo "<div class='video-container'>";
-                echo "<video controls><source src='$percorso_video' type='video/mp4'>Il tuo browser non supporta il tag video.</video>";
+                echo "<div class='video-container' data-video-src='$percorso_video'>";
+                echo "<video preload='metadata'><source src='$percorso_video' type='video/mp4'>Il tuo browser non supporta il tag video.</video>";
+                echo "<div class='play-overlay'><span>▶</span></div>";
                 echo "</div>";
                 echo "<div class='card-actions'>";
                 echo "<form method='POST' action='../../../back-end/php/spot/catalogo_spot.php' onsubmit='return confirm(\"Sei sicuro di voler eliminare questo spot? Questa azione non può essere annullata.\")'>";
@@ -161,6 +162,14 @@ $result = $conn->query($sql);
       </div>
     </div>
   </main>
+  
+  <!-- Video Modal for fullscreen -->
+  <div id="video-modal" class="video-modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <video id="modal-video" controls></video>
+    </div>
+  </div>
   
   <script src="../../../js/dashboard.js"></script>
   <script src="../../../js/spot/catalogo_spot.js"></script>

@@ -54,4 +54,54 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
+
+    // Video fullscreen functionality
+    const videoContainers = document.querySelectorAll('.video-container');
+    const videoModal = document.getElementById('video-modal');
+    const modalVideo = document.getElementById('modal-video');
+    const closeModal = document.querySelector('.close-modal');
+    
+    // Open modal with video
+    videoContainers.forEach(container => {
+        container.addEventListener('click', function(e) {
+            // Prevent opening modal if clicking on form elements
+            if (e.target.closest('.card-actions') || e.target.closest('form')) {
+                return;
+            }
+            
+            const videoSrc = this.getAttribute('data-video-src');
+            modalVideo.innerHTML = `<source src="${videoSrc}" type="video/mp4">`;
+            modalVideo.load();
+            
+            // Show the modal
+            videoModal.style.display = 'flex';
+            
+            // Play the video after a short delay to ensure it's loaded
+            setTimeout(() => {
+                modalVideo.play();
+            }, 300);
+        });
+    });
+    
+    // Close modal
+    closeModal.addEventListener('click', function() {
+        modalVideo.pause();
+        videoModal.style.display = 'none';
+    });
+    
+    // Close modal when clicking outside the video
+    videoModal.addEventListener('click', function(e) {
+        if (e.target === videoModal) {
+            modalVideo.pause();
+            videoModal.style.display = 'none';
+        }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && videoModal.style.display === 'flex') {
+            modalVideo.pause();
+            videoModal.style.display = 'none';
+        }
+    });
 });
