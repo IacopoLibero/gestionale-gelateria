@@ -1,5 +1,6 @@
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  width: 100%;
 }
 
 .form-group label:not(.custum-file-upload) {
@@ -12,14 +13,25 @@
 }
 #titolo{
     text-align: center;
+    margin-bottom: 25px !important;
+    padding-bottom: 15px !important;
 }
 .form-group input[type="text"] {
-  width: -moz-available;
+  width: 100%;
   padding: 10px;
   border: 1px solid #555;
   border-radius: 4px;
   color: #e8eaed;
   font-size: 14px;
+  box-sizing: border-box;
+}
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden; /* Ensure no overflow within containers */
 }
 .container h2{
     margin-top: 0%;
@@ -237,7 +249,7 @@ button:active .button_top {
   .container {
     width: 90%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 15px;
   }
   
   .form-group label:not(.custum-file-upload) {
@@ -289,18 +301,26 @@ button:active .button_top {
   .notification-close {
     font-size: 18px;
   }
+  
+  #titolo {
+    margin-bottom: 15px !important;
+    padding-bottom: 10px !important;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
 }
 
 /* Extra small devices */
 @media (max-width: 480px) {
   .container {
-    padding: 15px;
+    padding: 10px;
   }
   
   #titolo {
-    font-size: 1.5rem;
-    padding-top: 3%;
-    padding-bottom: 3%;
+    font-size: 1.4rem;
+    margin-bottom: 10px !important;
   }
   
   .custum-file-upload .icon svg {
@@ -315,4 +335,9 @@ button:active .button_top {
   #video-preview {
     max-height: 120px;
   }
+}
+
+/* Fix spacing and overflow issues */
+main {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
