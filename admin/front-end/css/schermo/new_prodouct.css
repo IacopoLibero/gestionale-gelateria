@@ -153,9 +153,12 @@
 /* Container styling */
 .container {
   border: 1px solid var(--line-clr);
-    border-radius: 1em;
-    margin-bottom: 20px;
-    padding: min(3em, 15%);
+  border-radius: 1em;
+  margin-bottom: 20px;
+  padding: min(3em, 15%);
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* Make columns stack on small screens */
@@ -168,15 +171,17 @@
   .checkbox-columns .column,
   .name-columns .column {
     width: 100%;
+    min-width: 100%;
   }
   
   /* Ensure container remains visible on mobile */
   .container {
-    width: 90%;
+    width: 100%;
     padding: 15px;
     border: 1px solid #444;
     margin-left: auto;
     margin-right: auto;
+    overflow-x: hidden;
   }
   
   /* Specific fix for select in checkbox columns on mobile */
@@ -186,56 +191,42 @@
     color: #e8eaed !important;
     opacity: 1 !important;
     z-index: 10;
-  }
-}  
-
-
-/*bottone submit*/
-/* From Uiverse.io by Voxybuns */ 
-button {
-    /* Variables */
-    --button_radius: 0.75em;
-    --button_color: #9e8e8e;
-    --button_outline_color: #694949;
-    font-size: 17px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    border-radius: var(--button_radius);
-    background: var(--button_outline_color);
-  }
-  
-  .button_top {
-    display: block;
-    margin-left: 5px;
-    margin-right: 5px;
+    width: 100%;
     box-sizing: border-box;
-    border: 2px solid var(--button_outline_color);
-    border-radius: var(--button_radius);
-    padding: 0.75em 1.5em;
-    background: var(--button_color);
-    color: var(--button_outline_color);
-    transform: translateY(-0.2em);
-    transition: transform 0.1s ease;
-  }
-  
-  button:hover .button_top {
-    /* Pull the button upwards when hovered */
-    transform: translateY(-0.33em);
-  }
-  
-  button:active .button_top {
-    /* Push the button downwards when pressed */
-    transform: translateY(0);
   }
 
-/* Button container for centering */
+  /* Fix horizontal scrolling on mobile */
+  body, main {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Make sure form elements don't overflow */
+  input, select, textarea, button {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Ensure elements don't cause horizontal scrolling */
+main {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+/* Make sure button container doesn't overflow */
 .button-container {
   display: flex;
   justify-content: center;
   padding-top: 5%;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
+
 /* Original button styling remains unchanged */
 button {
   /* Variables */
@@ -328,4 +319,5 @@ button {
   resize: none;
   overflow: hidden;
   line-height: 1.2;
+  max-width: 100%;
 }
