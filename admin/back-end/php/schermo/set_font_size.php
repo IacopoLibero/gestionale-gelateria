@@ -34,11 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
     
     // Redirect back to catalog page
-    header("Location: ../../../../front-end/php/schermo/catalogo_prodotti.php");
+    header("Location: ../../../front-end/php/schermo/catalogo_prodotti.php");
     exit;
 } else {
     // If accessed directly without POST data
-    header("Location: ../../../../front-end/php/schermo/catalogo_prodotti.php");
+    header("Location: ../../../front-end/php/schermo/catalogo_prodotti.php");
     exit;
 }
 ?>
