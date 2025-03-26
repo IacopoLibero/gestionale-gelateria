@@ -8,7 +8,11 @@
   <?php
   // Get font size setting from database
   require_once '../../../../connessione.php';
-  session_start();
+  
+  // Start session if not already started
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
   
   // Default font size
   $font_size = 200;  
@@ -16,21 +20,21 @@
   
   // If user is logged in, get their font size preference
   if (isset($_SESSION['username'])) {
-      $sql = "SELECT font_size FROM utente WHERE username = ?";
-      $stmt = $conn->prepare($sql);
-      $stmt->bind_param("s", $_SESSION['username']);
-      $stmt->execute();
-      $result = $stmt->get_result();
+      $font_sql = "SELECT font_size FROM utente WHERE username = ?";
+      $font_stmt = $conn->prepare($font_sql);
+      $font_stmt->bind_param("s", $_SESSION['username']);
+      $font_stmt->execute();
+      $font_result = $font_stmt->get_result();
       
-      if ($result->num_rows > 0) {
-          $row = $result->fetch_assoc();
-          $font_size = intval($row['font_size']);
+      if ($font_result->num_rows > 0) {
+          $font_row = $font_result->fetch_assoc();
+          $font_size = intval($font_row['font_size']);
           $ingredients_size = intval($font_size * 0.7); // 30% smaller for ingredients
       }
       
-      $stmt->close();
+      $font_stmt->close();
   }
-  $conn->close();
+  // Do NOT close the database connection here as it will be needed later
   ?>
   <style>
     .product-name {
