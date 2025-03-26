@@ -6,6 +6,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../index.php");
     exit;
 }
+
+// Include database connection
+require_once '../../../../connessione.php';
+
+// Fetch all spots from database
+$sql = "SELECT * FROM spot ORDER BY data_creazione DESC";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -85,8 +92,73 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   </nav>
   <main>
     <div class="container">
-      <h2>Catalogo spot</h2>
-      <p>Catalogo di tutti gli spot per la tv</p>
+      <h2>Catalogo Spot</h2>
+      <p>Gestisci i video spot per il monitor</p>
+    </div>
+    
+    <!-- Notification system -->
+    <?php if(isset($_SESSION['success_message'])): ?>
+      <div class="notification-container">
+        <div class="notification success-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">✓</span>
+            <span><?php echo $_SESSION['success_message']; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+      <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
+    
+    <?php if(isset($_SESSION['error_message'])): ?>
+      <div class="notification-container">
+        <div class="notification error-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">⚠</span>
+            <span><?php echo $_SESSION['error_message']; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+      <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
+
+    <div class="container">
+      <div class="spot-grid">
+        <?php
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $id = $row['id'];
+                $nome = htmlspecialchars($row['nome']);
+                $percorso_video = $row['percorso_video'];
+                $data_creazione = date('d/m/Y H:i', strtotime($row['data_creazione']));
+                
+                echo "<div class='spot-card'>";
+                echo "<h3>$nome</h3>";
+                echo "<p>Data creazione: $data_creazione</p>";
+                echo "<div class='video-container'>";
+                echo "<video controls><source src='$percorso_video' type='video/mp4'>Il tuo browser non supporta il tag video.</video>";
+                echo "</div>";
+                echo "<div class='card-actions'>";
+                echo "<form method='POST' action='../../../back-end/php/spot/catalogo_spot.php' onsubmit='return confirm(\"Sei sicuro di voler eliminare questo spot? Questa azione non può essere annullata.\")'>";
+                echo "<input type='hidden' name='id' value='$id'>";
+                echo "<input type='hidden' name='delete_spot' value='1'>";
+                echo "<button type='submit' class='delete-btn'>Elimina</button>";
+                echo "</form>";
+                echo "</div>";
+                echo "</div>";
+            }
+        } else {
+            echo "<p class='no-spots'>Nessuno spot trovato nel database.</p>";
+        }
+        ?>
+      </div>
+      
+      <div class="actions">
+        <a href="new_spot.php" class="submit-button">
+          <span class="button_top">Aggiungi Nuovo Spot</span>
+        </a>
+      </div>
     </div>
   </main>
   
