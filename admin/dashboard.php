@@ -7,19 +7,26 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit;
 }
 
-// Check for password or username change messages
-$passwordMessage = '';
+// Include database connection
+require_once '../connessione.php';
+
+// Convert password and username messages to notification system
 if (isset($_SESSION['password_message'])) {
-    $passwordMessage = $_SESSION['password_message'];
-    $messageClass = isset($_SESSION['message_class']) ? $_SESSION['message_class'] : 'success';
+    if (isset($_SESSION['message_class']) && $_SESSION['message_class'] == 'error') {
+        $_SESSION['error_message'] = $_SESSION['password_message'];
+    } else {
+        $_SESSION['success_message'] = $_SESSION['password_message'];
+    }
     unset($_SESSION['password_message']);
     unset($_SESSION['message_class']);
 }
 
-$usernameMessage = '';
 if (isset($_SESSION['username_message'])) {
-    $usernameMessage = $_SESSION['username_message'];
-    $usernameMessageClass = isset($_SESSION['username_message_class']) ? $_SESSION['username_message_class'] : 'success';
+    if (isset($_SESSION['username_message_class']) && $_SESSION['username_message_class'] == 'error') {
+        $_SESSION['error_message'] = $_SESSION['username_message'];
+    } else {
+        $_SESSION['success_message'] = $_SESSION['username_message'];
+    }
     unset($_SESSION['username_message']);
     unset($_SESSION['username_message_class']);
 }
@@ -100,6 +107,33 @@ if (isset($_SESSION['username_message'])) {
     </ul>
   </nav>
   <main>
+    <!-- Notification system -->
+    <?php if(isset($_SESSION['success_message'])): ?>
+      <div class="notification-container">
+        <div class="notification success-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">✓</span>
+            <span><?php echo $_SESSION['success_message']; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+      <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
+    
+    <?php if(isset($_SESSION['error_message'])): ?>
+      <div class="notification-container">
+        <div class="notification error-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">⚠</span>
+            <span><?php echo $_SESSION['error_message']; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+      <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
+    
     <div class="container">
       <h2>Dashboard Amministratore</h2>
       <p>Benvenuto nel sistema di gestione della gelateria, <?php echo htmlspecialchars($_SESSION['username']); ?>. <br>Da qui puoi gestire i prodotti, categorie e il menu.</p>
@@ -118,13 +152,6 @@ if (isset($_SESSION['username_message'])) {
           <button type="submit" class="btn-primary">Cambia Nome Utente</button>
         </div>
       </form>
-
-      <?php if(!empty($usernameMessage)): ?>
-        <?php echo "<br>" ?>
-        <div class="alert alert-<?php echo $usernameMessageClass; ?>">
-          <?php echo $usernameMessage; ?>
-        </div>
-      <?php endif; ?>
     </div>
     
     <div class="container">
@@ -144,13 +171,39 @@ if (isset($_SESSION['username_message'])) {
           <button type="submit" class="btn-primary">Cambia Password</button>
         </div>
       </form>
+    </div>
 
-      <?php if(!empty($passwordMessage)): ?>
-        <?php echo "<br>" ?>
-        <div class="alert alert-<?php echo $messageClass; ?>">
-          <?php echo $passwordMessage; ?>
+    <div class="container">
+      <h2>Dimensione Font Menu Monitor</h2>
+      
+      <?php
+      // Fetch current font size for the user
+      $font_size_sql = "SELECT font_size FROM utente WHERE username = ?";
+      $stmt = $conn->prepare($font_size_sql);
+      $stmt->bind_param("s", $_SESSION['username']);
+      $stmt->execute();
+      $result_font = $stmt->get_result();
+      $font_size = 200; // Default value
+      
+      if ($result_font->num_rows > 0) {
+          $row = $result_font->fetch_assoc();
+          $font_size = $row['font_size'];
+      }
+      $stmt->close();
+      ?>
+      
+      <p>Regola la dimensione del carattere per il menu verticale sullo schermo.</p>
+      
+      <form action="./back-end/php/schermo/set_font_size.php" method="POST" class="password-form">
+        <div class="form-group">
+          <label for="font_size">Dimensione carattere (%)</label>
+          <input type="number" id="font_size" name="font_size" value="<?php echo $font_size; ?>" min="100" max="400" step="10" required>
+          <small>La dimensione degli ingredienti sarà automaticamente il 30% più piccola.</small>
         </div>
-      <?php endif; ?>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Salva Dimensione</button>
+        </div>
+      </form>
     </div>
   </main>
   

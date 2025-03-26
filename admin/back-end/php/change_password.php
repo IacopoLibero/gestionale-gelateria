@@ -19,8 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Validate username
         if (empty($new_username)) {
-            $_SESSION['username_message'] = "Il nome utente non può essere vuoto.";
-            $_SESSION['username_message_class'] = "error";
+            $_SESSION['error_message'] = "Il nome utente non può essere vuoto.";
             header("Location: ../../dashboard.php");
             exit;
         }
@@ -33,8 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $check_stmt->get_result();
         
         if ($result->num_rows > 0) {
-            $_SESSION['username_message'] = "Questo nome utente è già in uso. Scegline un altro.";
-            $_SESSION['username_message_class'] = "error";
+            $_SESSION['error_message'] = "Questo nome utente è già in uso. Scegline un altro.";
             header("Location: ../../dashboard.php");
             exit;
         }
@@ -61,14 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Update session with new username
             $_SESSION['username'] = $new_username;
             
-            $_SESSION['username_message'] = "Nome utente aggiornato con successo!";
-            $_SESSION['username_message_class'] = "success";
+            $_SESSION['success_message'] = "Nome utente aggiornato con successo!";
         } catch (Exception $e) {
             // Rollback on error
             $conn->rollback();
             
-            $_SESSION['username_message'] = "Si è verificato un errore durante l'aggiornamento del nome utente.";
-            $_SESSION['username_message_class'] = "error";
+            $_SESSION['error_message'] = "Si è verificato un errore durante l'aggiornamento del nome utente.";
         }
         
         // Redirect back to dashboard
@@ -83,16 +79,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Validate passwords
         if (empty($new_password) || empty($confirm_password)) {
-            $_SESSION['password_message'] = "Per favore compila tutti i campi.";
-            $_SESSION['message_class'] = "error";
+            $_SESSION['error_message'] = "Per favore compila tutti i campi.";
             header("Location: ../../dashboard.php");
             exit;
         }
         
         // Check if passwords match
         if ($new_password !== $confirm_password) {
-            $_SESSION['password_message'] = "Le password non corrispondono.";
-            $_SESSION['message_class'] = "error";
+            $_SESSION['error_message'] = "Le password non corrispondono.";
             header("Location: ../../dashboard.php");
             exit;
         }
@@ -107,12 +101,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         if ($stmt->execute()) {
             // Password updated successfully
-            $_SESSION['password_message'] = "Password aggiornata con successo!";
-            $_SESSION['message_class'] = "success";
+            $_SESSION['success_message'] = "Password aggiornata con successo!";
         } else {
             // Error updating password
-            $_SESSION['password_message'] = "Si è verificato un errore durante l'aggiornamento della password.";
-            $_SESSION['message_class'] = "error";
+            $_SESSION['error_message'] = "Si è verificato un errore durante l'aggiornamento della password.";
         }
         
         // Redirect back to dashboard

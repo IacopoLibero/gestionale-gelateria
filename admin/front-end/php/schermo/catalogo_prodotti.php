@@ -162,41 +162,6 @@ $result = $conn->query($sql);
           <span class="button_top">Aggiungi Nuovo Prodotto</span>
         </a>
       </div>
-      
-      <!-- Font Size Adjustment Form -->
-      <div class="font-size-container">
-        <h3>Impostazioni Menu Monitor</h3>
-        <p>Regola la dimensione del carattere per il menu verticale sullo schermo.</p>
-        
-        <?php
-        // Fetch current font size for the user
-        $font_size_sql = "SELECT font_size FROM utente WHERE username = ?";
-        $stmt = $conn->prepare($font_size_sql);
-        $stmt->bind_param("s", $_SESSION['username']);
-        $stmt->execute();
-        $result_font = $stmt->get_result();
-        $font_size = 200; // Default value
-        
-        if ($result_font->num_rows > 0) {
-            $row = $result_font->fetch_assoc();
-            $font_size = $row['font_size'];
-        }
-        $stmt->close();
-        ?>
-        
-        <form method="POST" action="../../../back-end/php/schermo/set_font_size.php" class="font-size-form">
-          <div class="form-group">
-            <label for="font_size">Dimensione carattere (%)</label>
-            <input type="number" id="font_size" name="font_size" value="<?php echo $font_size; ?>" min="100" max="400" step="10" required>
-            <small>La dimensione degli ingredienti sarà automaticamente il 30% più piccola.</small>
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="submit-button">
-              <span class="button_top">Salva Dimensione</span>
-            </button>
-          </div>
-        </form>
-      </div>
     </div>
   </main>
   

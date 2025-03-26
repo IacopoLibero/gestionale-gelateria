@@ -72,8 +72,30 @@ document.addEventListener('DOMContentLoaded', function () {
     // Chiudi i sottomenu quando si ridimensiona la finestra
     window.addEventListener('resize', closeAllSubMenus);
     
+    // Function to close notification
+    window.closeNotification = function() {
+        const notification = document.getElementById('notification');
+        if (notification) {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.parentElement.style.display = 'none';
+                }
+            }, 500);
+        }
+    };
+    
     // Funzione per nascondere le notifiche dopo 3 secondi
     function setupNotificationsTimeout() {
+        // Handle new notification system
+        const notification = document.getElementById('notification');
+        if (notification) {
+            setTimeout(() => {
+                closeNotification();
+            }, 3000);
+        }
+        
+        // Handle old alert system
         const notifications = document.querySelectorAll('.alert');
         if (notifications.length > 0) {
             notifications.forEach(notification => {
