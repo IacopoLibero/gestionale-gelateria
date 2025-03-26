@@ -144,10 +144,11 @@
 #titolo{
     width: 100%;
     text-align: center;
-    padding-top: 5%;
+    padding-top: 20px; /* Adjusted padding */
     padding-bottom: 5%;
     color: #e8eaed;
     box-sizing: border-box;
+    margin-top: 10px; /* Added margin to separate from top */
 }
 
 /* Container styling */
@@ -214,7 +215,8 @@ main {
   max-width: 100%;
   overflow-x: hidden;
   box-sizing: border-box;
-  padding: 0 10px;
+  padding: 20px 10px; /* Increased top padding to fix spacing */
+  margin-top: 15px; /* Add margin at the top to prevent sticking to the top */
 }
 
 /* Make sure button container doesn't overflow */
@@ -225,20 +227,51 @@ main {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  margin-bottom: 20px; /* Add bottom margin for better spacing */
 }
 
 /* Original button styling remains unchanged */
 button {
   /* Variables */
   --button_radius: 0.75em;
-  --button_color: #e8e8e8;
-  --button_outline_color: #3b40ddc7;
+  --button_color: #9e8e8e;
+  --button_outline_color: #694949;
   font-size: 17px;
   font-weight: bold;
   border: none;
   cursor: pointer;
   border-radius: var(--button_radius);
   background: var(--button_outline_color);
+}
+
+.button_top {
+  display: block;
+  margin-left: 5px;
+  margin-right: 5px;
+  box-sizing: border-box;
+  border: 2px solid var(--button_outline_color);
+  border-radius: var(--button_radius);
+  padding: 0.75em 1.5em;
+  background: var(--button_color);
+  color: var(--button_outline_color);
+  transform: translateY(-0.2em);
+  transition: transform 0.1s ease;
+}
+
+button:hover .button_top {
+  /* Pull the button upwards when hovered */
+  transform: translateY(-0.33em);
+}
+
+button:active .button_top {
+  /* Push the button downwards when pressed */
+  transform: translateY(0);
+}
+
+/* Fix for submit button in forms */
+.submit-button {
+  display: inline-block;
+  margin: 10px 0;
 }
 
 /* Notification Styling */
