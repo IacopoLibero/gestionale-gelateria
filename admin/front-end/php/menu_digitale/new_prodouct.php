@@ -10,9 +10,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 // Include database connection to fetch categories
 require_once '../../../../connessione.php';
 
-// Fetch all categories from database
-$cat_sql = "SELECT * FROM categoria ORDER BY nome ASC";
-$cat_result = $conn->query($cat_sql);
 ?>
 
 <!DOCTYPE html>
@@ -78,6 +75,7 @@ $cat_result = $conn->query($cat_sql);
           <div>
             <li><a href="./catalogo_digitale.php">Catalogo Digitale</a></li>
             <li><a href="./new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="href=./new_category.php">Nuova categoria</a></li>
             <li><a href="./menu_digitale.php">Menu Digitale</a></li>
           </div>
         </ul>

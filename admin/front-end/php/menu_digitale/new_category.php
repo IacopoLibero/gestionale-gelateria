@@ -6,6 +6,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../index.php");
     exit;
 }
+
+// Include database connection to fetch categories
+require_once '../../../../connessione.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -13,9 +17,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestionale Gelateria - Catalogo digitale</title>
+  <title>Gestionale Gelateria - Nuovo prodotto</title>
   <link rel="stylesheet" href="../../../front-end/css/dashboard.css">
-  <link rel="stylesheet" href="../../../front-end/css/menu/catalogo_digitale.css">
+  <link rel="stylesheet" href="../../../front-end/css/menu/new_category.css">
 </head>
 <body>
   <nav id="sidebar">
@@ -86,12 +90,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   </nav>
   <main>
     <div class="container">
-      <h2>Catalogo digitale</h2>
-      <p>Pagina per visualizzare il catalogo digitale della gelateria</p>
+      <h2>Nuova categoria</h2>
+      <p>Pagina per aggiunge una categoria al menu digitale</p>
     </div>
   </main>
   
   <script src="../../../js/dashboard.js"></script>
-  <script src="../../../js/menu/catalogo_digitale.js"></script>
+  <script src="../../../js/menu/new_category.js"></script>
 </body>
 </html>
