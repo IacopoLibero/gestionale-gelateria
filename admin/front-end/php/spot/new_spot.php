@@ -71,6 +71,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
           <div>
             <li><a href="../menu_digitale/catalogo_digitale.php">Catalogo Digitale</a></li>
             <li><a href="../menu_digitale/new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="../new_category.php">Nuova categoria</a></li>
             <li><a href="../menu_digitale/menu_digitale.php">Menu Digitale</a></li>
           </div>
         </ul>

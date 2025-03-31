@@ -78,6 +78,7 @@ $cat_result = $conn->query($cat_sql);
           <div>
             <li><a href="./catalogo_digitale.php">Catalogo Digitale</a></li>
             <li><a href="./new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="../new_category.php">Nuova categoria</a></li>
             <li><a href="./menu_digitale.php">Menu Digitale</a></li>
           </div>
         </ul>

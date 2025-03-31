@@ -94,6 +94,7 @@ if (isset($_SESSION['username_message'])) {
           <div>
             <li><a href="./front-end/php/menu_digitale/catalogo_digitale.php">Catalogo Digitale</a></li>
             <li><a href="./front-end/php/menu_digitale/new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="./front-end/php/menu_digitale/new_category.php">Nuova categoria</a></li>
             <li><a href="./front-end/php/menu_digitale/menu_digitale.php">Menu Digitale</a></li>
           </div>
         </ul>
