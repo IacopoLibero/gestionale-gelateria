@@ -8,8 +8,8 @@ body {
     height: 100vh;
     overflow: hidden; /* Prevent scrolling */
     position: relative;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 3%;
+    margin-right: 3%;
     display: flex;
     flex-direction: column;
 }
