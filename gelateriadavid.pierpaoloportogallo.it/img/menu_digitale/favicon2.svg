@@ -1,0 +1,14 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+	<title>Nuovo progetto</title>
+	<defs>
+		<image  width="500" height="500" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0AQMAAADxGE3JAAAAAXNSR0IB2cksfwAAAANQTFRF////p8QbyAAAADVJREFUeJztwTEBAAAAwqD1T+1hDaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbn0AAAGFEtj2AAAAAElFTkSuQmCC"/>
+		<image  width="371" height="393" id="img2" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXMAAAGJAQMAAABCfUGuAAAAAXNSR0IB2cksfwAAAAZQTFRFAAAAj1pb8+PY0AAAAAJ0Uk5TAP9bkSK1AAAET0lEQVR4nO3cQZKkIBAFUDtc1LKO4FE4Gh6No3AEly6McmJiJKXkJ/1hGsee1iX5Skmg7GoFui45nuucFsqxwuNV6Nd1LPTaB1S/lvoF+kH/wIR8r3ucQsbDfjCFF3gUXuAj4+EFbMajJhoyHo2jXAKrL0wAdXKcwPh7/MfHJwmMxyuCCj2PPv4AqFCf+LgN8glvPholoEI29fs1wZgwqd/LQJcNwD/SIjmewO/fizSBB/Jy0TSBHnkpTBP4QL5DZTkvFUoTgF6yShOAXq6aJmBhXS0qzHhJwB29gV4SSL712EsCScLYSzWThBVvYGmc2XtExuExYcVLwp7zasKKl34/3iSeipeEST/gYtVrDaR5bURoXmsgzWsNpHq7FR9GkHpzUhpU9dKgjvNSUc95pUFVLze5mfPSAQvnpQNepA8dsJLewIDucQfoHneA7nEHEH7mvHTYAksTj/8I6H7/U0J6iyJf6A3qsIwfUIcxfuK8DIiZ89KVSxsPf6Zk/P5bpNSPlN8HkOO8rfWe8yaEpjZ+CKG50C+cf9b6F+f3e00bj2Kcd5T/qPae8ugfDc5PnLchNjf2C+dNrX9xfqj1axsPfgw28o7yj2rvm/g9OF3C71/gubFfKN+d5l9tvJXo1fxIeXOad038UO39Jfyz2k8X8zPlH5f1yyV8f5p//QgfPT6+fd6PLXz6eP3HeHf7L/D2st7f/va3v/3tb3/70727/X/o12P49v/Id9/Rn/f/cunzh+/uuedLpf68512lnnt+eDW/P2/knt9e1/smvv55e6l3l/BDEv2uvqO8OcuT7wdbexuC5PvQas+9/y32a63n3ne39mBCTCPvKN9X+/ESHkyQauPJ+TNgQhjnyfk/pX4IMXL+UrUn51+ZWu/beBtiro0HMc53TTyaofyVXmLk/MlSj2ZwU56cX1rq0Yx1yjvOD7V+5LwJoa6Nt1uEnC8tnpyPDZecMJ6cTy7Dn5yvLt5zvi/0MjxdoR85L8MTVvLv/bAF2PURZguQ6y/Ez6S3W2Ai/VrpPedl+Li4lFifMhb6jvMhwq4nCsOBXa8UPLkeSoYPud5KhgPrLeouYr2VK/Qj52U4dJwP3cuupwuBhfShuybSh+7y+DSJD93lSG9x8afrEzvOh+Y/LnDVfGh+dn1oaLfj+tPP1nv6gx8UH8od6ZXmBDNm/xxKc2o+NGeyxt5gH5ozsx7Zx8XK6FS91jzRC6gJFY+6f6vqVpZbD45+taRbEAh/O5eabryHBUjXHznasCCXbh95n5wlTTf2ewMp954uvp3EZzNqum87REhtQ4FL/BD7cDq5aMIPO2ocqgP2W3jj2wX0xfXJBhnvdfTZ5gk1gMsGUfNsH5CUwH4X5ujTbDLpHg6X8D7HQWsm1Y+P/O4YTHWy1QfVyVYfVCdb/TH1NsNBZ2V3V/Gpz+3egnZ7MWWnz7Um3NAn40Hj5LxDXPeYa17bUOkX6KVfLOs46fkAAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+		tspan { white-space:pre } 
+	</style>
+	<use id="Background" href="#img1" x="0" y="0"/>
+	<use id="Livello 1" href="#img2" x="64" y="53"/>
+	<text id="" style="transform: matrix(1,0,0,1,156,190)" >
+	</text>
+</svg>
