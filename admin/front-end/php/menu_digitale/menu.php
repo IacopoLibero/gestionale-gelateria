@@ -87,9 +87,9 @@ function generateCategoryHTML($conn, $categoryName, $lang, $categoryTitles, $cat
     $html .= "<img src='img/menu_digitale/mini/{$categoryIcon}' class='img_logo_categoria'>";
     $html .= "<span class='titolo_menu'>{$categoryTitle}</span></div>";
     
-    // Per la categoria 'gelato', prendi i dati dalla tabella prodotto
+    // Per la categoria 'gelato', prendi i dati dalla tabella menu invece che dalla tabella prodotto
     if ($categoryName === 'gelato') {
-        $sql = "SELECT id, nome, nome_inglese, ingredienti FROM prodotto WHERE tipo = ? AND stato = TRUE ORDER BY nome";
+        $sql = "SELECT id, nome, nome_inglese, prezzo FROM menu WHERE tipo = ? ORDER BY nome";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $categoryName);
         $stmt->execute();
@@ -98,34 +98,28 @@ function generateCategoryHTML($conn, $categoryName, $lang, $categoryTitles, $cat
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $productName = ($lang === 'it') ? $row['nome'] : $row['nome_inglese'];
+                $price = number_format($row['prezzo'], 2);
                 
                 $html .= "<div class='col-12 space_between_row'>";
                 $html .= "<div class='start_column col-10'>";
                 
                 // Verificare se esiste un'immagine per il prodotto
-                $imagePath = "uploads/product_{$row['id']}.jpg";
+                $imagePath = "uploads/menu_{$row['id']}.jpg";
                 if (file_exists($imagePath)) {
                     $html .= "<img src='{$imagePath}' class='img_menu'>";
                 }
                 
                 $html .= "<span class='nome_prodotto'>{$productName}</span>";
                 
-                if (!empty($row['ingredienti'])) {
-                    $ingredienti = ($lang === 'it') ? $row['ingredienti'] : ''; // Per semplificare, mostriamo gli ingredienti solo in italiano
-                    if (!empty($ingredienti)) {
-                        $html .= "<span class='ingredienti_prodotto'>({$ingredienti})</span>";
-                    }
-                }
-                
                 $html .= "</div>";
-                $html .= "<span class='prezzo_prodotto col-2'>2.00 &euro;</span>"; // Prezzo fisso per i gelati, potrebbe essere aggiunto alla tabella prodotto
+                $html .= "<span class='prezzo_prodotto col-2'>{$price} &euro;</span>";
                 $html .= "</div>";
                 $html .= "<div class='center_row'><hr class='divider_el_menu_digitale'></div>";
             }
             
-            // Link per mostrare tutti i gusti del gelato
+            // Aggiungi il link per visualizzare la pagina con il menu verticale dei gusti gelato
             $html .= "<div class='col-12 center_row mb-3'>";
-            $html .= "<div class='gusti_gelato' onclick=\"location.href = 'all_flavors.php?lang={$lang}'\"><b>";
+            $html .= "<div class='gusti_gelato' onclick=\"location.href = 'menu_verticale.php?lang={$lang}'\"><b>";
             $html .= ($lang === 'it') ? "Mostra i Gusti Gelato" : "Show Ice Cream Flavors";
             $html .= "</b></div></div>";
         }
@@ -209,7 +203,6 @@ $conn->close();
 
     <!--css-->
     <link rel="stylesheet" href="../../../front-end/css/font.css">
-    <link rel="stylesheet" href="../../../front-end/css/menu/flexbox.css">
     <link rel="stylesheet" href="../../../front-end/css/menu/menu_digitale.css">
 
     <!--js-->
