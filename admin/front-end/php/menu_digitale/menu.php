@@ -119,7 +119,7 @@ function generateCategoryHTML($conn, $categoryName, $lang, $categoryTitles, $cat
             
             // Aggiungi il link per visualizzare la pagina con il menu verticale dei gusti gelato
             $html .= "<div class='col-12 center_row mb-3'>";
-            $html .= "<div class='gusti_gelato' onclick=\"location.href = 'menu_verticale.php?lang={$lang}'\"><b>";
+            $html .= "<div class='gusti_gelato' onclick=\"location.href = '../schermo/menu_verticale.php'\"><b>";
             $html .= ($lang === 'it') ? "Mostra i Gusti Gelato" : "Show Ice Cream Flavors";
             $html .= "</b></div></div>";
         }
