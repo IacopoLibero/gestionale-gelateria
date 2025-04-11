@@ -1,0 +1,295 @@
+body {
+    /*background-image: url("../img/menu_digitale/background_menu.png");*/
+    background-image: url("../img/menu_digitale/david_verde.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.logo_menu {
+    max-height: 80%;
+    max-width: 80vw;
+}
+
+.divider_menu {
+    width: 90vw;
+    height: 1px;
+    background-color: #ab8d8e;
+}
+
+.divider_menu_2 {
+    width: 40vw;
+    height: 1px;
+    background-color: #ab8d8e;
+}
+
+.flag {
+    /*max-width: 20vw;*/
+    max-height: 50%;
+}
+
+.txt_lang {
+    font-family: AlbraMedium, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2d2d2d;
+}
+
+
+.riga_dash {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.box_dash {
+    border: 2px solid #2c1f1f;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 2vw;
+    margin-top: 8vw;
+    width: 45vw;
+    height: 45vw;
+    -webkit-box-shadow: 5px 5px 7px 0px rgba(0, 0, 0, 0.40);
+    box-shadow: 5px 5px 7px 0px rgba(0, 0, 0, 0.40);
+}
+
+.img_dash {
+    height: 90px;
+}
+
+.img_dash2 {
+    width: 100%;
+}
+
+.txt_dash {
+    font-family: InclusiveSans, sans-serif;
+    font-size: 5vw;
+    font-weight: 600;
+    color: #2d2d2d;
+    text-align: center;
+}
+
+.img_logo_categoria {
+    height: 50px;
+}
+
+.divider_categoria {
+    width: 100%;
+    background-color: rgba(252, 252, 252, 0.7);
+    font-family: CormorantBold, sans-serif;
+    font-size: 8vw;
+    margin-bottom: 1vh;
+}
+
+.nome_prodotto {
+    /*font-family: InclusiveSans, sans-serif;*/
+    font-family: CormorantSemiBold, sans-serif;
+    font-size: 5vw;
+    font-weight: bold;
+    color: #2d2d2d;
+    text-align: start;
+}
+
+.ingredienti_prodotto {
+    /*font-family: InclusiveSans, sans-serif;*/
+    font-family: CormorantSemiBold, sans-serif;
+    font-size: 4vw;
+    color: #2d2d2d;
+    text-align: start;
+    word-wrap: break-word;
+}
+
+.extra_prodotto {
+    background-color: rgba(255, 149, 149, 0.4);
+    font-family: InclusiveSans, sans-serif;
+    font-size: 3vw;
+    border-radius: 4px;
+    padding: 4px;
+    word-break: break-word;
+}
+
+.gusti_gelato {
+    background-color: rgba(181, 181, 241, 0.4);
+    /*font-family: InclusiveSans, sans-serif;*/
+    font-family: CormorantBold, sans-serif;
+    font-size: 5vw;
+    border-radius: 4px;
+    padding: 4px;
+    width: 90%;
+    text-align: center;
+}
+
+.prezzo_prodotto {
+    /*font-family: InclusiveSans, sans-serif;*/
+    font-family: CormorantSemiBold, sans-serif;
+    font-size: 5vw;
+    color: #2d2d2d;
+    text-align: center;
+}
+
+.divider_el_menu_digitale {
+    background-color: #acb6c1;
+    width: 96%;
+    height: 1px;
+}
+
+.mini_tag_digitale {
+    width: 5vw;
+    margin: 0 2px;
+}
+
+.legenda_all_flavors {
+    background-color: rgba(224, 224, 224, 0.4);
+    /*font-family: InclusiveSans, sans-serif;*/
+    font-family: CormorantSemiBold, sans-serif;
+    font-size: 4vw;
+    border-radius: 4px;
+    padding: 4px;
+    width: 90%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.container_img_menu {
+    max-width: 90vw;
+}
+
+.img_menu {
+    max-height: 10vh;
+}
+
+.titolo_img_menu {
+    background-color: rgba(224, 224, 224, 0.4);
+    font-family: InclusiveSans, sans-serif;
+    font-size: 4vw;
+    padding: 3px 0;
+}
+
+/* style flexbox */
+
+.start_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.center_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.end_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.space_around_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.space_between_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.space_evenly_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.start_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.center_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.end_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.space_around_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.space_between_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.space_evenly_column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.no_margin {
+    margin: 0;
+}
+
+.no_padding {
+    padding: 0;
+}
+
+.max_width {
+    width: 100%;
+}
+
+.max_height {
+    height: 100%;
+}
+
+.filtro1 {
+    display: none;
+}
+
+.filtro2 {
+    display: none;
+}
+
+/*
+  .btn_xml{
+    display: none;
+  }*/
+
+#pop_up_xml {
+    display: none;
+    position: fixed;
+    z-index: 9000;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
