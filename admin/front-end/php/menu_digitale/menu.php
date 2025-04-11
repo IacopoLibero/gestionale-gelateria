@@ -14,7 +14,7 @@ if ($lang !== 'it' && $lang !== 'en') {
 $type = isset($_GET['type']) ? intval($_GET['type']) : 100;
 
 // Percorso alle immagini delle icone
-$imgPath = 'img/menu_digitale/mini/';
+$imgPath = '../../../img/mini/';
 
 // Array di mappatura tra il tipo numerico e il nome della categoria
 $typeToCategory = [
@@ -291,7 +291,7 @@ $conn->close();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body class="container-fluid">
-    <div class="row">
+    <div class="row" style="margin-top: 20px;">
         <?php echo $menuHTML; ?>
     </div>
 </body>
