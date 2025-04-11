@@ -13,6 +13,9 @@ if ($lang !== 'it' && $lang !== 'en') {
 // Ottenere il tipo di menu dalla query string (default a 100 = menu completo)
 $type = isset($_GET['type']) ? intval($_GET['type']) : 100;
 
+// Percorso alle immagini delle icone
+$imgPath = '../../../img/mini/';
+
 // Array di mappatura tra il tipo numerico e il nome della categoria
 $typeToCategory = [
     0 => 'gelato',
@@ -77,14 +80,14 @@ $selectedCategory = isset($typeToCategory[$type]) ? $typeToCategory[$type] : 'al
 $menuHTML = '';
 
 // Funzione per generare l'HTML di una categoria
-function generateCategoryHTML($conn, $categoryName, $lang, $categoryTitles, $categoryIcons) {
+function generateCategoryHTML($conn, $categoryName, $lang, $categoryTitles, $categoryIcons, $imgPath) {
     $html = '';
     $categoryTitle = $categoryTitles[$lang][$categoryName] ?? ucfirst($categoryName);
     $categoryIcon = $categoryIcons[$categoryName] ?? 'mini_gelato.png';
     
     // Intestazione categoria
     $html .= "<div class='col-12 center_row divider_categoria'>";
-    $html .= "<img src='img/menu_digitale/mini/{$categoryIcon}' class='img_logo_categoria'>";
+    $html .= "<img src='{$imgPath}{$categoryIcon}' class='img_logo_categoria'>";
     $html .= "<span class='titolo_menu'>{$categoryTitle}</span></div>";
     
     // Per la categoria 'gelato', prendi i dati dalla tabella menu invece che dalla tabella prodotto
@@ -180,12 +183,12 @@ if ($selectedCategory === 'all') {
     // Menu completo: mostra tutte le categorie
     foreach ($typeToCategory as $key => $category) {
         if ($key !== 100) { // Salta l'opzione 'all'
-            $menuHTML .= generateCategoryHTML($conn, $category, $lang, $categoryTitles, $categoryIcons);
+            $menuHTML .= generateCategoryHTML($conn, $category, $lang, $categoryTitles, $categoryIcons, $imgPath);
         }
     }
 } else {
     // Menu specifico: mostra solo la categoria selezionata
-    $menuHTML .= generateCategoryHTML($conn, $selectedCategory, $lang, $categoryTitles, $categoryIcons);
+    $menuHTML .= generateCategoryHTML($conn, $selectedCategory, $lang, $categoryTitles, $categoryIcons, $imgPath);
 }
 
 // Chiudi la connessione al database
@@ -198,7 +201,6 @@ $conn->close();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Scopri il gusto autentico della tradizione gelatiera fiorentina presso la storica gelateria David a Firenze. Offriamo prelibatezze artigianali create con ingredienti freschi e genuini. Deliziati con i nostri gelati artigianali, cioccolati e sorbetti, e immergiti nell'atmosfera unica di Firenze. Una tappa imprescindibile per gli amanti del gelato e della storia culinaria fiorentina.">
-    <link rel="icon" href="../../../../img/favicon2.svg" type="image/x-icon">
     <title>Menu Gelateria David</title>
 
     <!--css-->
