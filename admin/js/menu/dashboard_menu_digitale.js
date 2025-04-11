@@ -5,5 +5,5 @@
  */
 function menu(tipo, lang) {
     // Reindirizzamento alla pagina del menu con i parametri tipo e lingua
-    location.href = "../front-end/php/menu_digitale/menu.php?type=" + tipo + "&lang=" + lang;
+    location.href = "menu.php?type=" + tipo + "&lang=" + lang;
 }
