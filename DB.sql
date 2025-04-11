@@ -49,10 +49,11 @@ CREATE TABLE spot(
 );
 
 -- Tabella per i prodotti del menu
-CREATE TABLE menu()(
+CREATE TABLE menu(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
     nome_inglese VARCHAR(50) NOT NULL,
     prezzo DECIMAL(10, 2) NOT NULL,
+    tipo VARCHAR(50) NOT NULL,
     FOREIGN KEY (tipo) REFERENCES categoria(nome) ON DELETE RESTRICT ON UPDATE CASCADE
 );
