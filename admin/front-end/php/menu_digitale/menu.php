@@ -14,7 +14,7 @@ if ($lang !== 'it' && $lang !== 'en') {
 $type = isset($_GET['type']) ? intval($_GET['type']) : 100;
 
 // Percorso alle immagini delle icone
-$imgPath = '../../../img/mini/';
+$imgPath = '../../../../img/mini/';
 
 // Array di mappatura tra il tipo numerico e il nome della categoria
 $typeToCategory = [
