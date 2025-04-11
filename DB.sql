@@ -55,5 +55,9 @@ CREATE TABLE menu(
     nome_inglese VARCHAR(50) NOT NULL,
     prezzo DECIMAL(10, 2) NOT NULL,
     tipo VARCHAR(50) NOT NULL,
+    ingredienti_it VARCHAR(255),
+    ingredienti_en VARCHAR(255),
+    visibile BOOLEAN DEFAULT TRUE,
+    extra VARCHAR(255),
     FOREIGN KEY (tipo) REFERENCES categoria(nome) ON DELETE RESTRICT ON UPDATE CASCADE
 );

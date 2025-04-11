@@ -14,7 +14,7 @@ if ($lang !== 'it' && $lang !== 'en') {
 $type = isset($_GET['type']) ? intval($_GET['type']) : 100;
 
 // Percorso alle immagini delle icone
-$imgPath = '../../../../img/mini/';
+$imgPath = 'img/menu_digitale/mini/';
 
 // Array di mappatura tra il tipo numerico e il nome della categoria
 $typeToCategory = [
@@ -92,7 +92,7 @@ function generateCategoryHTML($conn, $categoryName, $lang, $categoryTitles, $cat
     
     // Per la categoria 'gelato', prendi i dati dalla tabella menu invece che dalla tabella prodotto
     if ($categoryName === 'gelato') {
-        $sql = "SELECT id, nome, nome_inglese, prezzo FROM menu WHERE tipo = ? ORDER BY nome";
+        $sql = "SELECT id, nome, nome_inglese, prezzo, ingredienti_it, ingredienti_en, extra, visibile FROM menu WHERE tipo = ? AND visibile = TRUE ORDER BY nome";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $categoryName);
         $stmt->execute();
@@ -113,6 +113,28 @@ function generateCategoryHTML($conn, $categoryName, $lang, $categoryTitles, $cat
                 }
                 
                 $html .= "<span class='nome_prodotto'>{$productName}</span>";
+                
+                // Aggiungi ingredienti se presenti
+                $ingredientiField = ($lang === 'it') ? 'ingredienti_it' : 'ingredienti_en';
+                if (!empty($row[$ingredientiField])) {
+                    $html .= "<span class='ingredienti_prodotto'>({$row[$ingredientiField]})</span>";
+                }
+                
+                // Aggiungi extra se presenti
+                if (!empty($row['extra'])) {
+                    $extraItems = explode(';', $row['extra']);
+                    $extraTitle = ($lang === 'it') ? '<b>Extra</b>' : '<b>Extras</b>';
+                    
+                    $html .= "<div class='extra_prodotto'>{$extraTitle}";
+                    $html .= "<ul>";
+                    foreach ($extraItems as $extraItem) {
+                        if (!empty(trim($extraItem))) {
+                            $html .= "<li>{$extraItem}</li>";
+                        }
+                    }
+                    $html .= "</ul>";
+                    $html .= "</div>";
+                }
                 
                 $html .= "</div>";
                 $html .= "<span class='prezzo_prodotto col-2'>{$price} &euro;</span>";
@@ -122,13 +144,13 @@ function generateCategoryHTML($conn, $categoryName, $lang, $categoryTitles, $cat
             
             // Aggiungi il link per visualizzare la pagina con il menu verticale dei gusti gelato
             $html .= "<div class='col-12 center_row mb-3'>";
-            $html .= "<div class='gusti_gelato' onclick=\"location.href = '../schermo/menu_verticale.php'\"><b>";
+            $html .= "<div class='gusti_gelato' onclick=\"location.href = 'menu_verticale.php?lang={$lang}'\"><b>";
             $html .= ($lang === 'it') ? "Mostra i Gusti Gelato" : "Show Ice Cream Flavors";
             $html .= "</b></div></div>";
         }
     } else {
         // Per altre categorie, prendi i dati dalla tabella menu
-        $sql = "SELECT id, nome, nome_inglese, prezzo FROM menu WHERE tipo = ? ORDER BY nome";
+        $sql = "SELECT id, nome, nome_inglese, prezzo, ingredienti_it, ingredienti_en, extra, visibile FROM menu WHERE tipo = ? AND visibile = TRUE ORDER BY nome";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $categoryName);
         $stmt->execute();
@@ -150,20 +172,25 @@ function generateCategoryHTML($conn, $categoryName, $lang, $categoryTitles, $cat
                 
                 $html .= "<span class='nome_prodotto'>{$productName}</span>";
                 
-                // Controllo per ingredienti e extra
-                // Questo è un esempio semplice, potrebbero essere necessari campi aggiuntivi nella tabella menu
-                if ($categoryName == 'milkshake' && $productName == 'Mokaccino') {
-                    $ingText = ($lang === 'it') ? '(Caffe espresso, gelato caramello salato, latte)' : '(Espresso coffee, salted caramel ice cream, milk)';
-                    $html .= "<span class='ingredienti_prodotto'>{$ingText}</span>";
+                // Aggiungi ingredienti se presenti
+                $ingredientiField = ($lang === 'it') ? 'ingredienti_it' : 'ingredienti_en';
+                if (!empty($row[$ingredientiField])) {
+                    $html .= "<span class='ingredienti_prodotto'>({$row[$ingredientiField]})</span>";
                 }
                 
-                // Esempio di extra per alcuni prodotti 
-                if ($categoryName == 'crepes' && $productName == 'Nutella') {
+                // Aggiungi extra se presenti
+                if (!empty($row['extra'])) {
+                    $extraItems = explode(';', $row['extra']);
                     $extraTitle = ($lang === 'it') ? '<b>Extra</b>' : '<b>Extras</b>';
-                    $extraItem = ($lang === 'it') ? 'panna: +1€' : 'whipped cream: +1€';
                     
                     $html .= "<div class='extra_prodotto'>{$extraTitle}";
-                    $html .= "<ul><li>{$extraItem}</li></ul>";
+                    $html .= "<ul>";
+                    foreach ($extraItems as $extraItem) {
+                        if (!empty(trim($extraItem))) {
+                            $html .= "<li>{$extraItem}</li>";
+                        }
+                    }
+                    $html .= "</ul>";
                     $html .= "</div>";
                 }
                 
@@ -201,7 +228,7 @@ $conn->close();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Scopri il gusto autentico della tradizione gelatiera fiorentina presso la storica gelateria David a Firenze. Offriamo prelibatezze artigianali create con ingredienti freschi e genuini. Deliziati con i nostri gelati artigianali, cioccolati e sorbetti, e immergiti nell'atmosfera unica di Firenze. Una tappa imprescindibile per gli amanti del gelato e della storia culinaria fiorentina.">
-    <title>Menu Gelateria David</title>
+        <title>Menu Gelateria David</title>
 
     <!--css-->
     <link rel="stylesheet" href="../../../front-end/css/font.css">
@@ -212,7 +239,7 @@ $conn->close();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body class="container-fluid">
-    <div class="row" style="margin-top: 20px;">
+    <div class="row">
         <?php echo $menuHTML; ?>
     </div>
 </body>
