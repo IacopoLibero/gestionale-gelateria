@@ -10,8 +10,15 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 // Include database connection
 require_once '../../../../connessione.php';
 
-// Fetch all categories from database
-$sql = "SELECT c.*, (SELECT COUNT(*) FROM prodotto WHERE tipo = c.nome) as product_count FROM categoria c ORDER BY c.nome";
+// Fetch all categories from database with correct product counts:
+// - For 'gelato' category, count from prodotto table
+// - For all other categories, count from menu table
+$sql = "SELECT c.*, 
+        CASE 
+            WHEN c.nome = 'gelato' THEN (SELECT COUNT(*) FROM prodotto WHERE tipo = c.nome)
+            ELSE (SELECT COUNT(*) FROM menu WHERE tipo = c.nome)
+        END as product_count 
+        FROM categoria c ORDER BY c.nome";
 $result = $conn->query($sql);
 ?>
 
