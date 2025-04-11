@@ -138,19 +138,22 @@
         echo '</div>';
     }
     
-    // Mostra le sezioni in base alle categorie disponibili
+    // Mostro solo i gelati (categoria 'gelato')
+    $gelatoCategory = null;
+    
+    // Cerco la categoria 'gelato' nell'array delle categorie
     foreach ($categorie as $categoria) {
-        $nome = $categoria['nome'];
-        $nome_inglese = $categoria['nome_inglese'];
-        $display_name = ucfirst($nome) . " / " . ucfirst($nome_inglese);
-        
-        // Per gelato, usare la stessa icona come prima
-        $iconPath = ($nome == 'gelato') ? '../../../../img/tipologie/mini_gelato.png' : null;
-        
-        // Mostra la sezione solo se ci sono prodotti nella categoria
-        if (!empty($prodotti_by_tipo[$nome])) {
-            showProductSection($prodotti_by_tipo[$nome], $display_name, $iconPath);
+        if ($categoria['nome'] == 'gelato') {
+            $gelatoCategory = $categoria;
+            break;
         }
+    }
+    
+    // Se la categoria gelato è stata trovata ed esistono prodotti di tipo gelato, li mostro
+    if ($gelatoCategory && !empty($prodotti_by_tipo['gelato'])) {
+        $display_name = ucfirst($gelatoCategory['nome']) . " / " . ucfirst($gelatoCategory['nome_inglese']);
+        $iconPath = '../../../../img/tipologie/mini_gelato.png';
+        showProductSection($prodotti_by_tipo['gelato'], $display_name, $iconPath);
     }
     ?>
     </div> <!-- Close products-section -->
