@@ -38,7 +38,6 @@ $current_lang = $language_specific[$lang];
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="../../../../img/favicon2.svg" type="image/x-icon">
     <title>Menu Gelateria David</title>
 
     <!--css-->
