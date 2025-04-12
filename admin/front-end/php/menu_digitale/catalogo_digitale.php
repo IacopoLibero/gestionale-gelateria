@@ -159,7 +159,7 @@ $result = $conn->query($sql);
         <table class="products-table">
           <thead>
             <tr>
-              <th class="icon-cell"></th>
+              <th></th>
               <th>NOME</th>
               <th>INGREDIENTI</th>
               <th>EXTRA</th>
@@ -171,11 +171,11 @@ $result = $conn->query($sql);
           <tbody>
             <?php
             if ($result->num_rows > 0) {
-                // Raggruppa i prodotti per categoria per creare le intestazioni di categoria
-                $currentCategory = '';
-                
                 // Reimposta il puntatore dei risultati
                 $result->data_seek(0);
+                
+                // Tiene traccia della categoria corrente per aggiungere separatori
+                $currentCategory = '';
                 
                 while ($row = $result->fetch_assoc()) {
                     $id = $row['id'];
@@ -185,55 +185,62 @@ $result = $conn->query($sql);
                     $categoriaInglese = htmlspecialchars($row['categoria_inglese']);
                     $prezzo = number_format($row['prezzo'], 2);
                     $ingredienti_it = htmlspecialchars($row['ingredienti_it'] ?? '');
-                    $ingredienti_en = htmlspecialchars($row['ingredienti_en'] ?? '');
                     $extra = htmlspecialchars($row['extra'] ?? '');
-                    $stato = $row['visibile'] ? 'Visibile' : 'Non Visibile';
+                    $stato = $row['visibile'] ? 'VISIBILE' : 'NON VISIBILE';
                     $statoClass = $row['visibile'] ? 'status-visible' : 'status-hidden';
                     
-                    // Determina l'icona in base alla categoria
-                    $iconPath = '';
-                    switch (strtolower($tipo)) {
-                        case 'gelato':
-                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/gelato.png';
-                            break;
-                        case 'granita':
-                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/granite.png';
-                            break;
-                        case 'milkshake':
-                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/milkshake.png';
-                            break;
-                        case 'crepes':
-                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/crepes.png';
-                            break;
-                        case 'pancakes':
-                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/pancakes.png';
-                            break;
-                        case 'coppa gelato':
-                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/coppa_gelato.png';
-                            break;
-                        case 'bevande calde':
-                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/bevande_calde.png';
-                            break;
-                        case 'bevande fredde':
-                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/bevande_fredde.png';
-                            break;
-                        case 'cioccolata calda':
-                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/cioccolata_calda.png';
-                            break;
-                        case 'torte':
-                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/cake.png';
-                            break;
-                        default:
-                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/gelato.png';
+                    // Se la categoria è cambiata, aggiungi riga di categoria
+                    if ($tipo != $currentCategory) {
+                        $currentCategory = $tipo;
+                        
+                        // Determina l'icona in base alla categoria
+                        $iconPath = '';
+                        switch (strtolower($tipo)) {
+                            case 'gelato':
+                                $iconPath = '../../../../img/icone_menu/gelato.png';
+                                break;
+                            case 'granita':
+                                $iconPath = '../../../../img/icone_menu/granita.png';
+                                break;
+                            case 'milkshake':
+                                $iconPath = '../../../../img/icone_menu/milkshake.png';
+                                break;
+                            case 'crepes':
+                                $iconPath = '../../../../img/icone_menu/crepe.png';
+                                break;
+                            case 'pancake':
+                                $iconPath = '../../../../img/icone_menu/pancake.png';
+                                break;
+                            case 'coppa gelato':
+                                $iconPath = '../../../../img/icone_menu/coppa.png';
+                                break;
+                            case 'bevande calde':
+                                $iconPath = '../../../../img/icone_menu/bevanda_calda.png';
+                                break;
+                            case 'bevande fredde':
+                                $iconPath = '../../../../img/icone_menu/bevanda_fredda.png';
+                                break;
+                            case 'cioccolata calda':
+                                $iconPath = '../../../../img/icone_menu/cioccolata_calda.png';
+                                break;
+                            case 'torte':
+                                $iconPath = '../../../../img/icone_menu/torte.png';
+                                break;
+                            default:
+                                $iconPath = '../../../../img/icone_menu/gelato.png';
+                        }
+                        
+                        // Aggiungi riga intestazione categoria
+                        echo "<tr class='category-header'>";
+                        echo "<td class='category-icon'><img src='{$iconPath}' alt='{$tipo}'></td>";
+                        echo "<td colspan='6'>" . ucfirst($tipo) . "</td>";
+                        echo "</tr>";
                     }
                     
-                    // Usa il percorso relativo per l'immagine icona
-                    $relativeIconPath = str_replace('/home/iacopo/Desktop/gestionale gelateria/', '../../../../', $iconPath);
-                    
                     echo "<tr data-id='{$id}'>";
-                    echo "<td class='icon-cell'><img src='{$relativeIconPath}' class='icon' alt='{$tipo}'></td>";
+                    echo "<td></td>";
                     echo "<td>{$nome}</td>";
-                    echo "<td>" . (empty($ingredienti_it) ? '-' : substr($ingredienti_it, 0, 30) . (strlen($ingredienti_it) > 30 ? '...' : '')) . "</td>";
+                    echo "<td>" . (empty($ingredienti_it) ? '-' : $ingredienti_it) . "</td>";
                     echo "<td>" . (empty($extra) ? '-' : $extra) . "</td>";
                     echo "<td class='price-cell'>{$prezzo} €</td>";
                     echo "<td>" . ucfirst($tipo) . "</td>";
