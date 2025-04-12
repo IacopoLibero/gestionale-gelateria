@@ -92,9 +92,9 @@ $result = $conn->query($sql);
     </ul>
   </nav>
   <main>
-    <div class="container">
-      <h2>Catalogo Prodotti</h2>
-      <p>Qui puoi visualizzare e gestire tutti i prodotti disponibili.</p>
+    <!-- Contenitore del titolo separato -->
+    <div class="title-container">
+      <h2>I tuoi Prodotti</h2>
     </div>
     
     <!-- Notification system -->
@@ -125,34 +125,110 @@ $result = $conn->query($sql);
     <?php endif; ?>
     
     <div class="container">
-      <div class="product-grid">
-        <?php
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $id = $row['id'];
-                $nome = htmlspecialchars($row['nome']);
-                $tipo = htmlspecialchars($row['tipo']);
-                $categoriaInglese = htmlspecialchars($row['categoria_inglese']);
-                $stato = $row['stato'] ? 'Attivo' : 'Disattivo';
-                $statoClass = $row['stato'] ? 'active' : 'inactive';
-                
-                echo "<div class='product-card active'>";
-                echo "<h3>$nome</h3>";
-                echo "<p>Tipo: " . ucfirst($tipo) . " / " . ucfirst($categoriaInglese) . "</p>";
-                echo "<p>Stato: <span class='status-$statoClass'>$stato</span></p>";
-                echo "<div class='card-actions'>";
-                echo "<a href='edit_prodotto.php?id=$id' class='edit-btn'>Modifica</a>";
-                echo "<form method='POST' action='../../../back-end/php/schermo/delete_prodotto.php' style='display:inline-block; vertical-align:middle;' onsubmit='return confirm(\"Sei sicuro di voler eliminare questo prodotto? Questa azione non può essere annullata.\")'>";
-                echo "<input type='hidden' name='id' value='$id'>";
-                echo "<button type='submit' class='delete-btn'>Elimina</button>";
-                echo "</form>";
-                echo "</div>";
-                echo "</div>";
+      <!-- Products table -->
+      <div class="table-container">
+        <table class="products-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>NOME</th>
+              <th>TIPO</th>
+              <th>STATO</th>
+              <th>AZIONI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            // Tiene traccia della categoria corrente per aggiungere separatori
+            $currentCategory = '';
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $id = $row['id'];
+                    $nome = htmlspecialchars($row['nome']);
+                    $tipo = htmlspecialchars($row['tipo']);
+                    $categoriaInglese = htmlspecialchars($row['categoria_inglese']);
+                    $stato = $row['stato'] ? 'Attivo' : 'Disattivo';
+                    $statoClass = $row['stato'] ? 'status-visible' : 'status-hidden';
+                    
+                    // Se la categoria è cambiata, aggiungi riga di categoria
+                    if ($tipo != $currentCategory) {
+                        $currentCategory = $tipo;
+                        
+                        // Determina l'icona in base alla categoria
+                        $iconPath = '';
+                        switch (strtolower($tipo)) {
+                            case 'gelato':
+                                $iconPath = '../../../../img/icone_menu/gelato.png';
+                                break;
+                            case 'granita':
+                                $iconPath = '../../../../img/icone_menu/granita.png';
+                                break;
+                            case 'milkshake':
+                                $iconPath = '../../../../img/icone_menu/frappe.png';
+                                break;
+                            case 'crepes':
+                                $iconPath = '../../../../img/icone_menu/crepes.png';
+                                break;
+                            case 'pancakes':
+                                $iconPath = '../../../../img/icone_menu/pancake.png';
+                                break;
+                            case 'coppa gelato':
+                                $iconPath = '../../../../img/icone_menu/coppa.png';
+                                break;
+                            case 'bevanda calda':
+                                $iconPath = '../../../../img/icone_menu/bevanda_calda.png';
+                                break;
+                            case 'bevanda fredda':
+                                $iconPath = '../../../../img/icone_menu/bevanda_fredda.png';
+                                break;
+                            case 'cioccolata calda':
+                                $iconPath = '../../../../img/icone_menu/cioccolata_calda.png';
+                                break;
+                            case 'torta':
+                                $iconPath = '../../../../img/icone_menu/cake.png';
+                                break;
+                            default:
+                                // Tenta di trovare un'icona che corrisponde al nome della categoria
+                                $iconFileName = strtolower(str_replace(' ', '_', $tipo));
+                                $possibleIconPath = "../../../../img/icone_menu/{$iconFileName}.png";
+                                
+                                if (file_exists($_SERVER['DOCUMENT_ROOT'] . str_replace('../../../../', '/', $possibleIconPath))) {
+                                    $iconPath = $possibleIconPath;
+                                } else {
+                                    $iconPath = '../../../../img/icone_menu/gelato.png'; // Default
+                                }
+                        }
+                        
+                        // Aggiungi riga intestazione categoria con icone sia a sinistra che a destra
+                        echo "<tr class='category-header'>";
+                        echo "<td class='category-icon'><img src='{$iconPath}' alt='{$tipo}'></td>";
+                        echo "<td colspan='3' class='category-title'>" . ucfirst($tipo) . " / " . ucfirst($categoriaInglese) . "</td>";
+                        echo "<td class='category-icon right'><img src='{$iconPath}' alt='{$tipo}'></td>";
+                        echo "</tr>";
+                    }
+                    
+                    // Riga prodotto
+                    echo "<tr data-id='{$id}'>";
+                    echo "<td></td>";
+                    echo "<td>{$nome}</td>";
+                    echo "<td>" . ucfirst($tipo) . "</td>";
+                    echo "<td><span class='status-badge {$statoClass}'>{$stato}</span></td>";
+                    echo "<td class='actions-cell'>";
+                    echo "<a href='edit_prodotto.php?id=$id' class='edit-btn'>Modifica</a>";
+                    echo "<form method='POST' action='../../../back-end/php/schermo/delete_prodotto.php' style='display:inline-block;' onsubmit='return confirm(\"Sei sicuro di voler eliminare questo prodotto? Questa azione non può essere annullata.\")'>";
+                    echo "<input type='hidden' name='id' value='$id'>";
+                    echo "<button type='submit' class='delete-btn'>Elimina</button>";
+                    echo "</form>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='5' class='no-products'>Nessun prodotto trovato nel database.</td></tr>";
             }
-        } else {
-            echo "<p class='no-products'>Nessun prodotto trovato nel database.</p>";
-        }
-        ?>
+            ?>
+          </tbody>
+        </table>
       </div>
       
       <div class="actions">

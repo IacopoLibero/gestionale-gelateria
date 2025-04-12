@@ -79,12 +79,14 @@
     background-color: #4a4dcc;
 }
 
+/* Eliminazione di bordi e sfondi per una tabella più integrata */
 .products-table {
     width: 100%;
     border-collapse: collapse;
     background-color: transparent;
     border: none;
     box-shadow: none;
+    margin-bottom: 20px;
 }
 
 .products-table th {
@@ -95,7 +97,6 @@
     background-color: var(--hover-clr);
     color: var(--text-clr);
     font-size: 0.9em;
-    border-radius: 4px 4px 0 0;
 }
 
 .products-table td {
@@ -111,15 +112,16 @@
     cursor: pointer;
 }
 
-/* Stile per l'intestazione di categoria */
+/* Stile per l'intestazione di categoria - più integrato */
 .products-table .category-header {
-    background-color: var(--hover-clr);
-    position: relative;
+    background-color: transparent;
+    border-left: 1px solid var(--line-clr);
+    border-right: 1px solid var(--line-clr);
 }
 
 .products-table .category-header td {
     font-weight: bold;
-    padding: 8px 15px;
+    padding: 10px 15px;
     text-align: center;
     color: var(--text-clr);
     border-bottom: 1px solid var(--line-clr);
