@@ -154,12 +154,13 @@
 /* Stile per l'intestazione di categoria */
 .products-table .category-header {
     background-color: #f9f9f9;
+    position: relative;
 }
 
 .products-table .category-header td {
     font-weight: bold;
     padding: 8px 15px;
-    text-align: left;
+    text-align: center;
     color: #333;
     border-bottom: 1px solid #e0e0e0;
     border-top: 1px solid #e0e0e0;
@@ -169,6 +170,16 @@
     width: 40px;
     text-align: center;
     vertical-align: middle;
+}
+
+.products-table .category-icon.right {
+    text-align: right;
+}
+
+.products-table .category-title {
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .products-table .category-icon img {

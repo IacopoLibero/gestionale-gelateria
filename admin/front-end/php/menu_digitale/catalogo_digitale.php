@@ -235,10 +235,11 @@ $result = $conn->query($sql);
                                 }
                         }
                         
-                        // Aggiungi riga intestazione categoria
+                        // Aggiungi riga intestazione categoria con icone sia a sinistra che a destra
                         echo "<tr class='category-header'>";
                         echo "<td class='category-icon'><img src='{$iconPath}' alt='{$tipo}'></td>";
-                        echo "<td colspan='6'>" . ucfirst($tipo) . "</td>";
+                        echo "<td colspan='5' class='category-title'>" . ucfirst($tipo) . "</td>";
+                        echo "<td class='category-icon right'><img src='{$iconPath}' alt='{$tipo}'></td>";
                         echo "</tr>";
                     }
                     
