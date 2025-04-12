@@ -146,9 +146,6 @@ $result = $conn->query($sql);
     <div class="container">
       <div class="table-header">
         <h2 class="table-title">I tuoi Prodotti</h2>
-        <div class="action-buttons">
-          <a href="new_prodouct.php" class="action-btn">Aggiungi Nuovo Prodotto</a>
-        </div>
       </div>
       
       <!-- Notification area -->
@@ -203,12 +200,14 @@ $result = $conn->query($sql);
                                 $iconPath = '../../../../img/icone_menu/granita.png';
                                 break;
                             case 'milkshake':
-                                $iconPath = '../../../../img/icone_menu/milkshake.png';
+                                $iconPath = '../../../../img/icone_menu/frappe.png'; // Utilizzo frappe.png per milkshake
                                 break;
                             case 'crepes':
-                                $iconPath = '../../../../img/icone_menu/crepe.png';
+                            case 'crepe':    
+                                $iconPath = '../../../../img/icone_menu/crepes.png'; // Nota la 's' finale
                                 break;
                             case 'pancake':
+                            case 'pancakes':
                                 $iconPath = '../../../../img/icone_menu/pancake.png';
                                 break;
                             case 'coppa gelato':
@@ -224,10 +223,19 @@ $result = $conn->query($sql);
                                 $iconPath = '../../../../img/icone_menu/cioccolata_calda.png';
                                 break;
                             case 'torte':
-                                $iconPath = '../../../../img/icone_menu/torte.png';
+                                $iconPath = '../../../../img/icone_menu/cake.png';
                                 break;
                             default:
-                                $iconPath = '../../../../img/icone_menu/gelato.png';
+                                // Verifichiamo se esiste un'icona specifica per questa categoria
+                                $iconFileName = strtolower(str_replace(' ', '_', $tipo));
+                                $possibleIconPath = "../../../../img/icone_menu/{$iconFileName}.png";
+                                
+                                // Usa il percorso personalizzato se il file esiste, altrimenti usa gelato.png come fallback
+                                if (file_exists($_SERVER['DOCUMENT_ROOT'] . str_replace('../../../../', '/', $possibleIconPath))) {
+                                    $iconPath = $possibleIconPath;
+                                } else {
+                                    $iconPath = '../../../../img/icone_menu/gelato.png';
+                                }
                         }
                         
                         // Aggiungi riga intestazione categoria
