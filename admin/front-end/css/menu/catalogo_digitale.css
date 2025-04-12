@@ -1,6 +1,32 @@
 /* Products catalog styles */
-.container {
+:root {
+    --base-clr: #11121a;
+    --line-clr: #42434a;
+    --hover-clr: #222533;
+    --text-clr: #e6e6ef;
+    --accent-clr: #5e63ff;
+    --secondary-text-clr: #b0b3c1;
+}
+
+/* Contenitore del titolo - separato dal resto della tabella */
+.title-container {
     padding: 20px;
+    margin-bottom: 5px;
+    background-color: var(--base-clr);
+    border-radius: 8px;
+    border: 1px solid var(--line-clr);
+}
+
+.title-container h1,
+.table-title {
+    font-size: 1.8rem;
+    color: var(--text-clr);
+    margin: 0;
+}
+
+/* Contenitore principale */
+.container {
+    padding: 15px 0;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -9,84 +35,15 @@
     display: none; /* Nascondiamo la vista a griglia */
 }
 
-.product-card {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    z-index: 1;
-    border-top: 3px solid #522da8;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(82,45,168,0.2);
-    cursor: pointer;
-}
-
-.product-card h3 {
-    color: #522da8;
-    margin-top: 0;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-.product-card p {
-    color: #666;
-    margin: 5px 0;
-}
-
-.product-card .product-price {
-    font-weight: bold;
-    color: #333;
-    font-size: 18px;
-    margin-top: 10px;
-}
-
-.product-card .product-type {
-    background-color: #f0f0f0;
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    margin-top: 10px;
-}
-
-.product-card .product-status {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    padding: 4px 8px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.product-card .status-active {
-    background-color: rgba(76, 175, 80, 0.2);
-    color: #4CAF50;
-}
-
-.product-card .status-inactive {
-    background-color: rgba(244, 67, 54, 0.2);
-    color: #F44336;
-}
-
-.no-products {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 30px;
-    font-style: italic;
-    color: #757575;
-}
-
-/* Stile tabella prodotti basato sullo screenshot */
+/* Stile tabella prodotti adattato al tema scuro - ora più integrato */
 .table-container {
     width: 100%;
     overflow-x: auto;
-    margin-top: 20px;
+    margin-top: 10px;
+    background-color: var(--base-clr);
+    border-radius: 8px;
+    border: 1px solid var(--line-clr);
+    padding: 15px;
 }
 
 .table-header {
@@ -94,12 +51,13 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+    color: var(--text-clr);
 }
 
 .table-title {
     margin: 0;
     font-size: 1.5rem;
-    color: #333;
+    color: var(--text-clr);
 }
 
 .action-buttons {
@@ -109,7 +67,7 @@
 
 .action-btn {
     padding: 8px 15px;
-    background-color: #522da8;
+    background-color: var(--accent-clr);
     color: white;
     border-radius: 4px;
     text-decoration: none;
@@ -118,42 +76,44 @@
 }
 
 .action-btn:hover {
-    background-color: #3f2081;
+    background-color: #4a4dcc;
 }
 
 .products-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    border: 1px solid #e0e0e0;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 .products-table th {
     font-weight: normal;
     padding: 10px 15px;
     text-align: left;
-    border-bottom: 1px solid #e0e0e0;
-    background-color: #f9f9f9;
-    color: #333;
+    border-bottom: 1px solid var(--line-clr);
+    background-color: var(--hover-clr);
+    color: var(--text-clr);
     font-size: 0.9em;
+    border-radius: 4px 4px 0 0;
 }
 
 .products-table td {
     padding: 12px 15px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--line-clr);
     vertical-align: middle;
     font-size: 0.9em;
+    color: var(--text-clr);
 }
 
 .products-table tr:hover {
-    background-color: #f5f5f5;
+    background-color: var(--hover-clr);
     cursor: pointer;
 }
 
 /* Stile per l'intestazione di categoria */
 .products-table .category-header {
-    background-color: #f9f9f9;
+    background-color: var(--hover-clr);
     position: relative;
 }
 
@@ -161,10 +121,9 @@
     font-weight: bold;
     padding: 8px 15px;
     text-align: center;
-    color: #333;
-    border-bottom: 1px solid #e0e0e0;
-    border-top: 1px solid #e0e0e0;
-    text-align: center;
+    color: var(--text-clr);
+    border-bottom: 1px solid var(--line-clr);
+    border-top: 1px solid var(--line-clr);
 }
 
 .products-table .category-icon {
@@ -197,6 +156,7 @@
 .products-table .price-cell {
     text-align: right;
     font-weight: 500;
+    color: var(--text-clr);
 }
 
 .products-table .status-badge {
@@ -209,13 +169,13 @@
 }
 
 .products-table .status-visible {
-    background-color: rgba(76, 175, 80, 0.1);
-    color: #4CAF50;
+    background-color: rgba(76, 175, 80, 0.2);
+    color: #68e86d;
 }
 
 .products-table .status-hidden {
-    background-color: rgba(244, 67, 54, 0.1);
-    color: #F44336;
+    background-color: rgba(244, 67, 54, 0.2);
+    color: #ff5a4f;
 }
 
 /* Edit form styles */
@@ -225,7 +185,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -241,10 +201,11 @@
 }
 
 .edit-form {
-    background-color: #fff;
+    background-color: var(--base-clr);
     padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    border: 1px solid var(--line-clr);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     max-width: 800px;
     width: 90%;
     max-height: 90vh;
@@ -252,6 +213,7 @@
     position: relative;
     transform: translateY(-20px);
     transition: transform 0.3s ease;
+    color: var(--text-clr);
 }
 
 .edit-overlay.active .edit-form {
@@ -260,8 +222,8 @@
 
 .edit-form h2 {
     margin-top: 0;
-    color: #522da8;
-    border-bottom: 2px solid #eee;
+    color: var(--accent-clr);
+    border-bottom: 2px solid var(--line-clr);
     padding-bottom: 10px;
 }
 
@@ -273,11 +235,11 @@
     border: none;
     font-size: 24px;
     cursor: pointer;
-    color: #666;
+    color: var(--text-clr);
 }
 
 .edit-form .close-btn:hover {
-    color: #333;
+    color: var(--secondary-text-clr);
 }
 
 .form-row {
@@ -296,7 +258,7 @@
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #333;
+    color: var(--text-clr);
 }
 
 .form-group input[type="text"],
@@ -305,9 +267,11 @@
 .form-group textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--line-clr);
     border-radius: 4px;
     font-size: 16px;
+    background-color: var(--base-clr);
+    color: var(--text-clr);
 }
 
 .form-group textarea {
@@ -365,8 +329,9 @@
     right: 20px;
     padding: 15px;
     border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    background-color: var(--base-clr);
+    border: 1px solid var(--line-clr);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     z-index: 1100;
     display: flex;
     align-items: center;
@@ -375,6 +340,7 @@
     transform: translateX(100%);
     opacity: 0;
     transition: transform 0.3s ease, opacity 0.3s ease;
+    color: var(--text-clr);
 }
 
 .notification.show {
@@ -404,7 +370,7 @@
     border: none;
     font-size: 20px;
     cursor: pointer;
-    color: #666;
+    color: var(--text-clr);
 }
 
 @media (max-width: 768px) {

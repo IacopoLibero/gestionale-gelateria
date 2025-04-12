@@ -143,11 +143,12 @@ $result = $conn->query($sql);
     </ul>
   </nav>
   <main>
+    <!-- Contenitore del titolo separato -->
+    <div class="title-container">
+      <h2 class="table-title">I tuoi Prodotti</h2>
+    </div>
+    
     <div class="container">
-      <div class="table-header">
-        <h2 class="table-title">I tuoi Prodotti</h2>
-      </div>
-      
       <!-- Notification area -->
       <div id="notification" class="notification"></div>
       
