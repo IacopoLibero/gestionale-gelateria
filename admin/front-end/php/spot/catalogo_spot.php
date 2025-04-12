@@ -48,9 +48,7 @@ $result = $conn->query($sql);
         <ul class="sub-menu">
           <div>
             <li><a href="../schermo/catalogo_prodotti.php">Catalogo Prodotti</a></li>
-            <li><a href="../schermo/catalogo_categorie.php">Catalogo Categorie</a></li>
             <li><a href="../schermo/new_prodouct.php">Nuovo Prodotto</a></li>
-            <li><a href="../schermo/new_category.php">Nuova categoria</a></li>
             <li><a href="../schermo/menu_verticale.php">Menu Verticale</a></li>
           </div>
         </ul>
@@ -78,7 +76,6 @@ $result = $conn->query($sql);
           <div>
             <li><a href="../menu_digitale/catalogo_digitale.php">Catalogo Digitale</a></li>
             <li><a href="../menu_digitale/new_prodouct.php">Nuovo Prodotto</a></li>
-            <li><a href="../new_category.php">Nuova categoria</a></li>
             <li><a href="../menu_digitale/menu_digitale.php">Menu Digitale</a></li>
           </div>
         </ul>
