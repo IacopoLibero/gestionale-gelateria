@@ -252,7 +252,6 @@ $result = $conn->query($sql);
     </div>
   </main>
   
-  <script src="../../../js/dashboard.js"></script>
   <script src="../../../js/menu/catalogo_digitale.js"></script>
 </body>
 </html>
