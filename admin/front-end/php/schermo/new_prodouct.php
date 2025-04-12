@@ -74,9 +74,9 @@ $cat_result = $conn->query($cat_sql);
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="./catalogo_digitale.php">Catalogo Digitale</a></li>
-            <li><a href="./new_prodouct.php">Nuovo Prodotto</a></li>
-            <li><a href="./menu_digitale.php">Menu Digitale</a></li>
+            <li><a href="../menu_digitale/catalogo_digitale.php">Catalogo Digitale</a></li>
+            <li><a href="../menu_digitale/new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="../menu_digitale/menu_digitale.php">Menu Digitale</a></li>
           </div>
         </ul>
       </li>
