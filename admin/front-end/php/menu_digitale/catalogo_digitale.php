@@ -6,6 +6,67 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: ../index.php");
     exit;
 }
+
+// Include database connection
+require_once '../../../../connessione.php';
+
+// Process form submission if submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    $response = ['success' => false, 'message' => ''];
+
+    if ($_POST['action'] === 'update') {
+        // Update existing product
+        if (isset($_POST['id']) && is_numeric($_POST['id'])) {
+            $id = $_POST['id'];
+            $nome = $_POST['nome'];
+            $nome_inglese = $_POST['nome_inglese'];
+            $prezzo = $_POST['prezzo'];
+            $tipo = $_POST['tipo'];
+            $ingredienti_it = $_POST['ingredienti_it'];
+            $ingredienti_en = $_POST['ingredienti_en'];
+            $extra = $_POST['extra'];
+            $visibile = isset($_POST['visibile']) ? 1 : 0;
+
+            $sql = "UPDATE menu SET 
+                    nome = ?, 
+                    nome_inglese = ?, 
+                    prezzo = ?, 
+                    tipo = ?, 
+                    ingredienti_it = ?, 
+                    ingredienti_en = ?, 
+                    extra = ?,
+                    visibile = ? 
+                    WHERE id = ?";
+                    
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssdssssii", $nome, $nome_inglese, $prezzo, $tipo, $ingredienti_it, $ingredienti_en, $extra, $visibile, $id);
+            
+            if ($stmt->execute()) {
+                $response = ['success' => true, 'message' => 'Prodotto aggiornato con successo!'];
+            } else {
+                $response = ['success' => false, 'message' => 'Errore durante l\'aggiornamento del prodotto: ' . $conn->error];
+            }
+            
+            $stmt->close();
+        }
+    }
+    
+    // Return JSON response
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit;
+}
+
+// Fetch all categories from database
+$cat_sql = "SELECT * FROM categoria ORDER BY nome ASC";
+$cat_result = $conn->query($cat_sql);
+
+// Fetch all menu products with category info
+$sql = "SELECT m.*, c.nome_inglese as categoria_inglese 
+        FROM menu m 
+        JOIN categoria c ON m.tipo = c.nome 
+        ORDER BY m.nome";
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -83,8 +144,111 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
   </nav>
   <main>
     <div class="container">
-      <h2>Catalogo digitale</h2>
-      <p>Pagina per visualizzare il catalogo digitale della gelateria</p>
+      <h2>Catalogo Menu Digitale</h2>
+      
+      <!-- Notification area -->
+      <div id="notification" class="notification"></div>
+      
+      <!-- Products grid -->
+      <div class="product-grid">
+        <?php
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $id = $row['id'];
+                $nome = htmlspecialchars($row['nome']);
+                $tipo = htmlspecialchars($row['tipo']);
+                $categoriaInglese = htmlspecialchars($row['categoria_inglese']);
+                $prezzo = number_format($row['prezzo'], 2);
+                $stato = $row['visibile'] ? 'Visibile' : 'Non Visibile';
+                $statoClass = $row['visibile'] ? 'status-active' : 'status-inactive';
+                
+                echo "<div class='product-card' data-id='{$id}'>";
+                echo "<h3>{$nome}</h3>";
+                echo "<p>Tipo: " . ucfirst($tipo) . " / " . ucfirst($categoriaInglese) . "</p>";
+                echo "<p class='product-price'>{$prezzo} €</p>";
+                echo "<span class='product-status {$statoClass}'>{$stato}</span>";
+                echo "</div>";
+            }
+        } else {
+            echo "<div class='no-products'>Nessun prodotto trovato.</div>";
+        }
+        ?>
+      </div>
+      
+      <!-- Add new product button -->
+      <div class="actions" style="margin-top: 20px;">
+        <a href="new_prodouct.php" class="btn add-btn">Aggiungi Nuovo Prodotto</a>
+      </div>
+      
+      <!-- Edit form overlay -->
+      <div class="edit-overlay" id="editOverlay">
+        <div class="edit-form">
+          <button type="button" class="close-btn" onclick="closeEditForm()">&times;</button>
+          <h2>Modifica Prodotto</h2>
+          <form id="editForm" method="post">
+            <input type="hidden" name="action" value="update">
+            <input type="hidden" name="id" id="productId">
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nome">Nome Italiano</label>
+                <input type="text" id="nome" name="nome" required>
+              </div>
+              <div class="form-group">
+                <label for="nome_inglese">Nome Inglese</label>
+                <input type="text" id="nome_inglese" name="nome_inglese" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="prezzo">Prezzo (€)</label>
+                <input type="number" id="prezzo" name="prezzo" step="0.01" min="0" required>
+              </div>
+              <div class="form-group">
+                <label for="tipo">Categoria</label>
+                <select id="tipo" name="tipo" required>
+                  <?php 
+                  if ($cat_result->num_rows > 0) {
+                      while($cat = $cat_result->fetch_assoc()) {
+                          echo '<option value="' . htmlspecialchars($cat['nome']) . '">' . 
+                               htmlspecialchars(ucfirst($cat['nome'])) . ' / ' . htmlspecialchars(ucfirst($cat['nome_inglese'])) . '</option>';
+                      }
+                  }
+                  ?>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="ingredienti_it">Ingredienti (Italiano)</label>
+              <textarea id="ingredienti_it" name="ingredienti_it"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="ingredienti_en">Ingredienti (Inglese)</label>
+              <textarea id="ingredienti_en" name="ingredienti_en"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="extra">Extra (Separati da punto e virgola)</label>
+              <textarea id="extra" name="extra" placeholder="Es: Panna;Cioccolato;Caffè"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <div class="checkbox-wrapper">
+                <input type="checkbox" id="visibile" name="visibile">
+                <label for="visibile">Visibile nel menu</label>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="btn save-btn">Salva Modifiche</button>
+              <button type="button" class="btn cancel-btn" onclick="closeEditForm()">Annulla</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </main>
   
