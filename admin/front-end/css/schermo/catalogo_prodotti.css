@@ -618,3 +618,67 @@
     white-space: nowrap;
     text-align: right;
 }
+
+/* Edit form overlay styles - identico al catalogo digitale */
+.edit-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.edit-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.edit-form {
+    background-color: var(--base-clr);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid var(--line-clr);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    color: var(--text-clr);
+}
+
+.edit-overlay.active .edit-form {
+    transform: translateY(0);
+}
+
+.edit-form h2 {
+    margin-top: 0;
+    color: var(--accent-clr);
+    border-bottom: 2px solid var(--line-clr);
+    padding-bottom: 10px;
+}
+
+.edit-form .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-clr);
+}
+
+.edit-form .close-btn:hover {
+    color: var(--secondary-text-clr);
+}

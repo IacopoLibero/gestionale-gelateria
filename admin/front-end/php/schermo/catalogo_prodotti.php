@@ -97,34 +97,10 @@ $result = $conn->query($sql);
       <h2>I tuoi Prodotti</h2>
     </div>
     
-    <!-- Notification system -->
-    <?php if(isset($_SESSION['success_message'])): ?>
-      <div class="notification-container">
-        <div class="notification success-notification" id="notification">
-          <div class="notification-content">
-            <span class="notification-icon">✓</span>
-            <span><?php echo $_SESSION['success_message']; ?></span>
-          </div>
-          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
-        </div>
-      </div>
-      <?php unset($_SESSION['success_message']); ?>
-    <?php endif; ?>
-    
-    <?php if(isset($_SESSION['error_message'])): ?>
-      <div class="notification-container">
-        <div class="notification error-notification" id="notification">
-          <div class="notification-content">
-            <span class="notification-icon">⚠</span>
-            <span><?php echo $_SESSION['error_message']; ?></span>
-          </div>
-          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
-        </div>
-      </div>
-      <?php unset($_SESSION['error_message']); ?>
-    <?php endif; ?>
-    
     <div class="container">
+      <!-- Notification area -->
+      <div id="notification" class="notification"></div>
+      
       <!-- Products table -->
       <div class="table-container">
         <table class="products-table">
@@ -134,7 +110,7 @@ $result = $conn->query($sql);
               <th>NOME</th>
               <th>TIPO</th>
               <th>STATO</th>
-              <th>AZIONI</th>
+              <th>OPZIONI</th>
             </tr>
           </thead>
           <tbody>
@@ -146,10 +122,18 @@ $result = $conn->query($sql);
                 while ($row = $result->fetch_assoc()) {
                     $id = $row['id'];
                     $nome = htmlspecialchars($row['nome']);
+                    $nomeInglese = htmlspecialchars($row['nome_inglese']);
+                    $ingredienti = htmlspecialchars($row['ingredienti'] ?? '');
                     $tipo = htmlspecialchars($row['tipo']);
                     $categoriaInglese = htmlspecialchars($row['categoria_inglese']);
                     $stato = $row['stato'] ? 'Attivo' : 'Disattivo';
                     $statoClass = $row['stato'] ? 'status-visible' : 'status-hidden';
+                    $km0 = $row['km0'] ? 'Sì' : 'No';
+                    $vegano = $row['vegano'] ? 'Sì' : 'No';
+                    $slowFood = $row['SlowFood'] ? 'Sì' : 'No';
+                    $bio = $row['bio'] ? 'Sì' : 'No';
+                    $innovativo = $row['innovativo'] ? 'Sì' : 'No';
+                    $ingredientiVisibili = $row['ingredienti_visibili'] ? 'Sì' : 'No';
                     
                     // Se la categoria è cambiata, aggiungi riga di categoria
                     if ($tipo != $currentCategory) {
@@ -208,15 +192,15 @@ $result = $conn->query($sql);
                         echo "</tr>";
                     }
                     
-                    // Riga prodotto
-                    echo "<tr data-id='{$id}'>";
+                    // Riga prodotto - ora con attributi data per il modal
+                    echo "<tr data-id='{$id}' data-nome='{$nome}' data-nome-inglese='{$nomeInglese}' data-tipo='{$tipo}' data-ingredienti='{$ingredienti}' data-stato='{$row['stato']}' data-km0='{$row['km0']}' data-vegano='{$row['vegano']}' data-slowfood='{$row['SlowFood']}' data-bio='{$row['bio']}' data-innovativo='{$row['innovativo']}' data-ingredienti-visibili='{$row['ingredienti_visibili']}'>";
                     echo "<td></td>";
                     echo "<td>{$nome}</td>";
                     echo "<td>" . ucfirst($tipo) . "</td>";
                     echo "<td><span class='status-badge {$statoClass}'>{$stato}</span></td>";
                     echo "<td class='actions-cell'>";
                     echo "<a href='edit_prodotto.php?id=$id' class='edit-btn'>Modifica</a>";
-                    echo "<form method='POST' action='../../../back-end/php/schermo/delete_prodotto.php' style='display:inline-block;' onsubmit='return confirm(\"Sei sicuro di voler eliminare questo prodotto? Questa azione non può essere annullata.\")'>";
+                    echo "<form method='POST' action='../../../back-end/php/schermo/delete_prodotto.php' class='delete-form' style='display:inline-block;'>";
                     echo "<input type='hidden' name='id' value='$id'>";
                     echo "<button type='submit' class='delete-btn'>Elimina</button>";
                     echo "</form>";
@@ -235,6 +219,83 @@ $result = $conn->query($sql);
         <a href="new_prodouct.php" class="submit-button">
           <span class="button_top">Aggiungi Nuovo Prodotto</span>
         </a>
+      </div>
+      
+      <!-- Edit form overlay -->
+      <div class="edit-overlay" id="editOverlay">
+        <div class="edit-form">
+          <button type="button" class="close-btn" onclick="closeEditForm()">&times;</button>
+          <h2>Dettagli Prodotto</h2>
+          <form id="editForm" method="post">
+            <input type="hidden" name="action" value="update">
+            <input type="hidden" name="id" id="productId">
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nome">Nome Italiano</label>
+                <input type="text" id="nome" name="nome" readonly>
+              </div>
+              <div class="form-group">
+                <label for="nome_inglese">Nome Inglese</label>
+                <input type="text" id="nome_inglese" name="nome_inglese" readonly>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="tipo">Categoria</label>
+                <input type="text" id="tipo" name="tipo" readonly>
+              </div>
+              <div class="form-group">
+                <label for="stato">Stato</label>
+                <input type="text" id="stato" name="stato" readonly>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="ingredienti">Ingredienti</label>
+              <textarea id="ingredienti" name="ingredienti" readonly></textarea>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label>Km0</label>
+                <div id="km0"></div>
+              </div>
+              <div class="form-group">
+                <label>Vegano</label>
+                <div id="vegano"></div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label>Slow Food</label>
+                <div id="slowfood"></div>
+              </div>
+              <div class="form-group">
+                <label>Biologico</label>
+                <div id="bio"></div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label>Innovativo</label>
+                <div id="innovativo"></div>
+              </div>
+              <div class="form-group">
+                <label>Ingredienti Visibili</label>
+                <div id="ingredienti_visibili"></div>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <a href="#" id="editButton" class="btn save-btn">Modifica</a>
+              <button type="button" class="btn cancel-btn" onclick="closeEditForm()">Chiudi</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </main>
