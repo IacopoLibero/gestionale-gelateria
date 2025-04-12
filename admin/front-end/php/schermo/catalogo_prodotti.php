@@ -97,7 +97,7 @@ $result = $conn->query($sql);
       <h2>I tuoi Prodotti</h2>
     </div>
     
-    <div class="container">
+    <div>
       <!-- Notification area -->
       <div id="notification" class="notification"></div>
       
