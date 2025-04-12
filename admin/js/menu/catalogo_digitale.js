@@ -66,9 +66,12 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function closeAllSubMenus() {
+    if (!sidebar) return;
     Array.from(sidebar.getElementsByClassName('show')).forEach(ul => {
       ul.classList.remove('show');
-      ul.previousElementSibling.classList.remove('rotate');
+      if (ul.previousElementSibling) {
+        ul.previousElementSibling.classList.remove('rotate');
+      }
     });
   }
   
@@ -83,17 +86,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // Get all product cards
-  const productCards = document.querySelectorAll('.product-card');
-  console.log("Trovate " + productCards.length + " schede prodotto");
+  // Per la nuova visualizzazione tabellare - Aggiungi event listener alle righe della tabella
+  const productRows = document.querySelectorAll('.products-table tbody tr');
+  console.log("Trovate " + productRows.length + " righe di prodotto");
   
-  // Add click event to each card
-  productCards.forEach(card => {
-    card.addEventListener('click', function(e) {
+  productRows.forEach(row => {
+    row.addEventListener('click', function(e) {
       e.preventDefault(); // Previene comportamenti indesiderati
       const productId = this.dataset.id;
-      console.log("Click sulla card del prodotto ID: " + productId);
-      openEditForm(productId);
+      if (productId) {
+        console.log("Click sulla riga del prodotto ID: " + productId);
+        openEditForm(productId);
+      } else {
+        console.error("Questa riga non ha un ID prodotto valido");
+      }
     });
   });
   

@@ -144,40 +144,108 @@ $result = $conn->query($sql);
   </nav>
   <main>
     <div class="container">
-      <h2>Catalogo Menu Digitale</h2>
+      <div class="table-header">
+        <h2 class="table-title">I tuoi Prodotti</h2>
+        <div class="action-buttons">
+          <a href="new_prodouct.php" class="action-btn">Aggiungi Nuovo Prodotto</a>
+        </div>
+      </div>
       
       <!-- Notification area -->
       <div id="notification" class="notification"></div>
       
-      <!-- Products grid -->
-      <div class="product-grid">
-        <?php
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $id = $row['id'];
-                $nome = htmlspecialchars($row['nome']);
-                $tipo = htmlspecialchars($row['tipo']);
-                $categoriaInglese = htmlspecialchars($row['categoria_inglese']);
-                $prezzo = number_format($row['prezzo'], 2);
-                $stato = $row['visibile'] ? 'Visibile' : 'Non Visibile';
-                $statoClass = $row['visibile'] ? 'status-active' : 'status-inactive';
+      <!-- Products table -->
+      <div class="table-container">
+        <table class="products-table">
+          <thead>
+            <tr>
+              <th class="icon-cell"></th>
+              <th>NOME</th>
+              <th>INGREDIENTI</th>
+              <th>EXTRA</th>
+              <th>PREZZO</th>
+              <th>TIPO</th>
+              <th>STATO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            if ($result->num_rows > 0) {
+                // Raggruppa i prodotti per categoria per creare le intestazioni di categoria
+                $currentCategory = '';
                 
-                echo "<div class='product-card' data-id='{$id}'>";
-                echo "<h3>{$nome}</h3>";
-                echo "<p>Tipo: " . ucfirst($tipo) . " / " . ucfirst($categoriaInglese) . "</p>";
-                echo "<p class='product-price'>{$prezzo} €</p>";
-                echo "<span class='product-status {$statoClass}'>{$stato}</span>";
-                echo "</div>";
+                // Reimposta il puntatore dei risultati
+                $result->data_seek(0);
+                
+                while ($row = $result->fetch_assoc()) {
+                    $id = $row['id'];
+                    $nome = htmlspecialchars($row['nome']);
+                    $nome_inglese = htmlspecialchars($row['nome_inglese']);
+                    $tipo = htmlspecialchars($row['tipo']);
+                    $categoriaInglese = htmlspecialchars($row['categoria_inglese']);
+                    $prezzo = number_format($row['prezzo'], 2);
+                    $ingredienti_it = htmlspecialchars($row['ingredienti_it'] ?? '');
+                    $ingredienti_en = htmlspecialchars($row['ingredienti_en'] ?? '');
+                    $extra = htmlspecialchars($row['extra'] ?? '');
+                    $stato = $row['visibile'] ? 'Visibile' : 'Non Visibile';
+                    $statoClass = $row['visibile'] ? 'status-visible' : 'status-hidden';
+                    
+                    // Determina l'icona in base alla categoria
+                    $iconPath = '';
+                    switch (strtolower($tipo)) {
+                        case 'gelato':
+                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/gelato.png';
+                            break;
+                        case 'granita':
+                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/granite.png';
+                            break;
+                        case 'milkshake':
+                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/milkshake.png';
+                            break;
+                        case 'crepes':
+                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/crepes.png';
+                            break;
+                        case 'pancakes':
+                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/pancakes.png';
+                            break;
+                        case 'coppa gelato':
+                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/coppa_gelato.png';
+                            break;
+                        case 'bevande calde':
+                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/bevande_calde.png';
+                            break;
+                        case 'bevande fredde':
+                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/bevande_fredde.png';
+                            break;
+                        case 'cioccolata calda':
+                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/cioccolata_calda.png';
+                            break;
+                        case 'torte':
+                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/cake.png';
+                            break;
+                        default:
+                            $iconPath = '/home/iacopo/Desktop/gestionale gelateria/img/grafico/gelato.png';
+                    }
+                    
+                    // Usa il percorso relativo per l'immagine icona
+                    $relativeIconPath = str_replace('/home/iacopo/Desktop/gestionale gelateria/', '../../../../', $iconPath);
+                    
+                    echo "<tr data-id='{$id}'>";
+                    echo "<td class='icon-cell'><img src='{$relativeIconPath}' class='icon' alt='{$tipo}'></td>";
+                    echo "<td>{$nome}</td>";
+                    echo "<td>" . (empty($ingredienti_it) ? '-' : substr($ingredienti_it, 0, 30) . (strlen($ingredienti_it) > 30 ? '...' : '')) . "</td>";
+                    echo "<td>" . (empty($extra) ? '-' : $extra) . "</td>";
+                    echo "<td class='price-cell'>{$prezzo} €</td>";
+                    echo "<td>" . ucfirst($tipo) . "</td>";
+                    echo "<td><span class='status-badge {$statoClass}'>{$stato}</span></td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='7' class='no-products'>Nessun prodotto trovato.</td></tr>";
             }
-        } else {
-            echo "<div class='no-products'>Nessun prodotto trovato.</div>";
-        }
-        ?>
-      </div>
-      
-      <!-- Add new product button -->
-      <div class="actions" style="margin-top: 20px;">
-        <a href="new_prodouct.php" class="btn add-btn">Aggiungi Nuovo Prodotto</a>
+            ?>
+          </tbody>
+        </table>
       </div>
       
       <!-- Edit form overlay -->
@@ -210,6 +278,7 @@ $result = $conn->query($sql);
                 <select id="tipo" name="tipo" required>
                   <?php 
                   if ($cat_result->num_rows > 0) {
+                      $cat_result->data_seek(0);
                       while($cat = $cat_result->fetch_assoc()) {
                           echo '<option value="' . htmlspecialchars($cat['nome']) . '">' . 
                                htmlspecialchars(ucfirst($cat['nome'])) . ' / ' . htmlspecialchars(ucfirst($cat['nome_inglese'])) . '</option>';
