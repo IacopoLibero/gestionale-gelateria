@@ -61,11 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 $cat_sql = "SELECT * FROM categoria ORDER BY nome ASC";
 $cat_result = $conn->query($cat_sql);
 
-// Fetch all menu products with category info
+// Fetch all menu products with category info, ordered by category
 $sql = "SELECT m.*, c.nome_inglese as categoria_inglese 
         FROM menu m 
         JOIN categoria c ON m.tipo = c.nome 
-        ORDER BY m.nome";
+        ORDER BY m.tipo, m.nome";  // Ordina prima per tipo (categoria) poi per nome
 $result = $conn->query($sql);
 ?>
 
@@ -200,41 +200,38 @@ $result = $conn->query($sql);
                                 $iconPath = '../../../../img/icone_menu/granita.png';
                                 break;
                             case 'milkshake':
-                                $iconPath = '../../../../img/icone_menu/frappe.png'; // Utilizzo frappe.png per milkshake
+                                $iconPath = '../../../../img/icone_menu/frappe.png';
                                 break;
                             case 'crepes':
-                            case 'crepe':    
-                                $iconPath = '../../../../img/icone_menu/crepes.png'; // Nota la 's' finale
+                                $iconPath = '../../../../img/icone_menu/crepes.png';
                                 break;
-                            case 'pancake':
                             case 'pancakes':
                                 $iconPath = '../../../../img/icone_menu/pancake.png';
                                 break;
                             case 'coppa gelato':
                                 $iconPath = '../../../../img/icone_menu/coppa.png';
                                 break;
-                            case 'bevande calde':
+                            case 'bevanda calda':
                                 $iconPath = '../../../../img/icone_menu/bevanda_calda.png';
                                 break;
-                            case 'bevande fredde':
+                            case 'bevanda fredda':
                                 $iconPath = '../../../../img/icone_menu/bevanda_fredda.png';
                                 break;
                             case 'cioccolata calda':
                                 $iconPath = '../../../../img/icone_menu/cioccolata_calda.png';
                                 break;
-                            case 'torte':
+                            case 'torta':
                                 $iconPath = '../../../../img/icone_menu/cake.png';
                                 break;
                             default:
-                                // Verifichiamo se esiste un'icona specifica per questa categoria
+                                // Tenta di trovare un'icona che corrisponde al nome della categoria
                                 $iconFileName = strtolower(str_replace(' ', '_', $tipo));
                                 $possibleIconPath = "../../../../img/icone_menu/{$iconFileName}.png";
                                 
-                                // Usa il percorso personalizzato se il file esiste, altrimenti usa gelato.png come fallback
                                 if (file_exists($_SERVER['DOCUMENT_ROOT'] . str_replace('../../../../', '/', $possibleIconPath))) {
                                     $iconPath = $possibleIconPath;
                                 } else {
-                                    $iconPath = '../../../../img/icone_menu/gelato.png';
+                                    $iconPath = '../../../../img/icone_menu/gelato.png'; // Default
                                 }
                         }
                         
@@ -245,6 +242,7 @@ $result = $conn->query($sql);
                         echo "</tr>";
                     }
                     
+                    // Riga prodotto
                     echo "<tr data-id='{$id}'>";
                     echo "<td></td>";
                     echo "<td>{$nome}</td>";
