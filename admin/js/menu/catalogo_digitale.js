@@ -12,38 +12,59 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Handle form submission
   const editForm = document.getElementById('editForm');
-  editForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(editForm);
-    
-    fetch('catalogo_digitale.php', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        showNotification('success', data.message);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500);
-      } else {
-        showNotification('error', data.message);
-      }
-    })
-    .catch(error => {
-      showNotification('error', 'Si è verificato un errore: ' + error);
+  if (editForm) {
+    editForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(editForm);
+      
+      fetch('catalogo_digitale.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Risposta server non valida: ' + response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.success) {
+          showNotification('success', data.message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        } else {
+          showNotification('error', data.message || 'Errore sconosciuto');
+        }
+      })
+      .catch(error => {
+        console.error('Errore:', error);
+        showNotification('error', 'Si è verificato un errore: ' + error.message);
+      });
     });
-  });
+  } else {
+    console.error('Form di modifica non trovato!');
+  }
 });
 
 // Function to open edit form and load product data
 function openEditForm(productId) {
+  // Mostra un indicatore di caricamento
+  showNotification('info', 'Caricamento dati in corso...');
+  
   // Fetch product data
   fetch(`../../../../admin/back-end/php/menu/get_product.php?id=${productId}`)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Errore nel caricamento dei dati (Status: ' + response.status + ')');
+      }
+      return response.json();
+    })
     .then(product => {
+      // Nascondi notifica di caricamento
+      closeNotification();
+      
       // Populate form with product data
       document.getElementById('productId').value = product.id;
       document.getElementById('nome').value = product.nome;
@@ -56,39 +77,74 @@ function openEditForm(productId) {
       document.getElementById('visibile').checked = product.visibile == 1;
       
       // Show overlay
-      document.getElementById('editOverlay').classList.add('active');
+      const overlay = document.getElementById('editOverlay');
+      if (overlay) {
+        overlay.classList.add('active');
+      } else {
+        console.error('Overlay non trovato!');
+        showNotification('error', 'Errore: elemento overlay non trovato');
+      }
     })
     .catch(error => {
-      showNotification('error', 'Errore durante il caricamento dei dati: ' + error);
+      console.error('Errore durante il caricamento:', error);
+      showNotification('error', 'Errore durante il caricamento dei dati: ' + error.message);
     });
 }
 
 // Function to close edit form
 function closeEditForm() {
-  document.getElementById('editOverlay').classList.remove('active');
-  document.getElementById('editForm').reset();
+  const overlay = document.getElementById('editOverlay');
+  if (overlay) {
+    overlay.classList.remove('active');
+  }
+  
+  const form = document.getElementById('editForm');
+  if (form) {
+    form.reset();
+  }
 }
 
 // Function to show notification
 function showNotification(type, message) {
   const notification = document.getElementById('notification');
+  if (!notification) {
+    console.error('Elemento notifica non trovato!');
+    alert(message); // Fallback a un alert base
+    return;
+  }
+  
+  // Icona in base al tipo
+  let iconHTML = '';
+  if (type === 'success') {
+    iconHTML = '<div class="notification-icon success">✓</div>';
+  } else if (type === 'error') {
+    iconHTML = '<div class="notification-icon error">✗</div>';
+  } else if (type === 'info') {
+    iconHTML = '<div class="notification-icon info">ℹ</div>';
+  }
+  
   notification.innerHTML = `
+    ${iconHTML}
     <div class="notification-content">
-      <strong>${type === 'success' ? 'Successo!' : 'Errore!'}</strong>
+      <strong>${type === 'success' ? 'Successo!' : type === 'error' ? 'Errore!' : 'Info'}</strong>
       <p>${message}</p>
     </div>
     <button type="button" class="close" onclick="closeNotification()">&times;</button>
   `;
   notification.className = `notification ${type} show`;
   
-  // Auto hide after 5 seconds
-  setTimeout(() => {
-    closeNotification();
-  }, 5000);
+  // Auto hide after 5 seconds for success and info messages
+  if (type !== 'error') {
+    setTimeout(() => {
+      closeNotification();
+    }, 5000);
+  }
 }
 
 // Function to close notification
 function closeNotification() {
   const notification = document.getElementById('notification');
-  notification.classList.remove('show');
+  if (notification) {
+    notification.classList.remove('show');
+  }
 }
