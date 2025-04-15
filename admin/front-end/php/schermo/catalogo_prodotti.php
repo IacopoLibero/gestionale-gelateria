@@ -50,8 +50,8 @@ $result = $conn->query($sql);
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="./catalogo_prodotti.php">Catalogo Prodotti</a></li>
-            <li><a href="./new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="./catalogo_prodotti.php">Catalogo Gelati</a></li>
+            <li><a href="./new_prodouct.php">Nuovo Gelato</a></li>
             <li><a href="./menu_verticale.php">Menu Verticale</a></li>
           </div>
         </ul>
@@ -94,7 +94,7 @@ $result = $conn->query($sql);
   <main>
     <!-- Contenitore del titolo separato -->
     <div class="title-container">
-      <h2>I tuoi Prodotti</h2>
+      <h2>I tuoi Gelati</h2>
     </div>
     
     <div>
@@ -108,9 +108,7 @@ $result = $conn->query($sql);
             <tr>
               <th></th>
               <th>NOME</th>
-              <th>TIPO</th>
               <th>STATO</th>
-              <th>OPZIONI</th>
             </tr>
           </thead>
           <tbody>
@@ -187,28 +185,20 @@ $result = $conn->query($sql);
                         // Aggiungi riga intestazione categoria con icone sia a sinistra che a destra
                         echo "<tr class='category-header'>";
                         echo "<td class='category-icon'><img src='{$iconPath}' alt='{$tipo}'></td>";
-                        echo "<td colspan='3' class='category-title'>" . ucfirst($tipo) . " / " . ucfirst($categoriaInglese) . "</td>";
+                        echo "<td class='category-title'>" . ucfirst($tipo) . " / " . ucfirst($categoriaInglese) . "</td>";
                         echo "<td class='category-icon right'><img src='{$iconPath}' alt='{$tipo}'></td>";
                         echo "</tr>";
                     }
                     
-                    // Riga prodotto - ora con attributi data per il modal
+                    // Riga prodotto - con attributi data per il modal ma senza colonne Tipo e Opzioni
                     echo "<tr data-id='{$id}' data-nome='{$nome}' data-nome-inglese='{$nomeInglese}' data-tipo='{$tipo}' data-ingredienti='{$ingredienti}' data-stato='{$row['stato']}' data-km0='{$row['km0']}' data-vegano='{$row['vegano']}' data-slowfood='{$row['SlowFood']}' data-bio='{$row['bio']}' data-innovativo='{$row['innovativo']}' data-ingredienti-visibili='{$row['ingredienti_visibili']}'>";
                     echo "<td></td>";
                     echo "<td>{$nome}</td>";
-                    echo "<td>" . ucfirst($tipo) . "</td>";
                     echo "<td><span class='status-badge {$statoClass}'>{$stato}</span></td>";
-                    echo "<td class='actions-cell'>";
-                    echo "<a href='edit_prodotto.php?id=$id' class='edit-btn'>Modifica</a>";
-                    echo "<form method='POST' action='../../../back-end/php/schermo/delete_prodotto.php' class='delete-form' style='display:inline-block;'>";
-                    echo "<input type='hidden' name='id' value='$id'>";
-                    echo "<button type='submit' class='delete-btn'>Elimina</button>";
-                    echo "</form>";
-                    echo "</td>";
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='5' class='no-products'>Nessun prodotto trovato nel database.</td></tr>";
+                echo "<tr><td colspan='3' class='no-products'>Nessun prodotto trovato nel database.</td></tr>";
             }
             ?>
           </tbody>

@@ -47,8 +47,8 @@ $result = $conn->query($sql);
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="../schermo/catalogo_prodotti.php">Catalogo Prodotti</a></li>
-            <li><a href="../schermo/new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="../schermo/catalogo_prodotti.php">Catalogo Gelati</a></li>
+            <li><a href="../schermo/new_prodouct.php">Nuovo Gelato</a></li>
             <li><a href="../schermo/menu_verticale.php">Menu Verticale</a></li>
           </div>
         </ul>
