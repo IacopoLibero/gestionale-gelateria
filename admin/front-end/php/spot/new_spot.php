@@ -122,16 +122,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </div>
         
         <div class="form-group">
-          <div class="toggle-container">
-            <label for="visibile">Visibile</label>
-            <label class="switch">
-              <input type="checkbox" id="visibile" name="visibile" checked>
-              <span class="slider round"></span>
-            </label>
-          </div>
-        </div>
-        
-        <div class="form-group">
           <!-- Custom file upload component -->
           <label for="video" class="custum-file-upload">
             <div class="icon">

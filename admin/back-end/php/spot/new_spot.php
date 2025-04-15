@@ -31,8 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $nome = htmlspecialchars(trim($_POST['nome']));
     
-    // Get visibility status 
-    $visibile = isset($_POST['visibile']) ? 1 : 0;
+    // default visibility
+    $visibile = 1;
     
     // Validate video file
     if (!isset($_FILES['video']) || $_FILES['video']['error'] !== UPLOAD_ERR_OK) {
