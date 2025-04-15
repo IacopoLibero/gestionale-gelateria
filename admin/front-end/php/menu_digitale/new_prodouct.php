@@ -10,6 +10,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 // Include database connection to fetch categories
 require_once '../../../../connessione.php';
 
+// Fetch all categories from database
+$cat_sql = "SELECT * FROM categoria ORDER BY nome ASC";
+$cat_result = $conn->query($cat_sql);
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +35,7 @@ require_once '../../../../connessione.php';
       </li>
       <li class="active">
         <a href="../../../dashboard.php">
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M520-640v-160q0-17 11.5-28.5T560-840h240q17 0 28.5 11.5T840-800v160q0 17-11.5 28.5T800-600H560q-17 0-28.5-11.5T520-640ZM120-480v-320q0-17 11.5-28.5T160-840h240q17 0 28.5 11.5T440-800v320q0 17-11.5 28.5T400-440H160q-17 0-28.5-11.5T120-480Zm400 320v-320q0-17 11.5-28.5T560-520h240q17 0 28.5 11.5T840-480v320q0 17-11.5 28.5T800-120H560q-17 0-28.5-11.5T520-160Zm-400 0v-160q0-17 11.5-28.5T160-360h240q17 0 28.5 11.5T440-320v160q0 17-11.5 28.5T400-120H160q-17 0-28.5-11.5T120-160Zm80-360h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M520-640v-160q0-17 11.5-28.5T560-840h240q17 0 28.5 11.5T840-800v160q0 17-11.5 28.5T800-600H560q-17 0-28.5-11.5T520-640ZM120-480v-320q0-17 11.5-28.5T160-840h240q17 0 28.5 11.5T440-800v320q0 17-11.5-28.5T400-440H160q-17 0-28.5-11.5T120-480Zm400 320v-320q0-17 11.5-28.5T560-520h240q17 0 28.5 11.5T840-480v320q0 17-11.5 28.5T800-120H560q-17 0-28.5-11.5T520-160Zm-400 0v-160q0-17 11.5-28.5T160-360h240q17 0 28.5 11.5T440-320v160q0 17-11.5-28.5T400-120H160q-17 0-28.5-11.5T120-160Zm80-360h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg>
           <span>Dashboard</span>
         </a>
       </li>
@@ -86,9 +89,112 @@ require_once '../../../../connessione.php';
     </ul>
   </nav>
   <main>
+    <h2 id="titolo" class="container">Nuovo prodotto menu digitale</h2>
+    
+    <!-- Notification system -->
+    <?php if(isset($_SESSION['success_message'])): ?>
+      <div class="notification-container">
+        <div class="notification success-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">✓</span>
+            <span><?php echo $_SESSION['success_message']; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+      <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
+    
+    <?php if(isset($_SESSION['error_message'])): ?>
+      <div class="notification-container">
+        <div class="notification error-notification" id="notification">
+          <div class="notification-content">
+            <span class="notification-icon">⚠</span>
+            <span><?php echo $_SESSION['error_message']; ?></span>
+          </div>
+          <button type="button" class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+      <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
+    
     <div class="container">
-      <h2>Nuovo prodotto</h2>
-      <p>Pagina per aggiunge un prodotto al menu digitale</p>
+      <h2 class="h2class">Nome e ingredienti</h2>
+      <form method="POST" action="../../../back-end/php/menu/new_prodouct.php">
+        <div class="name-columns">
+          <div class="column">
+            <label for="nome">NOME DEL PRODOTTO</label>
+            <textarea name="nome" id="nome" placeholder="Nome" required class="auto-resize"></textarea>
+          </div>
+          <div class="column">
+            <label for="nome_inglese">NOME DEL PRODOTTO (INGLESE)</label>
+            <textarea name="nome_inglese" id="nome_inglese" placeholder="Name (Inglese)" required class="auto-resize"></textarea>
+          </div>
+        </div>
+
+        <div class="name-columns">
+          <div class="column">
+            <label for="ingredienti_it">INGREDIENTI (ITALIANO)</label>
+            <textarea name="ingredienti_it" id="ingredienti_it" placeholder="Ingredienti" class="auto-resize"></textarea>
+          </div>
+          <div class="column">
+            <label for="ingredienti_en">INGREDIENTI (INGLESE)</label>
+            <textarea name="ingredienti_en" id="ingredienti_en" placeholder="Ingredients" class="auto-resize"></textarea>
+          </div>
+        </div>
+
+        <div>
+          <label for="extra">EXTRA (Separati da punto e virgola)</label>
+          <textarea name="extra" id="extra" placeholder="Es: Panna;Cioccolato;Caffè" class="auto-resize"></textarea>
+        </div>
+      </div>
+      
+      <div class="container">
+        <h2 class="h2class">Opzioni</h2>
+        <div class="name-columns">
+          <div class="column">
+            <label for="prezzo">PREZZO (€)</label>
+            <input type="number" step="0.01" min="0" name="prezzo" id="prezzo" placeholder="0.00" required>
+          </div>
+          <div class="column">
+            <label for="tipo">CATEGORIA</label>
+            <select name="tipo" id="tipo" required>
+              <option value="" disabled selected>TIPO DI PRODOTTO</option>
+              <?php 
+              if ($cat_result->num_rows > 0) {
+                  $cat_result->data_seek(0);
+                  while($cat = $cat_result->fetch_assoc()) {
+                      echo '<option value="' . htmlspecialchars($cat['nome']) . '">' . 
+                           htmlspecialchars(ucfirst($cat['nome'])) . ' / ' . htmlspecialchars(ucfirst($cat['nome_inglese'])) . '</option>';
+                  }
+              }
+              ?>
+            </select>
+          </div>
+        </div>
+
+        <div class="checkbox-columns">
+          <div class="column">
+            <div class="checkbox-wrapper">
+              <input type="checkbox" class="check" id="visibile" name="visibile" checked>
+              <label for="visibile" class="label">
+                  <svg width="25" height="25" viewBox="0 0 95 95">
+                    <rect x="30" y="20" width="50" height="50" stroke="#e8eaed" fill="none"></rect>
+                    <g transform="translate(0,-952.36222)">
+                      <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="#e8eaed" stroke-width="3" fill="none" class="path1"></path>
+                    </g>
+                  </svg>
+                  <span>Visibile nel menu</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="button-container">
+          <button type="submit" class="submit-button">
+            <span class="button_top">Aggiungi Prodotto</span>
+          </button>
+        </div>
+      </form>
     </div>
   </main>
   
@@ -96,3 +202,8 @@ require_once '../../../../connessione.php';
   <script src="../../../js/menu/new_prodouct.js"></script>
 </body>
 </html>
+
+<?php
+// Close the database connection
+$conn->close();
+?>
