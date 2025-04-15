@@ -89,7 +89,7 @@ $cat_result = $conn->query($cat_sql);
     </ul>
   </nav>
   <main>
-    <h2 id="titolo" class="container">Nuovo prodotto</h2>
+    <h2 id="titolo" class="container">Nuovo gelato</h2>
     
     <!-- Notification system -->
     <?php if(isset($_SESSION['success_message'])): ?>
