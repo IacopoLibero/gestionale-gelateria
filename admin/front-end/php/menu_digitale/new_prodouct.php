@@ -145,7 +145,7 @@ $cat_result = $conn->query($cat_sql);
 
         <div>
           <label for="extra">EXTRA (Separati da punto e virgola)</label>
-          <textarea name="extra" id="extra" placeholder="Es: Panna;Cioccolato;Caffè" class="auto-resize"></textarea>
+          <textarea name="extra" id="extra" placeholder="Es: Panna:+4€;Cioccolato:+2€" class="auto-resize"></textarea>
         </div>
       </div>
       

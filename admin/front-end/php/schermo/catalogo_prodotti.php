@@ -205,12 +205,6 @@ $result = $conn->query($sql);
         </table>
       </div>
       
-      <div class="actions">
-        <a href="new_prodouct.php" class="submit-button">
-          <span class="button_top">Aggiungi Nuovo Prodotto</span>
-        </a>
-      </div>
-      
       <!-- Edit form overlay -->
       <div class="edit-overlay" id="editOverlay">
         <div class="edit-form">

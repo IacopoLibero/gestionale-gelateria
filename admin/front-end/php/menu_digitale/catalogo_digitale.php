@@ -316,7 +316,7 @@ $result = $conn->query($sql);
             
             <div class="form-group">
               <label for="extra">Extra (Separati da punto e virgola)</label>
-              <textarea id="extra" name="extra" placeholder="Es: Panna;Cioccolato;Caffè"></textarea>
+              <textarea id="extra" name="extra" placeholder="Es: Panna:+4€;Cioccolato:+2€"></textarea>
             </div>
             
             <div class="form-group">

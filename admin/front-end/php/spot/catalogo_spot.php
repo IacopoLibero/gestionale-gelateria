@@ -228,12 +228,6 @@ if (!$user_settings) {
         }
         ?>
       </div>
-      
-      <div class="actions">
-        <a href="new_spot.php" class="submit-button">
-          <span class="button_top">Aggiungi Nuovo Spot</span>
-        </a>
-      </div>
     </div>
   </main>
   
