@@ -91,6 +91,9 @@ body {
     font-weight: bold;
     color: #2d2d2d;
     text-align: start;
+    word-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
 }
 
 .ingredienti_prodotto {
@@ -100,6 +103,8 @@ body {
     color: #2d2d2d;
     text-align: start;
     word-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
 }
 
 .extra_prodotto {
@@ -120,6 +125,8 @@ body {
     padding: 4px;
     width: 90%;
     text-align: center;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .prezzo_prodotto {
@@ -128,6 +135,8 @@ body {
     font-size: 5vw;
     color: #2d2d2d;
     text-align: center;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .divider_el_menu_digitale {
@@ -151,6 +160,8 @@ body {
     width: 90%;
     text-align: center;
     margin-bottom: 10px;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .container_img_menu {
@@ -166,6 +177,9 @@ body {
     font-family: InclusiveSans, sans-serif;
     font-size: 4vw;
     padding: 3px 0;
+    word-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
 }
 
 /* style flexbox */
