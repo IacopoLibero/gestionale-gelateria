@@ -31,6 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $nome = htmlspecialchars(trim($_POST['nome']));
     
+    // Get visibility status 
+    $visibile = isset($_POST['visibile']) ? 1 : 0;
+    
     // Validate video file
     if (!isset($_FILES['video']) || $_FILES['video']['error'] !== UPLOAD_ERR_OK) {
         echo json_encode(['success' => false, 'message' => 'File video non caricato o errore durante l\'upload']);
@@ -56,12 +59,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $relativePath = '/img/video/' . $uniqueFilename;
         
         try {
-            $stmt = $conn->prepare("INSERT INTO spot (nome, percorso_video) VALUES (?, ?)");
+            $stmt = $conn->prepare("INSERT INTO spot (nome, percorso_video, visibile) VALUES (?, ?, ?)");
             if (!$stmt) {
                 throw new Exception("Errore nella preparazione della query: " . $conn->error);
             }
             
-            $stmt->bind_param("ss", $nome, $relativePath);
+            $stmt->bind_param("ssi", $nome, $relativePath, $visibile);
             
             if ($stmt->execute()) {
                 echo json_encode(['success' => true, 'message' => 'Spot aggiunto con successo']);

@@ -242,6 +242,270 @@
     margin-bottom: 20px;
 }
 
+/* Table layout for spots */
+.spot-table {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background-color: #000000;
+    border: 1px solid #333;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.spot-table-header {
+    display: flex;
+    background-color: #222;
+    padding: 15px 20px;
+    font-weight: 600;
+    color: #e8e8e8;
+    border-bottom: 2px solid #522da8;
+}
+
+.spot-table-row {
+    display: flex;
+    padding: 12px 20px;
+    border-bottom: 1px solid #333;
+    transition: background-color 0.3s;
+}
+
+.spot-table-row:last-child {
+    border-bottom: none;
+}
+
+.spot-table-row:hover {
+    background-color: #111;
+}
+
+.header-cell, .table-cell {
+    flex: 1;
+    padding: 10px 5px;
+    display: flex;
+    align-items: center;
+}
+
+.header-cell {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+/* Make the name column wider */
+.header-cell:first-child,
+.table-cell.video-name-cell {
+    flex: 2;
+}
+
+/* Video thumbnail in table */
+.video-thumbnail {
+    width: 100px;
+    height: 60px;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.video-name-cell {
+    display: flex;
+    align-items: center;
+    color: #e8e8e8;
+}
+
+.video-name-cell span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Status toggle button */
+.status-toggle {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.status-toggle.visible {
+    background-color: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+    border: 1px solid #28a745;
+}
+
+.status-toggle.hidden {
+    background-color: rgba(108, 117, 125, 0.2);
+    color: #6c757d;
+    border: 1px solid #6c757d;
+}
+
+.status-toggle.visible:hover {
+    background-color: rgba(40, 167, 69, 0.3);
+}
+
+.status-toggle.hidden:hover {
+    background-color: rgba(108, 117, 125, 0.3);
+}
+
+/* Date cell styling */
+.date-cell {
+    color: #9e9e9e;
+    font-size: 14px;
+}
+
+/* Action buttons */
+.action-cell {
+    justify-content: flex-end;
+}
+
+/* Settings container styles */
+.settings-container {
+    background-color: #000000;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-top: 3px solid #522da8;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.settings-container h3 {
+    margin-top: 0;
+    color: #e8e8e8;
+    font-size: 20px;
+}
+
+.settings-container p {
+    color: #9e9e9e;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.settings-form {
+    width: 100%;
+}
+
+.settings-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+.input-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #e8e8e8;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.input-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #111;
+    color: #e8e8e8;
+    font-size: 16px;
+}
+
+/* Toggle switch styles */
+.toggle-container {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.toggle-container label {
+    margin-bottom: 8px;
+    color: #e8e8e8;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-right: 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #444;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #522da8;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #522da8;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.toggle-label {
+    display: inline-block;
+    color: #e8e8e8;
+    font-weight: 500;
+    margin-left: 10px;
+    margin-top: 8px;
+}
+
+.save-settings-button {
+    /* Variables */
+    --button_radius: 0.75em;
+    --button_color: #e8e8e8;
+    --button_outline_color: #522da8;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--button_radius);
+    background: var(--button_outline_color);
+    display: inline-block;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     .spot-grid {
@@ -251,5 +515,70 @@
     .container {
         width: 90%;
         padding: 15px;
+    }
+    
+    .spot-table-header, .spot-table-row {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .header-cell {
+        display: none;
+    }
+    
+    .table-cell {
+        padding: 8px 0;
+        border-bottom: 1px solid #333;
+        width: 100%;
+    }
+    
+    .table-cell:last-child {
+        border-bottom: none;
+    }
+    
+    .video-name-cell {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .video-thumbnail {
+        width: 100%;
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .action-cell {
+        justify-content: flex-start;
+    }
+    
+    .settings-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .toggle-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    .toggle-container label {
+        margin-right: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+    .video-modal .modal-content {
+        width: 95%;
+    }
+    
+    .close-modal {
+        top: -30px;
+        font-size: 30px;
     }
 }

@@ -1,6 +1,8 @@
 CREATE TABLE utente(
     username VARCHAR(20) PRIMARY KEY,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    spot_interval INT DEFAULT 1,
+    spot_active BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE remember_tokens(
@@ -17,12 +19,6 @@ CREATE TABLE categoria(
     nome VARCHAR(50) NOT NULL UNIQUE,
     nome_inglese VARCHAR(50) NOT NULL
 );
-
--- Insert default categories
-INSERT INTO categoria (nome, nome_inglese) VALUES
-('gelato', 'ice cream'),
-('granita', 'slush'),
-('semifreddo', 'frozen dessert');
 
 CREATE TABLE prodotto(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -45,7 +41,8 @@ CREATE TABLE spot(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     percorso_video VARCHAR(255) NOT NULL,
-    data_creazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    data_creazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    visibile BOOLEAN DEFAULT TRUE
 );
 
 -- Tabella per i prodotti del menu

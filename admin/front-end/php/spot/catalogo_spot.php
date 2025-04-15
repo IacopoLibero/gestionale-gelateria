@@ -13,6 +13,22 @@ require_once '../../../../connessione.php';
 // Fetch all spots from database
 $sql = "SELECT * FROM spot ORDER BY data_creazione DESC";
 $result = $conn->query($sql);
+
+// Get user settings for spot display
+$settings_sql = "SELECT spot_interval, spot_active FROM utente WHERE username = ?";
+$settings_stmt = $conn->prepare($settings_sql);
+$settings_stmt->bind_param("s", $_SESSION['username']);
+$settings_stmt->execute();
+$settings_result = $settings_stmt->get_result();
+$user_settings = $settings_result->fetch_assoc();
+
+// Default values if settings don't exist
+if (!$user_settings) {
+    $user_settings = [
+        'spot_interval' => 1,
+        'spot_active' => 1
+    ];
+}
 ?>
 
 <!DOCTYPE html>
@@ -121,8 +137,44 @@ $result = $conn->query($sql);
       <?php unset($_SESSION['error_message']); ?>
     <?php endif; ?>
 
+    <!-- Impostazioni di Riproduzione -->
+    <div class="container settings-container">
+      <h3>Impostazioni di Riproduzione</h3>
+      <p>Configura come gli spot vengono visualizzati sul monitor</p>
+      
+      <form method="POST" action="../../../back-end/php/spot/catalogo_spot.php" class="settings-form">
+        <div class="settings-group">
+          <div class="input-group">
+            <label for="spot_interval">INTERVALLO TRA SPOT (IN MINUTI)</label>
+            <input type="number" id="spot_interval" name="spot_interval" value="<?php echo $user_settings['spot_interval']; ?>" min="1" required>
+          </div>
+          
+          <div class="toggle-container">
+            <label for="spot_active">STATO RIPRODUZIONE</label>
+            <label class="switch">
+              <input type="checkbox" id="spot_active" name="spot_active" <?php echo $user_settings['spot_active'] ? 'checked' : ''; ?>>
+              <span class="slider round"></span>
+            </label>
+            <span class="toggle-label"><?php echo $user_settings['spot_active'] ? 'Attiva' : 'Disattiva'; ?></span>
+          </div>
+        </div>
+        
+        <input type="hidden" name="update_settings" value="1">
+        <button type="submit" class="save-settings-button">
+          <span class="button_top">Salva Impostazioni</span>
+        </button>
+      </form>
+    </div>
+
     <div class="container">
-      <div class="spot-grid">
+      <div class="spot-table">
+        <div class="spot-table-header">
+          <div class="header-cell">NOME</div>
+          <div class="header-cell">STATO</div>
+          <div class="header-cell">DATA CREAZIONE</div>
+          <div class="header-cell">AZIONI</div>
+        </div>
+        
         <?php
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -130,25 +182,49 @@ $result = $conn->query($sql);
                 $nome = htmlspecialchars($row['nome']);
                 $percorso_video = $row['percorso_video'];
                 $data_creazione = date('d/m/Y H:i', strtotime($row['data_creazione']));
+                $visibile = $row['visibile'];
                 
-                echo "<div class='spot-card'>";
-                echo "<h3>$nome</h3>";
-                echo "<p>Data creazione: $data_creazione</p>";
-                echo "<div class='video-container' data-video-src='$percorso_video'>";
+                echo "<div class='spot-table-row'>";
+                
+                // Nome colonna con miniatura video
+                echo "<div class='table-cell video-name-cell'>";
+                echo "<div class='video-thumbnail video-container' data-video-src='$percorso_video'>";
                 echo "<video preload='metadata'><source src='$percorso_video' type='video/mp4'>Il tuo browser non supporta il tag video.</video>";
                 echo "<div class='play-overlay'><span>▶</span></div>";
                 echo "</div>";
-                echo "<div class='card-actions'>";
+                echo "<span>$nome</span>";
+                echo "</div>";
+                
+                // Stato colonna
+                echo "<div class='table-cell status-cell'>";
+                echo "<form method='POST' action='../../../back-end/php/spot/catalogo_spot.php'>";
+                echo "<input type='hidden' name='id' value='$id'>";
+                echo "<input type='hidden' name='visible' value='$visibile'>";
+                echo "<input type='hidden' name='toggle_visibility' value='1'>";
+                echo "<button type='submit' class='status-toggle " . ($visibile ? "visible" : "hidden") . "'>";
+                echo $visibile ? "VISIBILE" : "NASCOSTO";
+                echo "</button>";
+                echo "</form>";
+                echo "</div>";
+                
+                // Data creazione colonna
+                echo "<div class='table-cell date-cell'>";
+                echo $data_creazione;
+                echo "</div>";
+                
+                // Azioni colonna
+                echo "<div class='table-cell action-cell'>";
                 echo "<form method='POST' action='../../../back-end/php/spot/catalogo_spot.php' onsubmit='return confirm(\"Sei sicuro di voler eliminare questo spot? Questa azione non può essere annullata.\")'>";
                 echo "<input type='hidden' name='id' value='$id'>";
                 echo "<input type='hidden' name='delete_spot' value='1'>";
                 echo "<button type='submit' class='delete-btn'>Elimina</button>";
                 echo "</form>";
                 echo "</div>";
+                
                 echo "</div>";
             }
         } else {
-            echo "<p class='no-spots'>Nessuno spot trovato nel database.</p>";
+            echo "<div class='no-spots'>Nessuno spot trovato nel database.</div>";
         }
         ?>
       </div>
@@ -169,6 +245,12 @@ $result = $conn->query($sql);
     </div>
   </div>
   
+  <script>
+    // Toggle status label when checkbox changes
+    document.getElementById('spot_active').addEventListener('change', function() {
+      document.querySelector('.toggle-label').textContent = this.checked ? 'Attiva' : 'Disattiva';
+    });
+  </script>
   <script src="../../../js/dashboard.js"></script>
   <script src="../../../js/spot/catalogo_spot.js"></script>
 </body>

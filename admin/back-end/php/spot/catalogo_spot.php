@@ -10,6 +10,49 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 // Include database connection
 require_once '../../../../connessione.php';
 
+// Handle spot interval settings update
+if (isset($_POST['update_settings'])) {
+    $spot_interval = intval($_POST['spot_interval']);
+    $spot_active = isset($_POST['spot_active']) ? 1 : 0;
+    
+    // Update user settings
+    $username = $_SESSION['username'];
+    
+    $update_sql = "UPDATE utente SET spot_interval = ?, spot_active = ? WHERE username = ?";
+    $update_stmt = $conn->prepare($update_sql);
+    $update_stmt->bind_param("iis", $spot_interval, $spot_active, $username);
+    
+    if ($update_stmt->execute()) {
+        $_SESSION['success_message'] = "Impostazioni aggiornate con successo";
+    } else {
+        $_SESSION['error_message'] = "Errore durante l'aggiornamento delle impostazioni: " . $update_stmt->error;
+    }
+    
+    $update_stmt->close();
+    header("Location: ../../../front-end/php/spot/catalogo_spot.php");
+    exit;
+}
+
+// Toggle spot visibility
+if (isset($_POST['toggle_visibility']) && isset($_POST['id'])) {
+    $id = intval($_POST['id']);
+    $visibile = intval($_POST['visible']) ? 0 : 1; // Toggle current value
+    
+    $toggle_sql = "UPDATE spot SET visibile = ? WHERE id = ?";
+    $toggle_stmt = $conn->prepare($toggle_sql);
+    $toggle_stmt->bind_param("ii", $visibile, $id);
+    
+    if ($toggle_stmt->execute()) {
+        $_SESSION['success_message'] = "Stato dello spot aggiornato con successo";
+    } else {
+        $_SESSION['error_message'] = "Errore durante l'aggiornamento dello stato: " . $toggle_stmt->error;
+    }
+    
+    $toggle_stmt->close();
+    header("Location: ../../../front-end/php/spot/catalogo_spot.php");
+    exit;
+}
+
 // Delete spot if requested
 if (isset($_POST['delete_spot']) && isset($_POST['id'])) {
     $id = intval($_POST['id']);
