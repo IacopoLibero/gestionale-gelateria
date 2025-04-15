@@ -63,8 +63,8 @@ if (isset($_SESSION['username_message'])) {
         </button>
         <ul class="sub-menu">
           <div>
-            <li><a href="./front-end/php/schermo/catalogo_prodotti.php">Catalogo Prodotti</a></li>
-            <li><a href="./front-end/php/schermo/new_prodouct.php">Nuovo Prodotto</a></li>
+            <li><a href="./front-end/php/schermo/catalogo_prodotti.php">Catalogo Gelati</a></li>
+            <li><a href="./front-end/php/schermo/new_prodouct.php">Nuovo Gelato</a></li>
             <li><a href="./front-end/php/schermo/menu_verticale.php">Menu Verticale</a></li>
           </div>
         </ul>
